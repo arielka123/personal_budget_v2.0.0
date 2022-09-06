@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}Twój Osobisty Budżet Domowy{% endblock %}</title>
+
+    
+        <meta name="description" content ="Osobisty Budżet Domowy "/>
+        <meta name="keywords" content=" oszczędzanie, budżet, domowy budżet, saldo, bilans, wydatek, przychód"/>
+        <meta http-equiv="X-UA-Compatible" content  = "IE=edge,chrome =1"/>
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+        <link rel="stylesheet" href="/css/styles.css"  type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700&amp;subset=latin-ext" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/css2/fontello.css" type="text/css">
+
+        <script src="/js/present_day.js"></script>
+        
+    {% endblock %}
+</head>
+<body  onload="set_today()" class="d-flex flex-column min-vh-100">
+{% block body %}
+    <header>    
+        {% block header %}
+        {% if current_user %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                
+                    <button class="navbar-toggler order-first" type="button" data-bs-toggle="collapse" data-bs-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="mainmenu"> 
+                        <a href ="/" class="navbar-brand">  
+                            <img src ="img/logo_personal_budget.png" class="d-inline-block ps-2 align-bottom mt-2" width=250vw alt=""/> 
+                        </a>
+                        <ul class="navbar-nav">
+                            <li class="nav-item p-2"><a class="nav-link" href ="/">Strona Główna</a></li>
+                            <li class="nav-item p-2"><a class="nav-link" href ="expense"><i class = "icon-edit"></i>Dodaj Wydatek</a></li>
+                            <li class="nav-item p-2"><a class="nav-link" href ="income"><i class = "icon-edit"></i>Dodaj Przychód</a></li>
+                            <li class="nav-item p-2"><a class="nav-link" href ="balance"><i class = "icon-chart-bar"></i> Bilans</a></li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto"> 
+                            <li class="nav-item p-2"> <a class="nav-link" href ="profile-show"><i class = "icon-cogs"></i>Ustawienia</a></li>
+                            <li class="nav-item p-2"><a class="nav-link" href="/logout"><i class = "icon-power"></i>Wyloguj</a></li>      
+                        </ul> 
+                    </div>       
+                </div>
+            </nav> 
+          
+        {% endif %}
+
+        {% for message in flash_messages %}
+        <div class="alert alert-{{ message.type }}">
+            {{ message.body }}
+        </div>
+        {% endfor %}
+
+        
+        {% endblock %}
+
+    </header>
+
+    <content>
+        {% block content %}
+
+        {% endblock %}
+    </content>
+
+    <footer class="mt-auto"> 
+        {% block footer %}
+        <div class="card">
+            <div class ="card-footer text-center text-muted pt-2 pt-md-3">  
+                <p>Wszelkie prawa zastrzeżone &copy; </p>
+            </div>
+        </div> 
+        
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+        {% endblock %}
+    </footer>
+
+    {% endblock %}
+
+</body>
+</html>

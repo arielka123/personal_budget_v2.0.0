@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Profil{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+ {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+ 
+    <h1 class="text-center mt-4">Profil Użytkownika</h1>
+    
+    <dl class="row mt-5">
+        <dt class="col-sm-5 text-end ms-5">Name: </dt>
+        <dd class="col-sm-6 ps-5">{{ user.name }}</dd>
+        <dt class="col-sm-5 text-end ms-5">email: </dt>
+        <dd class="col-sm-6 ps-5">{{ user.email }} </dd>
+
+        <dl class="col-sm-7 text-end ">
+            <form method="post" action="profile-edit"> 
+                <button type="submit" class="col-sm-3 btn btn-outline-success mt-4">Edytuj</button>
+            </form>
+        </dl>
+        
+    </dl>      
+{% endblock %}
+
+{% block footer %}
+{{ parent() }}
+{% endblock %}

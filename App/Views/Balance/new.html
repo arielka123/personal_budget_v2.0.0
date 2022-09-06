@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %} Bilans {% endblock %}
+
+{% block head %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var options = {
+         // title: 'Moje wydatki'     
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+
+      function showHideDiv() {
+		   //document.getElementById('welcomeDiv').style.display = "block";
+		    var x = document.getElementById("showHide");
+			  if (x.style.display === "none") {
+				x.style.display = "block";
+			  } else {
+				x.style.display = "none";
+		  }
+				}
+    </script>
+
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %} 
+
+    <div class="container-fluid">
+        <main>
+            <section>
+                <div class="row">
+                    <div class="col-12 text-center" >
+                        <form action="balance" method="post" enctype="multipart/form-data">
+                            <div id = "wybor" class= "h6  text-uppercase mb-md-4 mt-5">  
+                                <legend class="fw-bolder pb-2 d-block"> Wybierz okres na bilans: </legend>	
+                                <div class="form-check form-check-inline mt-2">
+                                    {% if session.previous_month %}
+                                        <input  class="btn-check " type="radio" name ="wybor" value="1" id="btn-check-1-outlined" checked autocomplete="off">
+                                        <label class="btn btn-outline-secondary" for="btn-check-1-outlined"> Poprzedni miesiąc </label> 
+                                    {% else %}
+                                        <input  class="btn-check " type="radio" name ="wybor" value="1" id="btn-check-1-outlined" autocomplete="off">
+                                        <label class="btn btn-outline-secondary" for="btn-check-1-outlined"> Poprzedni miesiąc </label> 
+                                    {% endif %}
+                                </div>     
+
+                                <div class="form-check form-check-inline mt-2">
+                                            {% if session.present_month %}
+                                            <input type="radio" class="btn-check" id="btn-check-2-outlined" name ="wybor" value="2"  checked autocomplete="off">
+                                            <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Bieżący miesiąc</label>
+                                        {% else %}
+                                            <input type="radio" class="btn-check" id="btn-check-2-outlined" name ="wybor" value="2"   autocomplete="off">
+                                            <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Bieżący miesiąc</label>
+                                        {% endif %}
+                                </div>
+
+                                <div class="form-check form-check-inline mt-2 ">
+                                    {% if session.present_year %}
+                                        <input type="radio" class="btn-check" id="btn-check-3-outlined" name ="wybor" value="3"   checked autocomplete="off">
+                                        <label class="btn btn-outline-secondary" for="btn-check-3-outlined">Bieżący rok</label>
+                                    {% else %}
+                                        <input type="radio" class="btn-check" id="btn-check-3-outlined" name ="wybor" value="3"   autocomplete="off">
+                                        <label class="btn btn-outline-secondary" for="btn-check-3-outlined">Bieżący rok</label>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-check form-check-inline mt-2 ">
+                                    {% if session.non_standard %}
+                                        <input  class="btn-check " type="radio" name ="wybor" value="4" id="btn-check-4-outlined" checked autocomplete="off" onclick="showHideDiv()">
+                                        <label class="btn btn-outline-secondary" for="btn-check-4-outlined"> Niestandarowy </label> 
+                                        
+                                    {% else %}
+                                        <input  class="btn-check " type="radio" name ="wybor" value="4" id="btn-check-4-outlined"  autocomplete="off" onclick="showHideDiv()">
+                                        <label class="btn btn-outline-secondary" for="btn-check-4-outlined" > Niestandarowy </label> 
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div  id="showHide" class="col-3 mx-auto"style="display:none;">
+                                <div class="d-block mt-2">
+                                    <input type="date"  id = "date1" class="form-control" name="date1">
+                                </div>
+
+                                <div class="d-block mt-2">
+                                    <input type="date"  id = "date2" class="form-control" name="date2">         
+                                </div> 
+                            </div> 
+
+                            <div class="mt-2 d-block">
+                                <input class="h6 col-md-6 col-10 px-4 py-2 mb-4 d-block mx-auto " type="submit" value= "Pokaż bilans" required> 
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <div class="col-lg-6 mt-2 pt-lg-2 table-responsive offset-lg-3 d-block bg-white rounded px-1 mb-5 mt-5">
+                <article>
+                    <div class="col-auto">
+                        <div class="card m-auto">
+                            <section>
+                                <div class="card-header">
+                                    <h6 class="py-2 text-center fw-bolder" style="letter-spacing: 1px;">
+                                       
+                                        PODSUMOWANIE  WYDATKÓW <span style="color:rgba(59, 59, 61, 0.537)" >{{ session.date1 }} </span>- <span style="color:rgba(59, 59, 61, 0.537)">{{ session.date2 }}</span>
+
+                                    </h6>
+                                </div>
+                                </section>
+                        
+                                <section>
+                                {# <div class="card-body">
+
+                                    <div id="piechart" class="col-auto max-width: 900px" style="height:300px;"></div>
+
+                                </div> #}
+                                </section>
+
+                                <section>
+
+                                <table class="table table-hover my-2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Lp.</th>
+                                            <th scope="col">Kategoria przychodu</th>
+                                            <th scope="col">Kwota przychodu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% set i = 0 %}
+                                    {% set suma1 = 0 %}
+
+
+                                    {% for row in result_income %}
+        
+                                        <tr>
+                                        <th scope="row">{{ i +1 }}</th>
+                                        <td>{{row['name']}}</td>
+                                        <td>{{row['amount']}} PLN</td>
+                                        </tr>
+
+                                        {% set i = i +1 %}
+                                        {% set suma1 = suma1 +row['amount'] %}
+
+                                    {% endfor %}
+
+                                        <tr class="table-warning fw-bold">
+                                            <td colspan="2" class="text-center text-uppercase">suma przychodów </td>
+                                            <td> {{suma1}} PLN</td>
+                                         </tr>
+
+                                    </tbody>
+                                </table>
+                                </section>
+
+                                <section>
+                                <table class="table table-hover mt-5 mb-2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Lp.</th>
+                                            <th scope="col">Kategoria wydatku</th>
+                                            <th scope="col">Kwota wydatku</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {% set i = 0 %}
+                                        {% set suma2 = 0 %}
+
+
+                                        {% for row in result_expense %}
+        
+                                        <tr>
+                                            <th scope="row">{{ i +1 }}</th>
+                                            <td>{{row['name']}}</td>
+                                            <td>{{row['amount']}} PLN</td>
+                                        </tr>
+
+                                        {% set i = i +1 %}
+                                        {% set suma2 = suma2 +row['amount'] %}
+
+                                    {% endfor %}
+
+                                     <tr class="table-warning fw-bold">
+                                        <td colspan="2" class="text-center text-uppercase">suma wydatków </td>
+                                        <td> {{suma2}} PLN</td>
+                                     </tr>                                           
+                                    </tbody>										
+                                </table>
+                                </section>
+
+                                <section>
+
+                                    {% if suma1 > suma2 %}
+                                        {% set difference = suma1 - suma2 %}
+                                        <div class= "bg-success text-light text-center fw-bold p-2 mt-3">   GRATULACJE! ZAOSZĘDZONO: {{ difference }} PLN </div>
+                                    
+                                    {% elseif suma2 > suma1 %}
+                                        {% set debt = suma2 - suma1 %}
+                                        <div class= "bg-danger text-light text-center fw-bold p-2 mt-3"> UPSSS... TWÓJ DEBET WYNOSI: {{ debt }} PLN </div>
+
+                                    {% else %}
+                                        <div class= "bg-warning text-light text-center fw-bold p-2 mt-3"> Twoje saldo wynosi 0 PLN </div>
+                                    {% endif %}                              
+                            </section>
+                        </div>
+                    </div>                           
+                </article>
+            </div>
+        </main>
+    </div>
+{% endblock %}
+     
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

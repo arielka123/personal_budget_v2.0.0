@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "..\\osadnicy"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "personal_budget"
+	}
+}

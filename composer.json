@@ -1,0 +1,18 @@
+{
+    "config": {
+
+        "platform-check": false
+    },
+    "require": {
+        "twig/twig": "~1.0",
+        "mailgun/mailgun-php": "^3.5",
+        "symfony/http-client": "^6.0",
+        "nyholm/psr7": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+             "Core\\": "Core/",
+             "App\\": "App/"
+        }
+    }
+}

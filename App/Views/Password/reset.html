@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Resetowanie hasła{% endblock %}
+
+{% block footer %}
+
+    <script src="/js/hideShowPassword.min.js"></script>
+    <script src="/js/app.js"></script>
+
+    <script>
+
+        $(document).ready(function(){
+
+            $('#formPassword').validate({
+
+                rules: {
+                    password:{
+                        required:true,
+                        minlength: 6,
+                        validPassword: true
+                    }
+  
+                }
+            });
+
+            $('#inputPassword').hideShowPassword({
+                show:false,
+                innerToggle: 'focus'
+
+            });
+
+        });
+    </script>
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+
+
+{% block content %}
+
+<main>
+    <div class="container-fluid">
+        <div class="row">                        
+            <div class="col-9 col-md-8 col-lg-5 login mt-5 pt-5">
+                 <h1  class=" m-1 pt-2 text-center">Resetowanie hasła</h1>
+
+                    {% if user.errors is not empty %}
+                        <p>Errors:</p>
+                        <ul>
+                            {% for error in user.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    <form method="post" id="formPassword" action="/password/reset-password">
+
+                        <input type="hidden" name="token" value="{{ token }}" />
+                        <div class="form-group m-3 pt-3">
+                            <label for="inputPassword">Hasło</label>
+                            <input id="inputPassword" type="password" name="password" placeholder="Hasło" required class="form-control" onfocus ="this. placeholder='' " onblur="this.placeholder ='Hasło' "/>
+                        </div>
+
+                        <button type="submit" class="mx-auto d-block col-5 btn btn-outline-success mt-3 mb-5">Ustaw hasło</button>
+
+                    </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

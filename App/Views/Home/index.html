@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Strona Główna{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+ {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+ {{ parent() }}
+ 
+    {% if current_user %}   
+
+      <h1 class="my-4 text-center"> Witaj&nbsp;{{ current_user.name }}!</h1>
+       
+        <div class="col-12 col-lg-10 login mt-3 pt-2 mt-md-5 pt-md-3">
+            
+            <div class=" m-1 pb-2 text-md-center text-start">
+                <h5 class="m-5">
+                    <p class="text-dark text-center">  
+                        
+                        {% if balance != "" %}
+                        Twoje saldo w tym miesiącu wynosi :  {{ balance }} PLN
+
+                        {% else %}  Twoje saldo w tym miesiącu wynosi : 0 PLN
+
+                        {% endif %}
+
+                    </p>
+                </h5>
+            </div>
+            
+        </div>
+   
+
+
+    {% else %}
+    
+        <div class="container-fluid">
+            <div class="row align-items-center vh-100">
+                   
+                    <div class="col-10 col-md-8 d-block mx-auto d-flex flex-column align-items-center">
+                        <div class="mx-auto ">
+                            <a href ="/">  
+                                <img src ="img/logo_personal_budget.png" class="mx-auto d-block img-fluid" alt="">
+                            </a>
+                            <div class="card-body text-center">
+                                <form action="login" method="post" class="d-inline"> 
+                                    <button type="submit" class="btn btn-outline-success my-2 col-5 col-sm-4">Zaloguj się</button>
+                                </form>
+
+                                <form action="signup" method="post" class="d-inline"> 
+                                    <button type="submit" class="btn btn-outline-secondary ms-3 my-2 col-5 col-sm-4">Zarejestruj się</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+ 
+    {% endif %}
+      
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
