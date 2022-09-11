@@ -15,35 +15,27 @@ class Config
      * Database host
      * @var string
      */
-	
-	//  const DB_HOST ="budget.arleta-madej.profesjonalnyprogramista.pl.mysql.dhosting.pl";
-	//  const DB_NAME = "iso7ne_budgetar";
-  //  const DB_USER = "rae4ah_budgetar";
-  //  const DB_PASSWORD ="oQua5wohJaiv";
   
 	 
-    const DB_HOST = 'localhost';
+    const DB_HOST = TWOJ_HOST;
 
     /**
      * Database name
      * @var string
      */
-    const DB_NAME = 'mvclogin';
+    const DB_NAME = TWOJA_BAZA;
 
     /**
      * Database user
      * @var string
      */
-   const DB_USER = 'root';
+   const DB_USER = TWOJ_USER;
 
     /**
      * Database password
      * @var string
      */
-   const DB_PASSWORD = 'mysql';
-
-
-	//const DB_PORT =90;
+   const DB_PASSWORD = TWOJE_HASŁO;
 
     /**
      * Show or hide error messages on screen
@@ -53,16 +45,14 @@ class Config
 
     //secret key for hashing 
 
-    const SECRET_KEY = 'D0yhwvV2bESiOy1RGfeLJGYEU6wMPJ92';
+    const SECRET_KEY = TWOJ_KLUCZ;
 
-    const SMTP = 'smtp.gmail.com';
-    const mailPassword = 'ilozkhhjzurpblyn';
+    const SMTP = TWOJ_SMTP;
+	
+    const mailPassword =  TWOJE_HASŁO2;
 
-    //const mailPassword = 'Personalbudget1234';
-    const adminMail ='personalbudget.money@gmail.com';
+    const adminMail =  TWOJ_MAIL;
 
-   const adminMailName ='Twój Osobisty Budżet Domowy';
+   const adminMailName = TWOJ_ADRESAT;
 
-    // const mailPassword = '2ffefc09dd925d';
-    // const adminUsername = '505cf6c25acf51';
 }
