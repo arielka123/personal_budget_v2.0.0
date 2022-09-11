@@ -1,15 +1,21 @@
 <?php
 
 namespace App\Controllers;
-
 use \Core\View;
 use \App\Models\Incomes;
 use \App\Flash;
 use \App\Auth;
 
-class Income extends \Core\Controller   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
+   
+class Income extends Authenticated   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
 {
-      
+
+    protected function before()
+    {
+        parent::before();
+        $this->user = Auth::getUser();
+    }
+    
     public function newAction()
     {        
       $args = [

@@ -4,10 +4,17 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Flash;
+use \App\Auth;
 
 
-class Balance extends \Core\Controller   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
+class Balance extends Authenticated  // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
 {
+
+	protected function before()
+    {
+        parent::before();
+        $this->user = Auth::getUser();
+    }
 
     public function newAction() {
 

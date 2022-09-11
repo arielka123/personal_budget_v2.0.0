@@ -2,11 +2,19 @@
 
 namespace App\Controllers;
 use \Core\View;
-use \App\Models\Expenses;
+use \App\Models\Expenses;    
 use \App\Flash;
+use \App\Auth;
 
-class Expense extends \Core\Controller   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
+
+class Expense extends Authenticated // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
 {
+    protected function before()
+    {
+        parent::before();
+        $this->user = Auth::getUser();
+    }
+    
    
     public function newAction()      
     {        
