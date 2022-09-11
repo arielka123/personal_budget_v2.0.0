@@ -11,9 +11,20 @@ class Balance extends \Core\Controller   // rozszerza klase podstwawowa wiec dzi
 
     public function newAction() {
 
+			$data = array(
+				array('y' => 79.45, 'label' => "Google"),
+				array('y' => 7.31, 'label' => "Bing"),
+				array('y' => 7.06, 'label' => "Baidu"),
+				array('y' => 4.91, 'label' => "Yahoo"),
+				array('y' => 1.26, 'label' => "Others")
+			);
+
+			$zmienna1 = 'Ala ma kota';
             $args = [
                 'result_income' => \App\Models\BalanceSheet::loadIncomeResults(),
-                'result_expense' => \App\Models\BalanceSheet::loadExpenseResults()
+                'result_expense' => \App\Models\BalanceSheet::loadExpenseResults(),
+				'mypiechart' => $data,
+				'zmienna1' => $zmienna1
             ];
 
             if (\App\Models\BalanceSheet::period()==false){
