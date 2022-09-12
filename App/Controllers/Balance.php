@@ -12,8 +12,7 @@ class Balance extends Authenticated  // rozszerza klase podstwawowa wiec dziedzi
 
 	protected function before()
     {
-        parent::before();
-        $this->user = Auth::getUser();
+       // parent::before();
     }
 
     public function newAction() {

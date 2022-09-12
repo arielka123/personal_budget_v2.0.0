@@ -12,8 +12,7 @@ class Income extends Authenticated   // rozszerza klase podstwawowa wiec dziedzi
 
     protected function before()
     {
-        parent::before();
-        $this->user = Auth::getUser();
+      //  parent::before();
     }
     
     public function newAction()
@@ -21,22 +20,26 @@ class Income extends Authenticated   // rozszerza klase podstwawowa wiec dziedzi
       $args = [
         'income_categories' => \App\Models\Incomes::loadIncomeCategoriesData()
     ];
-    
+       
 # wysietl categorie na ekranie 
-        View::renderTemplate('Income/new.html', $args);    
+        if( $this->user = Auth::getUser())
+        {
+            View::renderTemplate('Income/new.html', $args);    
+        }
+        else View::renderTemplate('Login/new.html');
     }
 
     public function saveAction()
     {
-        if (Incomes::saveNewData()== true){
+        if (Incomes::saveNewData()== true)
+        {
             Flash::addMessage('Hurra! Dodano nowy wydatek', Flash::SUCCESS);
             $this->redirect('/income');
 
-            }
+        }
             else {
                $this->redirect('/income'); 
             }
             
-        //View::renderTemplate('Income/new.html');
     }
 }

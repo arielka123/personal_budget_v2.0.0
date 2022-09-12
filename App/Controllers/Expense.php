@@ -11,8 +11,7 @@ class Expense extends Authenticated // rozszerza klase podstwawowa wiec dziedzic
 {
     protected function before()
     {
-        parent::before();
-        $this->user = Auth::getUser();
+       // parent::before();
     }
     
    
@@ -23,8 +22,6 @@ class Expense extends Authenticated // rozszerza klase podstwawowa wiec dziedzic
         'payment_methods' => \App\Models\Expenses::loadPaymentMethodData()
     ];
     
-
-
 # wysietl categorie na ekranie 
         View::renderTemplate('Expense/new.html', $args);    
     } 
