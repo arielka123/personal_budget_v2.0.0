@@ -16,6 +16,10 @@
             %}
             google.charts.setOnLoadCallback(drawIncomePieChart);
             google.charts.setOnLoadCallback(drawexpensePiechart);
+        {% else %}
+            document.getElementById("chartContainerExpense").style.display = "none";
+            document.getElementById("chartContainerIncome").style.display = "none";
+
         {% endif %}
         
         function drawIncomePieChart(){
@@ -27,14 +31,20 @@
             ]);
 
             const options = {
-                title: 'Income Balance',
+                //title: 'BILANS WPŁYWÓW',
                 is3D: true,
+                legend:'none',
+                width: '100%',
+                height: '100%',
                 backgroundColor: 'transparent',
-                colors: ['#344E41', '#3A5A40', '#588157', '#A3818A', '#DAD7CD']
+                colors: ['#0fb493', '#0e8f75', '#0b725e', '#0a7660','#075042']
             };
+
+            document.getElementById("chartContainerIncome").style.display = "block";
 
             const chart = new google.visualization.PieChart(document.getElementById('chartContainerIncome'));
             chart.draw(data, options);
+
         }
 
         function drawexpensePiechart(){
@@ -44,16 +54,23 @@
                 ['{{ expense.name }}', {{ expense.amount | number_format(2, '.', '') }}],
                 {% endfor %}
             ]);
-
+    
             const options = {
-                title: 'Expense Balance',
+                //title: 'BILANS WYDATKÓW',
                 is3D: true,
+                legend:'none',
+                width: '100%',
+                height: '100%',
                 backgroundColor: 'transparent',
-                colors: ['#344E41', '#3A5A40', '#588157', '#A3818A', '#DAD7CD']
+                colors: ['#0fb493', '#0e8f75', '#0b725e', '#0a7660','#075042']
+
             };
 
-            const chart = new google.visualization.PieChart(document.getElementById('chartContainerexpense'));
+            document.getElementById("chartContainerExpense").style.display = "block";
+
+            const chart = new google.visualization.PieChart(document.getElementById('chartContainerExpense'));
             chart.draw(data, options);
+            
         }
 
 
@@ -83,10 +100,10 @@
         <main>
             <section>
                 <div class="row">
-                    <div class="col-12 text-center" >
+                    <div class=" card col-11 col-md-6 mx-auto d-block" >
                         <form id="form1" action="balance" method="post" enctype="multipart/form-data">
-                            <div id = "wybor" class= "h6  text-uppercase mb-md-4 mt-5">  
-                                <legend class="fw-bolder pb-2 d-block"> Wybierz okres na bilans: </legend>	
+                            <div id = "wybor" class= " card-body text-center h6 text-uppercase mb-md-4 mt-4">  
+                                <legend class="fw-bolder pb-3 d-block"> Wybierz okres na bilans </legend>
                                 <div class="form-check form-check-inline mt-2">
                                     {% if session.previous_month %}
                                         <input  class="btn-check " type="radio" name ="wybor" value="1" id="btn-check-1-outlined" checked autocomplete="off" onclick="document.getElementById('form1').submit()">
@@ -151,15 +168,14 @@
 
            
 
-            <div class="col-lg-6 mt-2 pt-lg-2 table-responsive offset-lg-3 d-block bg-white rounded px-1 mb-5 mt-5">
+            <div class="col-md-8 col-12 pt-lg-2 table-responsive offset-md-2 d-block bg-white rounded px-1 mb-5 mt-5">
                 <article>
-                    <div class="col-auto">
                         <div class="card m-auto">
                             <section>
                                 <div class="card-header">
-                                    <h6 class="py-2 text-center fw-bolder" style="letter-spacing: 1px;">
+                                    <h6 class="pt-2 text-center fw-bolder" style="letter-spacing: 1px;">
                                        
-                                        PODSUMOWANIE  WYDATKÓW <span style="color:rgba(59, 59, 61, 0.537)" >{{ session.date1 }} </span>- <span style="color:rgba(59, 59, 61, 0.537)">{{ session.date2 }}</span>
+                                        PODSUMOWANIE TWOICH WYDATKÓW I WPŁYWÓW <span style="color:rgba(59, 59, 61, 0.537)" >{{ session.date1 }} </span>- <span style="color:rgba(59, 59, 61, 0.537)">{{ session.date2 }}</span>
 
                                     </h6>
                                 </div>
@@ -167,17 +183,13 @@
                         
                                 <section>
                                  <div class="card-body">
-                                    
-                                    <!-- <div id="chartContainer" class="col-auto max-width: 900px" style="height:300px;"></div> -->
-									<div id="chartContainerIncome" style="height: 370px; width: 100%;"></div>
-                                    <div id="chartContainerexpense" style="height: 370px; width: 100%;"></div>
-
+                                    <div id="chartContainerIncome" class="text-start"  style="display:none; height: 300px;"></div>
                                 </div>
                                 </section>
 
                                 <section>
 
-                                <table class="table table-hover my-2">
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Lp.</th>
@@ -214,7 +226,14 @@
                                 </section>
 
                                 <section>
-                                <table class="table table-hover mt-5 mb-2">
+                                    <div class="card-body">
+                                       <div id="chartContainerExpense" style="display:none; height: 300px; "></div>
+                                       <!--  //style="height: 370px; width: 100%; display:none; -->
+                                   </div>
+                                </section>
+
+                                <section>
+                                <table class="table table-hover mb-2">
                                     <thead>
                                         <tr>
                                             <th scope="col">Lp.</th>
@@ -264,7 +283,6 @@
                                     {% endif %}                              
                             </section>
                         </div>
-                    </div>                           
                 </article>
             </div>
         </main>

@@ -16,18 +16,24 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
 
     protected function before()
     {
-        parent::before();
-        $this->user = Auth::getUser();
+        // parent::before();
+        // $this->user = Auth::getUser();
     }
     /**
      * show profile
      */
     public function showAction()
-    {        
-        View::renderTemplate('Profile/show.html',[
-            'user' => $this->user
-        ]);
+    {     
+        if( $this->user = Auth::getUser())
+        {
+            View::renderTemplate('Profile/show.html',[
+                'user' => $this->user
+            ]);        
+        }
+        else View::renderTemplate('Login/new.html');
     }
+
+    
 
 /**
  * show the form for the editing action

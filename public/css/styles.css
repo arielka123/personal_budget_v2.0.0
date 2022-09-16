@@ -5,7 +5,7 @@ body
 
 }
 
-.icon-edit {  font-size: 20px; padding-right:5px; color: #0fb493} 
+.icon-edit {  font-size: 20px; padding-right:5px; color: #4db6ac} 
 .icon-money {  font-size: 40px; padding:10px; color: #4db6ac} 
 .icon-chart-bar { font-size: 20px; padding-right:5px; color: #0fb493;} 
 .icon-cogs {  font-size: 20px; padding-right:5px; color: #0fb493; }
@@ -140,3 +140,4 @@ input:focus:-ms-input-placeholder
 {
     color: #428C42;
 }
+

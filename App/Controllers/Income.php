@@ -9,7 +9,6 @@ use \App\Auth;
    
 class Income extends Authenticated   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
 {
-
     protected function before()
     {
       //  parent::before();
