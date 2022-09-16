@@ -4,22 +4,72 @@
 
 {% block head %}
     {{ parent() }}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-	{% block javascripts %}
-    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+    <script>
+        google.charts.load('current', {'packages': ['corechart']});
+        {% if 
+            result_income is not null and 
+            result_income is not empty and
+            result_expense is not null and 
+            result_expense is not empty 
+            %}
+            google.charts.setOnLoadCallback(drawIncomePieChart);
+            google.charts.setOnLoadCallback(drawexpensePiechart);
+        {% endif %}
+        
+        function drawIncomePieChart(){
+            const data = google.visualization.arrayToDataTable([
+                ['Category', 'Income Amount'],
+                {% for income in result_income %}
+                ['{{ income.name }}', {{ income.amount | number_format(2, '.', '') }}],
+                {% endfor %}
+            ]);
 
-<script type="text/javascript">
-      function showHideDiv() {
-		   //document.getElementById('welcomeDiv').style.display = "block";
-		    var x = document.getElementById("showHide");
-			  if (x.style.display === "none") {
-				x.style.display = "block";
-			  } else {
-				x.style.display = "none";
-		  }
-		}
-</script>
-{% endblock %}
+            const options = {
+                title: 'Income Balance',
+                is3D: true,
+                backgroundColor: 'transparent',
+                colors: ['#344E41', '#3A5A40', '#588157', '#A3818A', '#DAD7CD']
+            };
+
+            const chart = new google.visualization.PieChart(document.getElementById('chartContainerIncome'));
+            chart.draw(data, options);
+        }
+
+        function drawexpensePiechart(){
+            const data = google.visualization.arrayToDataTable([
+                ['Category', 'Expense Amount'],
+                {% for expense in result_expense %}
+                ['{{ expense.name }}', {{ expense.amount | number_format(2, '.', '') }}],
+                {% endfor %}
+            ]);
+
+            const options = {
+                title: 'Expense Balance',
+                is3D: true,
+                backgroundColor: 'transparent',
+                colors: ['#344E41', '#3A5A40', '#588157', '#A3818A', '#DAD7CD']
+            };
+
+            const chart = new google.visualization.PieChart(document.getElementById('chartContainerexpense'));
+            chart.draw(data, options);
+        }
+
+
+    </script>
+    <script type="text/javascript">
+        function showHideDiv() {
+            //document.getElementById('welcomeDiv').style.display = "block";
+            var x = document.getElementById("showHide");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } 
+            else {
+                x.style.display = "none";
+            }
+        }
+    </script>
 
 {% endblock %}
 
@@ -34,35 +84,35 @@
             <section>
                 <div class="row">
                     <div class="col-12 text-center" >
-                        <form action="balance" method="post" enctype="multipart/form-data">
+                        <form id="form1" action="balance" method="post" enctype="multipart/form-data">
                             <div id = "wybor" class= "h6  text-uppercase mb-md-4 mt-5">  
                                 <legend class="fw-bolder pb-2 d-block"> Wybierz okres na bilans: </legend>	
                                 <div class="form-check form-check-inline mt-2">
                                     {% if session.previous_month %}
-                                        <input  class="btn-check " type="radio" name ="wybor" value="1" id="btn-check-1-outlined" checked autocomplete="off">
+                                        <input  class="btn-check " type="radio" name ="wybor" value="1" id="btn-check-1-outlined" checked autocomplete="off" onclick="document.getElementById('form1').submit()">
                                         <label class="btn btn-outline-secondary" for="btn-check-1-outlined"> Poprzedni miesiąc </label> 
                                     {% else %}
-                                        <input  class="btn-check " type="radio" name ="wybor" value="1" id="btn-check-1-outlined" autocomplete="off">
+                                        <input  class="btn-check " type="radio" name ="wybor" value="1" id="btn-check-1-outlined" autocomplete="off" onclick="document.getElementById('form1').submit()">
                                         <label class="btn btn-outline-secondary" for="btn-check-1-outlined"> Poprzedni miesiąc </label> 
                                     {% endif %}
                                 </div>     
 
                                 <div class="form-check form-check-inline mt-2">
                                             {% if session.present_month %}
-                                            <input type="radio" class="btn-check" id="btn-check-2-outlined" name ="wybor" value="2"  checked autocomplete="off">
+                                            <input type="radio" class="btn-check" id="btn-check-2-outlined" name ="wybor" value="2"  checked autocomplete="off" onclick="document.getElementById('form1').submit()">
                                             <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Bieżący miesiąc</label>
                                         {% else %}
-                                            <input type="radio" class="btn-check" id="btn-check-2-outlined" name ="wybor" value="2"   autocomplete="off">
+                                            <input type="radio" class="btn-check" id="btn-check-2-outlined" name ="wybor" value="2"   autocomplete="off" onclick="document.getElementById('form1').submit()">
                                             <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Bieżący miesiąc</label>
                                         {% endif %}
                                 </div>
 
                                 <div class="form-check form-check-inline mt-2 ">
                                     {% if session.present_year %}
-                                        <input type="radio" class="btn-check" id="btn-check-3-outlined" name ="wybor" value="3"   checked autocomplete="off">
+                                        <input type="radio" class="btn-check" id="btn-check-3-outlined" name ="wybor" value="3"   checked autocomplete="off" onclick="document.getElementById('form1').submit()">
                                         <label class="btn btn-outline-secondary" for="btn-check-3-outlined">Bieżący rok</label>
                                     {% else %}
-                                        <input type="radio" class="btn-check" id="btn-check-3-outlined" name ="wybor" value="3"   autocomplete="off">
+                                        <input type="radio" class="btn-check" id="btn-check-3-outlined" name ="wybor" value="3"   autocomplete="off" onclick="document.getElementById('form1').submit()">
                                         <label class="btn btn-outline-secondary" for="btn-check-3-outlined">Bieżący rok</label>
                                     {% endif %}
                                 </div>
@@ -87,11 +137,13 @@
                                 <div class="d-block mt-2">
                                     <input type="date"  id = "date2" class="form-control" name="date2">         
                                 </div> 
+
+                                <div class="mt-2 d-block">
+                                    <input class="h6 col-12  px-4 py-2 mb-4 d-block mx-auto " type="submit" value= "Pokaż bilans"> 
+                                </div>
                             </div> 
 
-                            <div class="mt-2 d-block">
-                                <input class="h6 col-md-6 col-10 px-4 py-2 mb-4 d-block mx-auto " type="submit" value= "Pokaż bilans" required> 
-                            </div>
+                            <input type="submit" name="send" id="send-button" style="display: none">                           
                         </form>
                     </div>
                 </div>
@@ -117,7 +169,8 @@
                                  <div class="card-body">
                                     
                                     <!-- <div id="chartContainer" class="col-auto max-width: 900px" style="height:300px;"></div> -->
-									<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+									<div id="chartContainerIncome" style="height: 370px; width: 100%;"></div>
+                                    <div id="chartContainerexpense" style="height: 370px; width: 100%;"></div>
 
                                 </div>
                                 </section>

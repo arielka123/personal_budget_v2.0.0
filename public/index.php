@@ -50,7 +50,7 @@ $router->add('profile-edit',['controller' => 'Profile', 'action' => 'edit']);
 $router->add('profile-update',['controller' => 'Profile', 'action' => 'update']);
            
 $router->add('{controller}/{action}');
-
+   
 $router->dispatch($_SERVER['QUERY_STRING']);
 
 ?>

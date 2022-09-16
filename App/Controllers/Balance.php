@@ -1,23 +1,19 @@
 <?php
 
 namespace App\Controllers;
-
 use \Core\View;
 use \App\Flash;
-use \App\Auth;
 
-
-class Balance extends Authenticated  // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
+class Balance extends  Authenticated   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
 {
-
-	protected function before()
+    protected function before()
     {
        // parent::before();
     }
 
     public function newAction() {
 
-			$data = array(
+            $data = array(
 				array('y' => 79.45, 'label' => "Google"),
 				array('y' => 7.31, 'label' => "Bing"),
 				array('y' => 7.06, 'label' => "Baidu"),
@@ -39,8 +35,6 @@ class Balance extends Authenticated  // rozszerza klase podstwawowa wiec dziedzi
 
             View::renderTemplate('Balance/new.html',  $args);     
 
-        }
-
-    
+        } 
 
 }

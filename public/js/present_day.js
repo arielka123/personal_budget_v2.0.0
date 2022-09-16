@@ -12,9 +12,10 @@ function set_today()
 	if (miesiac<10) miesiac= "0"+miesiac;
 	
 	if (dzien<10) dzien ="0"+dzien;
+
+	var today = rok +"-"+ miesiac+ "-"+ dzien ;
 	
 	document.getElementById("today").value = rok +"-"+ miesiac+ "-"+ dzien ; 
-
-
+	document.getElementById("today").setAttribute("max", today);
 	}
 	

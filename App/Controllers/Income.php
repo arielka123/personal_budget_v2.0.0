@@ -19,9 +19,9 @@ class Income extends Authenticated   // rozszerza klase podstwawowa wiec dziedzi
     {        
       $args = [
         'income_categories' => \App\Models\Incomes::loadIncomeCategoriesData()
-    ];
+     ];
        
-# wysietl categorie na ekranie 
+        # wysietl categorie na ekranie 
         if( $this->user = Auth::getUser())
         {
             View::renderTemplate('Income/new.html', $args);    
