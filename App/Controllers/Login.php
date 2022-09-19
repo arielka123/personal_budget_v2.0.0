@@ -53,13 +53,6 @@ class Login extends \Core\Controller
                 'remember_me' => $remember_me
             ]);
 
-
-            /// NIE IDZE PRZEZ ROUTER I BŁAD PRZY KOLEJNYM LOGOWANIU Z TEJ STRONY
-
-            // View::renderTemplate('login', [
-            //     'email' => $_POST['email'],
-            //     'remember_me' => $remember_me
-            // ]);
         }
     }
 

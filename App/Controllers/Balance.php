@@ -4,7 +4,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Flash;
 
-class Balance extends  Authenticated   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
+class Balance extends  Authenticated 
 {
     protected function before()
     {

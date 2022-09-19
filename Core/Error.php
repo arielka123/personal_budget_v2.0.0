@@ -24,7 +24,7 @@ class Error
      */
     public static function errorHandler($level, $message, $file, $line)
     {
-        if (error_reporting() !== 0) {  // to keep the @ operator working
+        if (error_reporting() !== 0) {  /** to keep the @ operator working */
             throw new \ErrorException($message, 0, $level, $file, $line);
         }
     }
@@ -38,7 +38,7 @@ class Error
      */
     public static function exceptionHandler($exception)
     {
-        // Code is 404 (not found) or 500 (general error)
+        /** Code is 404 (not found) or 500 (general error) */
         $code = $exception->getCode();
         if ($code != 404) {
             $code = 500;
@@ -62,13 +62,7 @@ class Error
             $message .= "\nThrown in '" . $exception->getFile() . "' on line " . $exception->getLine();
             
             error_log($message);
-            //echo "<h1>Wykryto błąd </h1>";
-
-            //  ($code == 404) {
-            //     echo "<h1>Page not found</h1>";
-            // } else {
-            //     echo "<h1>An error occurred</h1>";
-            // }    
+        
            //View::renderTemplate("$code.html");
             View::renderTemplate('Login/new.html');
 

@@ -46,14 +46,10 @@ class Password extends \Core\Controller
 
         $user= $this->getUserOrExit($token);
            
-        //echo "reset user's password here";
+        /**echo "reset user's password here"; */ 
         if($user->resetPassword($_POST['password'])){
-           // View::renderTemplate('Login/new.html');
            header('Location: /login');
             Flash::addMessage('Możesz teraz się zalogować');
-
-            //  View::renderTemplate('Password/reset_success.html');
-
 
         } else{
             View::renderTemplate('Password/reset.html', [
@@ -70,7 +66,9 @@ class Password extends \Core\Controller
          if($user){
              return $user;
          }else{
-            // echo "password reset token invalid";
+
+            #TODO zweryfikowac czy flash potrzebny
+           // Flash::addMessage('Link do odzyskiwania hasła stracił ważność');
 
             View::renderTemplate('Password/token_ expired.html');
             exit;

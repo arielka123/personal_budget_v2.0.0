@@ -33,7 +33,7 @@
                                 <div class = "form-group row pb-3">
                                     <label for ="kwota" class="h6 offset-sm-2 col-form-label col-sm-3 ps-2"> Kwota w PLN</label>
                                     <div class="col col-sm-6 col-md-4">
-                                        <input type="text" class="form-control col-sm-2" name= "amount" id="amount" required>
+                                        <input type="number" class="form-control col-sm-2" name= "amount" id="amount" min="0" step="0.01" required>
                                     </div>
                                     
                                 </div>
@@ -58,7 +58,7 @@
                             </div>
 
                             <div class= "row">
-                                <textarea class ="col-md-6 col-10 offset-1 offset-md-3 mb-2" name="comment" id="comment" rows="4"  maxlength ="50"  placeholder="Dodaj komentarz (opcjonalnie)"></textarea>
+                                <textarea class ="col-md-6 col-10 offset-1 offset-md-3 mb-2" style="resize:none;" name="comment" id="comment" rows="4"  maxlength ="50"  placeholder="Dodaj komentarz (opcjonalnie)"></textarea>
                             </div>
             
                             <div class ="row pt-4 mb-4">

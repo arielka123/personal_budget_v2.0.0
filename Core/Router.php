@@ -13,18 +13,18 @@ class Router
 
     public function add($route, $params = [])
     {
-        // $this->routes[$route] = $params;
+        /**  $this->routes[$route] = $params;*/
 
-        //escape forward slashes
+         /** escape forward slashes */
         $route = preg_replace('/\//','\\/', $route);
 
-        //convert variable eg {controller}
+        /** convert variable eg {controller} */
         $route = preg_replace('/\{([a-z]+)\}/','(?P<\1>[a-z-]+)',$route);
 
-        //CONVERT WITH CUSTON REGULAR EXPRESSIONS EG {id:\d+}
+        /** CONVERT WITH CUSTON REGULAR EXPRESSIONS EG {id:\d+} */
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/','(?P<\1>\2)',$route);
 
-        //add start and end delimeters and case intensitive flag
+        /** add start and end delimeters and case intensitive flag */
         $route = '/^'.$route.'$/i';
 
         $this->routes[$route] = $params;
@@ -37,18 +37,16 @@ class Router
     
 
 
-    //searchig match 
+    /** searchig match */
     public function match($url)
-    {
-        //$reg_exp = "/^(?P<controller>[a-z-]+)\/(?P<action>[a-z-]+)$/";
-        
+    {        
         foreach ($this->routes as $route => $params){
             if (preg_match($route, $url, $matches)){
                
-                //get named capture group values
-                //gdy mamy match wuodrebniamy wartości z pasującej tablicy kontrolet i action 
-                //i ustawiamy je we własciwości parameters
-               // $params = [];
+                /** get named capture group values
+                * gdy mamy match wuodrebniamy wartości z pasującej tablicy kontrolet i action 
+                *i ustawiamy je we własciwości parameters
+               * $params = []; */
 
                 foreach ($matches as $key => $match){
                     if (is_string($key)){
@@ -76,9 +74,9 @@ class Router
     }
 
 
-   //  /**
-    // * Dispatch the route, creating the controller object and running the
-   // *action method
+    /**
+    * Dispatch the route, creating the controller object and running the
+   *action method */
      
    public function dispatch($url)
    {
@@ -154,16 +152,10 @@ class Router
 
        if (array_key_exists('namespace', $this->params)) {
            $namespace .= $this->params['namespace'] . '\\';
-
-        //    echo '<p>Query string parameters: <pre>'.
-        //    htmlspecialchars(print_r($this->params, true)),'</pre></p>';
    
        }
 
        return $namespace;
-   }
-
-    
-    
+   }   
 }
 ?>

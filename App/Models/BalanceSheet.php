@@ -87,7 +87,7 @@ class BalanceSheet  extends \Core\Model
             $date1 = $year."-"."01-".$first_day;
             $date2=$today;
         }
-        // non-standard
+        /** non-standard */
         else if($x=='4')
         {
             $_SESSION['non_standard']=true;
@@ -157,9 +157,6 @@ class BalanceSheet  extends \Core\Model
         $stmt->execute();
 
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-       // print_r($result);
-
 
         return $result;
     }

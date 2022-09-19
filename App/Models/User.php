@@ -161,14 +161,14 @@ class User extends \Core\Model
 
     public function validate()     
     {
-        // Name
+        /** Name */
         if ($this->name == '') {
            $this->errors[] = 'Wprowadź proszę swoje imie';
            Flash::addMessage('Wprowadź proszę swoje imie',
             Flash::WARNING);
         }
 
-        // email address
+         /** email address  */
         if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
             $this->errors[] = 'Niepoprawny mail';
             Flash::addMessage('Niepoprawny mail !',
@@ -180,7 +180,7 @@ class User extends \Core\Model
             Flash::WARNING);
         }
 
-        // Password is saved if a value provided
+        /** Password is saved if a value provided */
 
         if(isset($this->password)){
             if (strlen($this->password) < 6) {
@@ -301,8 +301,7 @@ class User extends \Core\Model
         $hashed_token = $token->getHash();
         $this->remember_token = $token->getValue();
 
-        //$expiry_timestamp = time() + 60 * 60 * 24 * 30;  // 30 days from now
-        $this->expiry_timestamp = time() + 60 * 60 * 24 * 30;  // 30 days from now
+        $this->expiry_timestamp = time() + 60 * 60 * 24 * 30;  /**  30 days from now*/
 
         $sql = 'INSERT INTO remembered_logins (token_hash, user_id, expires_at)
                 VALUES (:token_hash, :user_id, :expires_at)';
@@ -312,7 +311,6 @@ class User extends \Core\Model
 
         $stmt->bindValue(':token_hash', $hashed_token, PDO::PARAM_STR);
         $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
-        //$stmt->bindValue(':expires_at', date('Y-m-d H:i:s', $expiry_timestamp), PDO::PARAM_STR);
         $stmt->bindValue(':expires_at', date('Y-m-d H:i:s', $this->expiry_timestamp), PDO::PARAM_STR);
 
         return $stmt->execute();
@@ -322,7 +320,6 @@ class User extends \Core\Model
     {
         $user = static::findByEmail($email);
 
-        //echo $email;
         if($user){
             if ($user->startPasswordReset())
             {
@@ -332,13 +329,13 @@ class User extends \Core\Model
     }
 
 
-    protected function startPasswordReset()  //////protected function
+    protected function startPasswordReset()  /** protected function */
     {
         $token = new Token();
         $hashed_token = $token->getHash();
         $this->password_reset_token = $token->getValue();
 
-        $expiry_timestamp = time() + 60 * 60 * 2; // 2 hour from now
+        $expiry_timestamp = time() + 60 * 60 * 2; /**  2 hour from now*/
 
         $sql = 'UPDATE users
                 SET password_reset_hash = :token_hash,
@@ -361,9 +358,6 @@ class User extends \Core\Model
     protected function sendPasswordResetEmail()
     {
         $url = 'https://'.$_SERVER['HTTP_HOST'].'/password/reset/'.$this->password_reset_token;
-
-       // $text = "Please click on the following URL to rest your password: $url";
-      // $text ="Please click <a href= \"$url\"> here </a> to reset your password";
       
         $text = View::getTemplate('Password/reset_email.html', ['url'=>$url]);
 
@@ -391,7 +385,7 @@ class User extends \Core\Model
         $user=  $stmt->fetch();
 
         if($user){
-            //check password reset token hasnt expired
+            /* check password reset token hasnt expired */
 
             if(strtotime($user->password_reset_expires_at)>time()){
                 return $user;
@@ -405,7 +399,7 @@ class User extends \Core\Model
         $this->password = $password;
         $this-> validate();     
         
-        // verify if its empty or not
+        /**  verify if its empty or not*/
         if (empty($this->errors)){
 
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
@@ -434,9 +428,6 @@ class User extends \Core\Model
     public function sendActivationEmail()
     {
         $url = 'https://'.$_SERVER['HTTP_HOST'].'/signup/activate/'.$this->activation_token;
-
-       // $text = "Please click on the following URL to rest your password: $url";
-      // $text ="Please click <a href= \"$url\"> here </a> to reset your password";
       
         $text = View::getTemplate('Signup/activation_email.html', ['url'=>$url]);
 
@@ -453,8 +444,7 @@ class User extends \Core\Model
     {
         $token = new Token($value);
         $hashed_token = $token->getHash();
-    // pobierz id nowego usera
-
+    /**  pobierz id nowego usera */
     $sql1 = 'SELECT id FROM users WHERE activation_hash = :hashed_token';
 
     $db = static::getDB();
@@ -504,7 +494,7 @@ class User extends \Core\Model
                     SET name =:name,
                         email=:email';
         
-        //Add password if it is set
+        /** Add password if it is set */
         if(isset($this->password)){
             $sql.=', password_hash=:password_hash';
         }
