@@ -6,6 +6,7 @@ use \Core\View;
 class Items extends Authenticated
 {
    
+#TODO dlaczego zakomentowane
 
     public function indexAction()
     {

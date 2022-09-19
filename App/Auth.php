@@ -53,10 +53,10 @@ class Auth
      */
     public static function logout()
     {
-        // Unset all of the session variables
+        /** Unset all of the session variables*/ 
         $_SESSION = [];
 
-        // Delete the session cookie
+        /** Delete the session cookie */
         if (ini_get('session.use_cookies')) {
             $params = session_get_cookie_params();
 
@@ -71,7 +71,7 @@ class Auth
             );
         }
 
-        // Finally destroy the session
+        /** Finally destroy the session*/ 
         session_destroy();
 
         static::forgetLogin();        
@@ -158,7 +158,7 @@ class Auth
 
             }
 
-            setcookie('remember_me', '', time() - 3600);  // set to expire in the past
+            setcookie('remember_me', '', time() - 3600);  /** set to expire in the past */
         }
     }
 }

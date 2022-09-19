@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 
-class Home extends \Core\Controller   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
+class Home extends \Core\Controller 
 {
 
     public function indexAction()

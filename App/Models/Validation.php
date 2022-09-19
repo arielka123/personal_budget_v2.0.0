@@ -23,7 +23,7 @@ class Validation extends \Core\Model
         $amount =trim($amount);
 		$amount = str_replace(",",".",$amount);
 
-		// weryfikuje podaną kwotę
+		/**  weryfikuje podaną kwotę */
 		if ($amount ==0)
         {
             Flash::addMessage('Nie wprowadzono kwoty!',

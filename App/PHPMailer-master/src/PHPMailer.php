@@ -2195,13 +2195,13 @@ class PHPMailer
                 }
             }
         }
-        //If we get here, all connection attempts have failed, so close connection hard
+        /** If we get here, all connection attempts have failed, so close connection hard*/
         $this->smtp->close();
-        //As we've caught all exceptions, just report whatever the last one was
+        /** As we've caught all exceptions, just report whatever the last one was */
         if ($this->exceptions && null !== $lastexception) {
             throw $lastexception;
         } elseif ($this->exceptions) {
-            // no exception was thrown, likely $this->smtp->connect() failed
+            /** no exception was thrown, likely $this->smtp->connect() failed*/ 
             $message = $this->getSmtpErrorMessage('connect_host');
             throw new Exception($message);
         }
@@ -2359,7 +2359,7 @@ class PHPMailer
     public function getTranslations()
     {
         if (empty($this->language)) {
-            $this->setLanguage(); // Set the default language.
+            $this->setLanguage(); /**  Set the default language.*/
         }
 
         return $this->language;

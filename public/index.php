@@ -18,11 +18,9 @@ session_start();
 
 $router = new Core\Router();
 
-//echo get_class($router);    
+/** add the routes */
 
-//add the routes
-
-// Add the routes
+/** Add the routes */
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('login',['controller' => 'Login', 'action' => 'new']);
 $router->add('create',['controller' => 'Login', 'action' => 'create']);

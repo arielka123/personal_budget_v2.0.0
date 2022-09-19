@@ -7,7 +7,7 @@ use \App\Flash;
 use \App\Auth;
 
 
-class Expense extends Authenticated // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
+class Expense extends Authenticated 
 {
     protected function before()
     {

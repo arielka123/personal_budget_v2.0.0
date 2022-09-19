@@ -23,58 +23,31 @@ class Mail
      * @return mixed
      */
 
-     public static function send($to, $subject, $text)//$to, $subject, $text, $html
+     public static function send($to, $subject, $text)
      {
 
         $mail = new PHPMailer();
         $mail->CharSet = "UTF-8";
-        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->isSMTP();                                     
         $mail->Mailer = 'smtp';
-
-
-        //mailtrap 
-
-       // $mail->Host = 'smtp.mailtrap.io';
-        // $mail->SMTPAuth = true;                               // Enable SMTP authentication
-      //  $mail->Port = 2525;
-        // $mail->Username = '505cf6c25acf51';
-        // $mail->Password = '2ffefc09dd925d';
-        // $mail->IsHTML(true);
-
-        //gmail
 
         $mail->SMTPDebug  = 1;         
         $mail->Host = Config::SMTP;
         $mail->SMTPAuth   = true;
-        $mail->Username = Config::adminMail;   // SMTP username
+        $mail->Username = Config::adminMail;   /**  SMTP username*/
         $mail->Password = Config::mailPassword;
-        $mail->SMTPSecure = 'tls';                            // Enable encryption, only 'tls' is accepted
-        $mail->Port =587; //465; // or 587
+        $mail->SMTPSecure = 'tls';                         
+        $mail->Port =587; /* 465;  or 587 */
 
         $mail->SetFrom(Config::adminMail,'Mailer');
-        $mail->addAddress($to);                 // Add a recipient
+        $mail->addAddress($to);               
 
-        $mail->IsHTML(true);
-        //$mail->SetFrom(Config::adminMail,Config::adminMailName, 0);
-        
-
-        //onet
-                
-        // $mail->SMTPDebug  = 1;  
-        // $mail->SMTPAuth   = TRUE;
-        // $mail->SMTPSecure = 'ssl';                            // Enable encryption, only 'tls' is accepted
-        // $mail->Port =465; //465; // or 587
-        // $mail->Host = 'smtp.poczta.onet.pl';
-        // $mail->Username = Config::adminMail;   // SMTP username
-        // $mail->Password = Config::mailPassword;                           // SMTP password
-        // $mail->IsHTML(true);
-        // $mail->SetFrom(Config::adminMail,Config::adminMailName, 0);
-        
+        $mail->IsHTML(true);        
 
         /**
          * konfiguracja wiadomości
          */
-        $mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+        $mail->WordWrap = 50;                               
         $mail->Subject = $subject;     
         $img = '<img alt="PHPMailer" src="cid:my-attach">';
         $mail->Body    = $img.$text;
@@ -82,14 +55,8 @@ class Mail
 
         if(!$mail->send()) {
 
-          //Flash::addMessage('Upss.. Wiadomość nie została wysłana. Przepraszamy za utrudnienia!', Flash::WARNING);
-          echo 'Wiadmość nie została wysłana.';
-         // echo 'Mailer Error: ' . $mail->ErrorInfo;
+          Flash::addMessage('Upss.. Wiadomość nie została wysłana. Przepraszamy za utrudnienia!', Flash::WARNING);
+    
         } 
       }
 }
-
-
-// mailPassword = '2ffefc09dd925d';
-// const adminUsername = '505cf6c25acf51'
-// }

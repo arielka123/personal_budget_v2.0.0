@@ -29,7 +29,6 @@ class Expenses extends \Core\Model
     $db = static::getDB();
     $stmt = $db->prepare($sql_query_category_income);
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-   // $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
     $stmt->execute();
 
     $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -53,13 +52,9 @@ class Expenses extends \Core\Model
     $db = static::getDB();
     $stmt = $db->prepare($sql_query_category_income);
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-   // $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
     $stmt->execute();
 
     $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-   // print_r($result);
-
     return $result;
 
     }
@@ -73,10 +68,6 @@ class Expenses extends \Core\Model
 
         $date = $_POST['date'];        
         $id_expense_category =$_POST['expense'];
-
-      //  $amount = $_POST['amount'];        
-      //$comment = $_POST['comment'];
-
 
         if(Validation::validate_amount()==true)
         {

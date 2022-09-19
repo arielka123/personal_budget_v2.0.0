@@ -208,7 +208,7 @@
                                         <tr>
                                         <th scope="row">{{ i +1 }}</th>
                                         <td>{{row['name']}}</td>
-                                        <td>{{row['amount']}} PLN</td>
+                                        <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
                                         </tr>
 
                                         {% set i = i +1 %}
@@ -218,7 +218,7 @@
 
                                         <tr class="table-warning fw-bold">
                                             <td colspan="2" class="text-center text-uppercase">suma przychodów </td>
-                                            <td> {{suma1}} PLN</td>
+                                            <td> {{suma1|number_format(2, '.',',') }} PLN</td>
                                          </tr>
 
                                     </tbody>
@@ -252,7 +252,7 @@
                                         <tr>
                                             <th scope="row">{{ i +1 }}</th>
                                             <td>{{row['name']}}</td>
-                                            <td>{{row['amount']}} PLN</td>
+                                            <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
                                         </tr>
 
                                         {% set i = i +1 %}
@@ -260,9 +260,10 @@
 
                                     {% endfor %}
 
+                                    {# //echo number_format((float)$zoo, 2, '.', ''); #}
                                      <tr class="table-warning fw-bold">
                                         <td colspan="2" class="text-center text-uppercase">suma wydatków </td>
-                                        <td> {{suma2}} PLN</td>
+                                        <td> {{ suma2|number_format(2, '.',',') }} PLN</td>
                                      </tr>                                           
                                     </tbody>										
                                 </table>
@@ -272,11 +273,11 @@
 
                                     {% if suma1 > suma2 %}
                                         {% set difference = suma1 - suma2 %}
-                                        <div class= "bg-success text-light text-center fw-bold p-2 mt-3">   GRATULACJE! ZAOSZĘDZONO: {{ difference }} PLN </div>
+                                        <div class= "bg-success text-light text-center fw-bold p-2 mt-3">   GRATULACJE! ZAOSZĘDZONO: {{ difference|number_format(2, '.',',') }} PLN </div>
                                     
                                     {% elseif suma2 > suma1 %}
                                         {% set debt = suma2 - suma1 %}
-                                        <div class= "bg-danger text-light text-center fw-bold p-2 mt-3"> UPSSS... TWÓJ DEBET WYNOSI: {{ debt }} PLN </div>
+                                        <div class= "bg-danger text-light text-center fw-bold p-2 mt-3"> UPSSS... TWÓJ DEBET WYNOSI: {{ debt|number_format(2, '.',',') }} PLN </div>
 
                                     {% else %}
                                         <div class= "bg-warning text-light text-center fw-bold p-2 mt-3"> Twoje saldo wynosi 0 PLN </div>
@@ -293,23 +294,9 @@
     {{ parent() }}
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	<script type="text/javascript">
-      window.onload = function() {
+      window.onload = function() 
+    {
 	  
-	  // DZIALA, WYSWIETLA ZMIENNĄ
-      // document.getElementById("chartContainer").innerHTML = "{{ zmienna1 }}";
-	  
-	  // NIE DZIALA, NIE CZYTA DANYCH
-	  // const dataJson = "{{ mypiechart | json_encode() | raw }}";
-		 
-	 // DZIALA - WIDZI DANE I UDUJE WYKRES
-		  /*const dataJson = [
-			{y: 79.45, label: "Google"},
-			{y: 7.31, label: "Bing"},
-			{y: 7.06, label: "Baidu"},
-			{y: 4.91, label: "Yahoo"},
-			{y: 1.26, label: "Others"}
-		  ];*/
-
 		var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             title: {
@@ -322,7 +309,6 @@
 				dataPoints: dataJson
             }]
         });
-		//chart.render();
-}		
+    }		
  </script>
 {% endblock %}

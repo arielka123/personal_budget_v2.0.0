@@ -7,7 +7,7 @@ use \App\Flash;
 use \App\Auth;
 
    
-class Income extends Authenticated   // rozszerza klase podstwawowa wiec dziedziczy te funckjonalnośc
+class Income extends Authenticated   
 {
     protected function before()
     {
@@ -38,7 +38,6 @@ class Income extends Authenticated   // rozszerza klase podstwawowa wiec dziedzi
         }
             else {
                $this->redirect('/income'); 
-            }
-            
+            }          
     }
 }
