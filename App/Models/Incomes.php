@@ -61,7 +61,7 @@ class Incomes extends \Core\Model
 
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':id_income_category', $id_income_category, PDO::PARAM_INT);
-        $stmt->bindValue(':amount', $amount, PDO::PARAM_INT);
+        $stmt->bindValue(':amount', $amount, PDO::PARAM_STR);
         $stmt->bindValue(':date_of_income', $date, PDO::PARAM_STR);
         $stmt->bindValue(':income_comment', $comment, PDO::PARAM_STR);
 
