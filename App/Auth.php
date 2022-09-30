@@ -24,10 +24,7 @@ class Auth
     {
         session_regenerate_id(true);
 
-        $_SESSION['user_id'] = $user->id;
-
-        echo $remember_me;
-    
+        $_SESSION['user_id'] = $user->id;    
 
         if ($remember_me) {
             

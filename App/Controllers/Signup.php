@@ -59,7 +59,6 @@ class Signup extends \Core\Controller
        * after activation the default data can be assigned to user    /////////////////////////////////////////
        */
          View::renderTemplate('Signup/activated.html');
-         header("Refresh:5; url=/login");
    }
    
 
