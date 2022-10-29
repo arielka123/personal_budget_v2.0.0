@@ -2,15 +2,15 @@
 
 {% block title %}Sign up{% endblock %}
 
-{% block body %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
 
-    {# <div class=" m-1 pb-2 text-md-center text-start">
-        <h1> Panel Rejestracji </h1>   
-        <h5 class="m-5">
-            <p class="text-success">Twoje konto zostało aktywowane!</p>
-            <p class="text-dark">Możesz teraz się <a href ="/login"> zalogować</a> </p>
-        </h5>
-    </div> #}
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
     <main>
         <section>
             <div class="container-fluid">
@@ -28,7 +28,9 @@
                 </div>   
             </div>
         </section>
-    </main>
-    
-   
+    </main>  
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
 {% endblock %}
