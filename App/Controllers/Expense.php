@@ -40,6 +40,14 @@ class Expense extends Authenticated
             }
     }
 
+    public function registerAction()      
+    {        
+      $args = [
+        'expense_categories' => \App\Models\Expenses::loadUserExpenses(),
+    ];    
+        View::renderTemplate('Register/new.html', $args);    
+    } 
+
     public function expenseCategoriesAction(){
         echo json_encode(Expenses::loadExpenseCategoriesData(), JSON_UNESCAPED_UNICODE);
     }

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Rejest wydatków{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %} 
+    <main>
+        <article>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col-sm-12 parent">
+                        <header>
+                            <h1 class="h2 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Rejestr Wydatków </h1>
+                        </header>
+                        <form action="expense/save" method="post" enctype="multipart/form-data">
+                            <div class="mt-5 p-4 col-lg-6 offset-lg-3 offset-md-1">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}     

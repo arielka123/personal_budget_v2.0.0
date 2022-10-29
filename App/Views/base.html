@@ -21,7 +21,7 @@
         
     {% endblock %}
 </head>
-<body  onload="set_today()" class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100">
     <header>    
         {% block header %}
         {% if current_user %}
@@ -42,7 +42,7 @@
                             <li class="nav-item p-2"><a class="nav-link" href ="expense"><i class = "icon-edit"></i>Dodaj Wydatek</a></li>
                             <li class="nav-item p-2"><a class="nav-link" href ="income"><i class = "icon-edit"></i>Dodaj Przychód</a></li>
                             <li class="nav-item p-2"><a class="nav-link" href ="balance"><i class = "icon-chart-bar"></i> Bilans</a></li>
-                            <li class="nav-item p-2"><a class="nav-link disabled" href ="#"><i class = "icon-chart-bar "></i> Rejestr</a></li>
+                            <li class="nav-item p-2"><a class="nav-link " href ="register"><i class = "icon-chart-bar "></i> Rejestr</a></li>
                         </ul>
                         <ul class="navbar-nav ms-auto"> 
                             <li class="nav-item p-2"> <a class="nav-link" href ="profile-show"><i class = "icon-cogs"></i>Ustawienia</a></li>
@@ -55,7 +55,7 @@
         {% endif %}
 
         {% for message in flash_messages %}
-        <div class="alert alert-{{ message.type }}">
+        <div class="alert alert-{{ message.type }}">   
             {{ message.body }}
         </div>
         {% endfor %}

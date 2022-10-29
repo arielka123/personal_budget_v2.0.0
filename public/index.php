@@ -47,6 +47,9 @@ $router->add('profile-show',['controller' => 'Profile', 'action' => 'show']);
 $router->add('profile-edit',['controller' => 'Profile', 'action' => 'edit']);    
 $router->add('profile-update',['controller' => 'Profile', 'action' => 'update']);
 
+$router->add('register',['controller' => 'Expense', 'action' => 'register']);
+
+
 $router->add('api/expenseCategories', ['controller' => 'Expense', 'action' => 'expenseCategories']);
 $router->add('api/paymentMethods', ['controller' => 'Expense', 'action' => 'paymentMethods']);
 $router->add('api/expenses', ['controller' => 'Expense', 'action' => 'expenses']);
