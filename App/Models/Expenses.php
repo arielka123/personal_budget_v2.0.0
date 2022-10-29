@@ -96,7 +96,21 @@ class Expenses extends \Core\Model
         $stmt->execute();
 
         return true;
+    }
 
+    public static function loadUserExpenses(){
+        $user_id=Auth::getUserId();   
+
+        $sql_expenses = 'SELECT * FROM expenses
+                                   WHERE user_id = :user_id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql_expenses);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+    $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
     }
 
 }

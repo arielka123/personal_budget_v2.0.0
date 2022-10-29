@@ -14,7 +14,6 @@ class Expense extends Authenticated
        // parent::before();
     }
     
-   
     public function newAction()      
     {        
       $args = [
@@ -39,6 +38,17 @@ class Expense extends Authenticated
         // Flash::addMessage('Ups.. coś poszło nie tak.', Flash::WARNING);
             $this->redirect('/expense'); 
             }
-            
+    }
+
+    public function expenseCategoriesAction(){
+        echo json_encode(Expenses::loadExpenseCategoriesData(), JSON_UNESCAPED_UNICODE);
+    }
+
+    public function paymentMethodsAction(){
+        echo json_encode(Expenses::loadPaymentMethodData(), JSON_UNESCAPED_UNICODE);
+    }
+
+    public function expensesAction(){
+        echo json_encode(Expenses::loadUserExpenses(), JSON_UNESCAPED_UNICODE);
     }
 }
