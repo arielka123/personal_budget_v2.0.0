@@ -34,11 +34,8 @@
                             </div>
                         </div>
                     </div>
-                        {# <header>
-                            <h1 class="h2 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Rejestr Wydatków </h1>
-                        </header>     #}
                         
-                    <div class="col-sm-12" style="display:none" id="expenses">    
+                    <div class="col-md" style="display:none" id="expenses">    
                         <section>
                             <table class="table table-hover">
                                 <thead>
@@ -71,9 +68,43 @@
 
                                 </tbody>
                             </table>
-                            </section>
-
+                        </section>
                     </div>
+
+                    <div class="col-md" style="display:none" id="incomes">    
+                        <section>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Lp.</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Kategoria</th>
+                                        <th scope="col">Kwota</th>
+                                        <th scope="col">Komentarz</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                {% set i = 0 %}
+
+                                {% for row in incomes %}
+    
+                                    <tr>
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{row['date_of_income']}}</td>
+                                        <td>{{row['name']}}</td>
+                                        <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
+                                        <td>{{row['income_comment']}}</td>
+                                    </tr>
+                                    {% set i = i +1 %}
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+
                 </div>
             </div>
         </article>

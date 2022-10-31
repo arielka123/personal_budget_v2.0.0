@@ -101,10 +101,6 @@ class Expenses extends \Core\Model
     public static function loadUserExpenses(){
         $user_id=Auth::getUserId();   
 
-        // $sql_expenses = 'SELECT * FROM expenses
-        //                            WHERE user_id = :user_id
-        //                            order by date_of_expense desc';
-
         $sql_expenses = 'SELECT c.name as name, amount, date_of_expense, expense_comment, p.name as paymentMethods FROM expenses as e
                                    JOIN expenses_category_assigned_to_users as c ON e.expense_category_assigned_to_user_id=c.id
                                    JOIN payment_methods_assigned_to_users as p ON e.payment_method_assigned_to_user_id=p.id
@@ -119,5 +115,4 @@ class Expenses extends \Core\Model
     $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
     }
-
 }

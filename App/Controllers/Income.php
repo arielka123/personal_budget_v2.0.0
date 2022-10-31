@@ -40,4 +40,8 @@ class Income extends Authenticated
                $this->redirect('/income'); 
             }          
     }
+    public function incomesAction(){
+        echo json_encode(Incomes::loadUserIncomes(), JSON_UNESCAPED_UNICODE);
+    }
+    
 }
