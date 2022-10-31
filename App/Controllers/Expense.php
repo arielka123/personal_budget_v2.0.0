@@ -43,9 +43,10 @@ class Expense extends Authenticated
     public function registerAction()      
     {        
       $args = [
-        'expense_categories' => \App\Models\Expenses::loadUserExpenses(),
+        'expenses' => Expenses::loadUserExpenses()
     ];    
         View::renderTemplate('Register/new.html', $args);    
+        //print_r (Expenses::loadUserExpenses());
     } 
 
     public function expenseCategoriesAction(){
