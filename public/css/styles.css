@@ -141,3 +141,18 @@ input:focus:-ms-input-placeholder
     color: #428C42;
 }
 
+.registerSelect{	
+	background-color: #ececec;
+	color: #b1b1b1;
+}
+
+.registerSelect:hover{	
+	background-color: #b1b1b1;
+	color: white;
+}
+
+.registerSelectActive{
+	background-color: #b1b1b1;
+	color: white;
+}
+

@@ -88,8 +88,8 @@ abstract class Controller
         {
             Flash::addMessage('Zaloguj się !', Flash::INFO);
             Auth::rememberRequestedPage();
-
-            $this->redirect('/login');       
+         //   $this->redirect('/login');      
+         View::renderTemplate('Login/new.html');    
         }
     }
 }

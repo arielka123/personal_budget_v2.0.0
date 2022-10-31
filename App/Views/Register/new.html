@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Rejest wydatków{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %} 
+    <main>
+        <article>
+            <div class="container-fluid ">
+                <div class="row">
+
+                    <div class="col-md mt-4">
+                        <div class="card" >
+                            <div class="card-body registerSelect p-4" id="expensesRegister">
+                                <p class="card-text text-center fw-bold"> 
+                                    Rejestr Wydatków 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                        <div class="card">
+                            <div class="card-body registerSelect p-4" id="incomesRegister">
+                                <p class="card-text text-center fw-bold"> 
+                                    Rejestr Wpływów 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="col-md" style="display:none" id="expenses">    
+                        <section>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Lp.</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Kategoria</th>
+                                        <th scope="col">Kwota</th>
+                                        <th scope="col">Metoda</th>
+                                        <th scope="col">Komentarz</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                {% set i = 0 %}
+
+                                {% for row in expenses %}
+    
+                                    <tr>
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{row['date_of_expense']}}</td>
+                                        <td>{{row['name']}}</td>
+                                        <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
+                                        <td>{{row['paymentMethods']}}</td>
+                                        <td>{{row['expense_comment']}}</td>
+                                    </tr>
+                                    {% set i = i +1 %}
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+
+                    <div class="col-md" style="display:none" id="incomes">    
+                        <section>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Lp.</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Kategoria</th>
+                                        <th scope="col">Kwota</th>
+                                        <th scope="col">Komentarz</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                {% set i = 0 %}
+
+                                {% for row in incomes %}
+    
+                                    <tr>
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{row['date_of_income']}}</td>
+                                        <td>{{row['name']}}</td>
+                                        <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
+                                        <td>{{row['income_comment']}}</td>
+                                    </tr>
+                                    {% set i = i +1 %}
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+    <script src="/js/register.js"></script>
+
+{% endblock %}     

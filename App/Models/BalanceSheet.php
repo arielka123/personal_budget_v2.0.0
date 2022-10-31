@@ -79,7 +79,7 @@ class BalanceSheet  extends \Core\Model
             $date1=$year."-".$month."-".$first_day;
             $date2=$today;
             $_SESSION['present_month']=true;
-        }
+        }   
         else if($x=='3')
         {
             $_SESSION['present_year']=true;
