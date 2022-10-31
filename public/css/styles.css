@@ -151,5 +151,8 @@ input:focus:-ms-input-placeholder
 	color: white;
 }
 
-
+.registerSelectActive{
+	background-color: #b1b1b1;
+	color: white;
+}
 
