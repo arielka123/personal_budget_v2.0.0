@@ -39,16 +39,7 @@ class Expense extends Authenticated
             $this->redirect('/expense'); 
             }
     }
-
-    // public function registerAction()      
-    // {        
-    //   $args = [
-    //     'expenses' => Expenses::loadUserExpenses()
-    // ];    
-    //     View::renderTemplate('Register/new.html', $args);    
-    //     //print_r (Expenses::loadUserExpenses());
-    // } 
-
+    
     public function expensesAction(){
         echo json_encode(Expenses::loadUserExpenses(), JSON_UNESCAPED_UNICODE);
     }
