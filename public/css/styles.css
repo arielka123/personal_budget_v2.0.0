@@ -5,6 +5,17 @@ body
 
 }
 
+.login
+{
+	background-color: #f9f9fc;
+	margin-left:auto;
+	margin-right:auto;
+	-webkit-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+	-moz-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+	box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+	border-radius: 10px;
+} 
+
 .icon-plus { font-size: 20px; padding-right:5px; color: #4db6ac};
 .icon-minus{ font-size: 20px; padding-right:5px; color: #4db6ac };
 .icon-down-dir { font-size: 20px; padding-right:5px; color: #4db6ac };
@@ -22,16 +33,6 @@ body
 .icon-dollar { font-size: 20px; padding-right:5px; color: #4db6ac};
 .icon-money-1 { font-size: 20px; padding-right:5px; color: #4db6ac};
 
-.login
-{
-	background-color: #f9f9fc;
-	margin-left:auto;
-	margin-right:auto;
-	-webkit-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
-	-moz-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
-	box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
-	border-radius: 10px;
-} 
 
 #help_login
 {
