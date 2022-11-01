@@ -2,6 +2,52 @@
 
 {% block title %}Profil{% endblock %}
 
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+ {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="mt-4 mb-3 text-center">Edycja Danych Użytkownika</h1>
+    
+    <form method="post" id="formProfile" action="profile-update" class="col-10 col-md-6 d-block mx-auto">
+
+        <div class="form-group">
+            <label for="inputName">Imie</label>
+            <input id="inputName" name="name" placeholder="Imie" value="{{ user.name }}" required class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail">Adres email</label>
+            <input id="inputEmail" name="email" placeholder="Adres emails" value="{{ user.email }}" required type="email"class="form-control"/>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="inputPassword">Hasło</label>
+            <input id="inputPassword" type="password" name="password" placeholder="Hasło"
+            aria-describedby="helpBlock" class="form-control"/>
+            <span id="helpBlock" class="form-text">Pozostaw puste jeśli chcesz zatrzymać obecne hasło</span>
+        </div>
+
+        <!-- <div>
+            <label for="inputPasswordConfirmation">Repeat password</label>
+            <input id="inputPasswordConfirmation" type="password" name="password_confirmation" placeholder="Repeat password" />
+        </div> -->
+
+        <button type="submit" class="btn btn-outline-success mt-2 ms-1">Zapisz</button>
+        <button type="reset" class="btn btn-outline-secondary mt-2 ms-1">Cofnij zmiany</button>
+
+        <a href="profile-show" class="btn btn-outline-danger mt-2 ms-1">Zamknij</a>
+
+    </form>
+
+{% endblock %}
+
 {% block footer %}`
 
     <script src="/js/hideShowPassword.min.js"></script>
@@ -54,56 +100,5 @@
     </script>
 
     {{ parent() }}
-
-{% endblock %}
-
-{% block head %}
-    {{ parent() }}
-{% endblock %}
-
-
-{% block content %}
-
-    <h1 class="mt-4 mb-3 text-center">Edycja Danych Użytkownika</h1>
-
-    {# {% if user.errors is not empty %}
-        <p>Errors:</p>
-        <ul>
-            {% for error in user.errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %} #}
-
-    <form method="post" id="formProfile" action="profile-update" class=" col-md-6 d-block mx-auto">
-
-        <div class="form-group">
-            <label for="inputName">Imie</label>
-            <input id="inputName" name="name" placeholder="Imie" value="{{ user.name }}" required class="form-control"/>
-        </div>
-
-        <div class="form-group">
-            <label for="inputEmail">Adres email</label>
-            <input id="inputEmail" name="email" placeholder="Adres emails" value="{{ user.email }}" required type="email"class="form-control"/>
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="inputPassword">Hasło</label>
-            <input id="inputPassword" type="password" name="password" placeholder="Hasło"
-            aria-describedby="helpBlock" class="form-control"/>
-            <span id="helpBlock" class="form-text">Pozostaw puste jeśli chcesz zatrzymać obecne hasło</span>
-        </div>
-
-        <!-- <div>
-            <label for="inputPasswordConfirmation">Repeat password</label>
-            <input id="inputPasswordConfirmation" type="password" name="password_confirmation" placeholder="Repeat password" />
-        </div> -->
-
-        <button type="submit" class="btn btn-outline-success mt-2 ms-2">Zapisz</button>
-        <button type="reset" class="btn btn-outline-secondary mt-2 ms-5">Cofnij zmiany</button>
-
-        <a href="profile-show" class="btn btn-outline-danger mt-2 ms-5">Zamknij</a>
-
-    </form>
 
 {% endblock %}

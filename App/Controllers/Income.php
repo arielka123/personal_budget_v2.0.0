@@ -11,7 +11,7 @@ class Income extends Authenticated
 {
     protected function before()
     {
-      //  parent::before();
+       parent::before();
     }
     
     public function newAction()
@@ -40,8 +40,6 @@ class Income extends Authenticated
                $this->redirect('/income'); 
             }          
     }
-    public function incomesAction(){
-        echo json_encode(Incomes::loadUserIncomes(), JSON_UNESCAPED_UNICODE);
-    }
+    
     
 }

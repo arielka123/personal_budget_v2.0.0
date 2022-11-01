@@ -8,7 +8,7 @@ class Balance extends  Authenticated
 {
     protected function before()
     {
-       // parent::before();
+       parent::before();
     }
 
     public function newAction() {
