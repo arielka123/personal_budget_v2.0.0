@@ -48,6 +48,8 @@ $router->add('profile-edit',['controller' => 'Profile', 'action' => 'edit']);
 $router->add('profile-update',['controller' => 'Profile', 'action' => 'update']);
 
 $router->add('register',['controller' => 'Register', 'action' => 'new']);
+$router->add('settings',['controller' => 'Settings', 'action' => 'new']);
+
 
 $router->add('api/expenses', ['controller' => 'Expense', 'action' => 'expenses']);
 $router->add('api/incomes', ['controller' => 'Income', 'action' => 'incomes']);

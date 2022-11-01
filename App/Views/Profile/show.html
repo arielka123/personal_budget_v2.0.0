@@ -12,22 +12,22 @@
 {% endblock %}
 
 {% block content %}
- 
-    <h1 class="text-center mt-4">Profil Użytkownika</h1>
-    
-    <dl class="row mt-5">
-        <dt class="col-sm-5 text-end ms-5">Name: </dt>
-        <dd class="col-sm-6 ps-5">{{ user.name }}</dd>
-        <dt class="col-sm-5 text-end ms-5">email: </dt>
-        <dd class="col-sm-6 ps-5">{{ user.email }} </dd>
+<div class="container-fluid">
+            <h1 class="text-center mt-4 col-11">Profil Użytkownika</h1>
+            
+            <dl class="row mt-5 col-11">
+                <dt class="col-5 text-end ms-3">Name: </dt>
+                <dd class="col-5 ps-3">{{ user.name }}</dd>
+                <dt class="col-5 text-end ms-3">email: </dt>
+                <dd class="col-5 ps-3">{{ user.email }} </dd>
 
-        <dl class="col-sm-7 text-end ">
-            <form method="post" action="profile-edit"> 
-                <button type="submit" class="col-sm-3 btn btn-outline-success mt-4">Edytuj</button>
-            </form>
-        </dl>
-        
-    </dl>      
+                <dl class=" text-center ">
+                    <form method="post" action="profile-edit"> 
+                        <button type="submit" class="col-8 col-md-3 btn btn-outline-success mt-4">Edytuj</button>
+                    </form>
+                </dl>
+            </dl>
+</div>
 {% endblock %}
 
 {% block footer %}

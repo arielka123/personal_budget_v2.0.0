@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Dodaj przychód{% endblock %}
+
+{% block head %}
+    {{ parent() }}        
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %} 
+    <main>
+        <article>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <header>
+                            <h2 class="h2 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Ustawienia </h2>
+                        </header>
+
+                        <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center">
+                            <p class = "d-inline" >
+                                <i class = "icon-money"></i>
+                                Kategorie przychodów 
+                            </p>
+                            <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
+                        </div>
+
+                        <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center">
+                            <p class = "d-inline" >
+                                <i class = "icon-money"></i>
+                                Kategorie wydatków 
+                            </p>
+                            <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
+                        </div>
+
+                        <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center">
+                            <p class = "d-inline" >
+                                <i class = "icon-money-1"></i>
+                                Sposoby płatności 
+                            </p>
+                            <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
+                        </div>
+
+                        <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center">
+                            <p class = "d-inline" >
+                                <i class = "icon-user-male"></i>
+                                Profil użytkowika 
+                            </p>
+                            <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
+                        </div>
+                            
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

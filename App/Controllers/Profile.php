@@ -16,24 +16,18 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
 
     protected function before()
     {
-        // parent::before();
-        // $this->user = Auth::getUser();
+        parent::before();
+        $this->user = Auth::getUser();
     }
     /**
      * show profile
      */
     public function showAction()
     {     
-        if( $this->user = Auth::getUser())
-        {
             View::renderTemplate('Profile/show.html',[
                 'user' => $this->user
             ]);        
-        }
-        else View::renderTemplate('Login/new.html');
     }
-
-    
 
 /**
  * show the form for the editing action
@@ -41,9 +35,9 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
 
     public function editAction()
     {
-        View::renderTemplate('Profile/edit.html',[
-            'user' => $this->user
-        ]);
+            View::renderTemplate('Profile/edit.html',[
+                'user' => $this->user
+            ]);        
     }
 
     /**
@@ -52,16 +46,14 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
 
      public function updateAction()
      {
-
-         if($this->user->updateProfile($_POST)){
-             Flash::addMessage('Twoje zmiany zostały zapisane');
-            $this->showAction();
-         }
-         else {
-             View::renderTemplate('Profile/edit.html',[
-                 'user' => $this->user
-             ]);
-         }
+            if($this->user->updateProfile($_POST)){
+                Flash::addMessage('Twoje zmiany zostały zapisane');
+               $this->showAction();
+            }
+            else {
+                View::renderTemplate('Profile/edit.html',[
+                    'user' => $this->user
+                ]);
+            }
      }
-
 }

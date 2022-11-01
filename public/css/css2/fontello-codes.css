@@ -1,7 +1,17 @@
 
-.icon-power-outline:before { content: '\e800'; } /* '' */
-.icon-cogs:before { content: '\e801'; } /* '' */
-.icon-money:before { content: '\e802'; } /* '' */
-.icon-edit:before { content: '\e803'; } /* '' */
-.icon-chart-bar:before { content: '\e804'; } /* '' */
-.icon-power:before { content: '\e805'; } /* '' */
+.icon-plus:before { content: '\e800'; } /* '' */
+.icon-minus:before { content: '\e801'; } /* '' */
+.icon-down-dir:before { content: '\e802'; } /* '' */
+.icon-up-dir:before { content: '\e803'; } /* '' */
+.icon-trash-empty:before { content: '\e804'; } /* '' */
+.icon-basket:before { content: '\e805'; } /* '' */
+.icon-wallet:before { content: '\e806'; } /* '' */
+.icon-money:before { content: '\e807'; } /* '' */
+.icon-power:before { content: '\e808'; } /* '' */
+.icon-cogs:before { content: '\e809'; } /* '' */
+.icon-edit:before { content: '\e80a'; } /* '' */
+.icon-menu-outline:before { content: '\e80b'; } /* '' */
+.icon-chart-bar:before { content: '\e80c'; } /* '' */
+.icon-dollar:before { content: '\e80d'; } /* '' */
+.icon-user-male:before { content: '\f062'; } /* '' */
+.icon-money-1:before { content: '\f0d6'; } /* '' */
