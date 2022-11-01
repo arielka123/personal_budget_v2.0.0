@@ -51,8 +51,12 @@ $router->add('register',['controller' => 'Register', 'action' => 'new']);
 $router->add('settings',['controller' => 'Settings', 'action' => 'new']);
 
 
-$router->add('api/expenses', ['controller' => 'Expense', 'action' => 'expenses']);
-$router->add('api/incomes', ['controller' => 'Income', 'action' => 'incomes']);
+$router->add('api/expenses', ['controller' => 'Register', 'action' => 'expenses']);
+$router->add('api/incomes', ['controller' => 'Register', 'action' => 'incomes']);
+
+$router->add('api/expenseCategories', ['controller' => 'Settings', 'action' => 'expenseCategories']);
+$router->add('api/incomeCategories', ['controller' => 'Settings', 'action' => 'incomeCategories']);
+$router->add('api/payments', ['controller' => 'Settings', 'action' => 'payments']);
 
 $router->add('{controller}/{action}');
    

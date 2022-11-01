@@ -98,7 +98,8 @@ class Expenses extends \Core\Model
         return true;
     }
 
-    public static function loadUserExpenses(){
+    public static function loadUserExpenses()
+    {
         $user_id=Auth::getUserId();   
 
         $sql_expenses = 'SELECT c.name as name, amount, date_of_expense, expense_comment, p.name as paymentMethods FROM expenses as e
@@ -106,6 +107,38 @@ class Expenses extends \Core\Model
                                    JOIN payment_methods_assigned_to_users as p ON e.payment_method_assigned_to_user_id=p.id
                                    WHERE e.user_id = :user_id
                                    ORDER BY date_of_expense desc';
+                                   
+        $db = static::getDB();
+        $stmt = $db->prepare($sql_expenses);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+    $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+    }
+
+    public static function loadExpenseCategories()
+    {
+        $user_id=Auth::getUserId();   
+
+        $sql_expenses = 'SELECT * FROM expenses_category_assigned_to_users 
+                                   WHERE user_id = :user_id';
+                                   
+        $db = static::getDB();
+        $stmt = $db->prepare($sql_expenses);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+    $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+    }
+
+    public static function loadUserpayments()
+    {
+        $user_id=Auth::getUserId();   
+
+        $sql_expenses = 'SELECT * FROM payment_methods_assigned_to_users 
+                                   WHERE user_id = :user_id';
                                    
         $db = static::getDB();
         $stmt = $db->prepare($sql_expenses);

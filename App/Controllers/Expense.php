@@ -11,7 +11,7 @@ class Expense extends Authenticated
 {
     protected function before()
     {
-       // parent::before();
+       parent::before();
     }
     
     public function newAction()      
@@ -39,8 +39,5 @@ class Expense extends Authenticated
             $this->redirect('/expense'); 
             }
     }
-    
-    public function expensesAction(){
-        echo json_encode(Expenses::loadUserExpenses(), JSON_UNESCAPED_UNICODE);
-    }
+ 
 }
