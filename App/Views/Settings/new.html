@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-12">
                         <header>
-                            <h2 class="h2 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Ustawienia </h2>
+                            <p class="h4 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Ustawienia </p>
                         </header>
 
                         <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center">
@@ -28,15 +28,15 @@
                             <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
-                        <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center">
+                        <div class="col-10 bg-light p-1 m-1 mx-auto d-block text-center" id="expenseCategoryMenu">
                             <p class = "d-inline" >
-                                <i class = "icon-money"></i>
+                                <i class = "icon-money" id="expenseCategoryIcon"></i>
                                 Kategorie wydatków 
                             </p>
                             <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
-                        <div class="col-10 mt-4 mx-auto" style="display:block" id="expenseCategory">    
+                        <div class="col-10 mt-4 mx-auto" style="display:none" id="expenseCategory">    
                             <section>
                                 <table class="table table-hover">
                                     <thead>
@@ -73,7 +73,7 @@
                             <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
-                        <div class="col-10 mt-4 mx-auto" style="display:block" id="payments">    
+                        <div class="col-10 mt-4 mx-auto" style="display:none" id="payments">    
                             <section>
                                 <table class="table table-hover">
                                     <thead>
@@ -109,7 +109,7 @@
                             <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
-                        <div class="col-10 mt-4 mx-auto" style="display:block" id="incomeCategories">    
+                        <div class="col-10 mt-4 mx-auto" style="display:none" id="incomeCategories">    
                             <section>
                                 <table class="table table-hover">
                                     <thead>
@@ -146,7 +146,7 @@
                             <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
-                        <dl class="row mt-5 col-11">
+                        <dl class="row mt-5 col-11" style="display:none" id="profile">
                             <dt class="col-5 text-end ms-3">Name: </dt>
                             <dd class="col-5 ps-3">{{ user.name }}</dd>
                             <dt class="col-5 text-end ms-3">email: </dt>
