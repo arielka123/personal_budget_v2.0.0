@@ -36,32 +36,24 @@
                             <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
-                        <div class="col-md mt-4" style="display:none" id="expenses">    
+                        <div class="col-10 mt-4 mx-auto" style="display:block" id="expenseCategory">    
                             <section>
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Lp.</th>
-                                            <th scope="col">Data</th>
                                             <th scope="col">Kategoria</th>
-                                            <th scope="col">Kwota</th>
-                                            <th scope="col">Metoda</th>
-                                            <th scope="col">Komentarz</th>
                                         </tr>
                                     </thead>
                                     <tbody>
     
                                     {% set i = 0 %}
     
-                                    {% for row in expenses %}
+                                    {% for row in expenseCategories %}
         
                                         <tr>
                                             <th scope="row">{{ i + 1 }}</th>
-                                            <td>{{row['date_of_expense']}}</td>
                                             <td>{{row['name']}}</td>
-                                            <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
-                                            <td>{{row['paymentMethods']}}</td>
-                                            <td>{{row['expense_comment']}}</td>
                                         </tr>
                                         {% set i = i +1 %}
     
@@ -81,6 +73,71 @@
                             <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
+                        <div class="col-10 mt-4 mx-auto" style="display:block" id="payments">    
+                            <section>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Lp.</th>
+                                            <th scope="col">Sposób płatności</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+    
+                                    {% set i = 0 %}
+    
+                                    {% for row in payments %}
+        
+                                        <tr>
+                                            <th scope="row">{{ i + 1 }}</th>
+                                            <td>{{row['name']}}</td>
+                                        </tr>
+                                        {% set i = i +1 %}
+    
+                                    {% endfor %}
+    
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+
+                        <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center">
+                            <p class = "d-inline" >
+                                <i class = "icon-money-1"></i>
+                                Rodzaje przychodów 
+                            </p>
+                            <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
+                        </div>
+
+                        <div class="col-10 mt-4 mx-auto" style="display:block" id="incomeCategories">    
+                            <section>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Lp.</th>
+                                            <th scope="col">Sposób płatności</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+    
+                                    {% set i = 0 %}
+    
+                                    {% for row in incomeCategories %}
+        
+                                        <tr>
+                                            <th scope="row">{{ i + 1 }}</th>
+                                            <td>{{row['name']}}</td>
+                                        </tr>
+                                        {% set i = i +1 %}
+    
+                                    {% endfor %}
+    
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+
+
                         <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center">
                             <p class = "d-inline" >
                                 <i class = "icon-user-male"></i>
@@ -88,6 +145,19 @@
                             </p>
                             <i class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
+
+                        <dl class="row mt-5 col-11">
+                            <dt class="col-5 text-end ms-3">Name: </dt>
+                            <dd class="col-5 ps-3">{{ user.name }}</dd>
+                            <dt class="col-5 text-end ms-3">email: </dt>
+                            <dd class="col-5 ps-3">{{ user.email }} </dd>
+            
+                            <dl class=" text-center ">
+                                <form method="post" action="profile-edit"> 
+                                    <button type="submit" class="col-8 col-md-3 btn btn-outline-success mt-4">Edytuj</button>
+                                </form>
+                            </dl>
+                        </dl>
                             
                     </div>
                 </div>
