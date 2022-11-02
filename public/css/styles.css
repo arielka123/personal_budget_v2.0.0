@@ -16,22 +16,22 @@ body
 	border-radius: 10px;
 } 
 
-.icon-plus { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-minus{ font-size: 20px; padding-right:5px; color: #4db6ac };
-.icon-down-dir { font-size: 20px; padding-right:5px; color: #4db6ac };
-.icon-up-dir{font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-trash-empty { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-basket { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-wallet{ font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-money { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-power { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-cogs { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-edit { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-menu-outline { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-chart-bar { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-user-male { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-dollar { font-size: 20px; padding-right:5px; color: #4db6ac};
-.icon-money-1 { font-size: 20px; padding-right:5px; color: #4db6ac};
+.icon-plus { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-minus{ font-size: 20px; padding-right:5px; color: #4db6ac; }
+.icon-down-dir { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-up-dir{font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-trash-empty { font-size: 20px; padding-right:5px; color: #e60e07;}
+.icon-basket { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-wallet{ font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-money { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-power { font-size: 20px; padding-right:5px; color: #e60e07;}
+.icon-cogs { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-edit { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-menu-outline { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-chart-bar { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-user-male { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-dollar { font-size: 20px; padding-right:5px; color: #4db6ac;}
+.icon-money-1 { font-size: 20px; padding-right:5px; color: #4db6ac;}
 
 
 #help_login
@@ -168,3 +168,6 @@ input:focus:-ms-input-placeholder
 	color: white;
 }
 
+#itemSettings{
+	color: #4db6ac;
+}
