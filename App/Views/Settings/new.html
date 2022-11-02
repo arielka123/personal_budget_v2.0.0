@@ -28,31 +28,16 @@
                             <i id="incomeCategoryIcon" class = "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
-                        <div class="col-10 mt-4 mx-auto" style="display:none" id="incomeCategory">    
-                            <section>
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Lp.</th>
-                                            <th scope="col">Kategoria</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-    
-                                    {% set i = 0 %}
-    
+                        <div class="col-10 m-3 mx-auto" style="display:none" id="incomeCategory">    
+                            <section>    
                                     {% for row in incomeCategories %}
-        
-                                        <tr>
-                                            <th scope="row">{{ i + 1 }}</th>
-                                            <td>{{row['name']}}</td>
-                                        </tr>
-                                        {% set i = i +1 %}
-    
+                                        <div class="col bg-light p-1 mb-1 mx-auto d-block  text-center" >
+                                            <p class = "d-inline" >
+                                                {{row['name']}} 
+                                            </p>
+                                            <i id="incomeEditIcon" class = "d-inline icon-edit ps-auto" style="float:right"></i>
+                                        </div>
                                     {% endfor %}
-    
-                                    </tbody>
-                                </table>
                             </section>
                         </div>
 
@@ -64,34 +49,18 @@
                             <i id="expenseCategoryIcon" class = "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
 
-                        <div class="col-10 mt-4 mx-auto" style="display:none" id="expenseCategory">    
-                            <section>
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Lp.</th>
-                                            <th scope="col">Kategoria</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-    
-                                    {% set i = 0 %}
-    
+                        <div class="col-10 m-3 mx-auto" style="display:none" id="expenseCategory">    
+                            <section>    
                                     {% for row in expenseCategories %}
-        
-                                        <tr>
-                                            <th scope="row">{{ i + 1 }}</th>
-                                            <td>{{row['name']}}</td>
-                                        </tr>
-                                        {% set i = i +1 %}
-    
+                                        <div class="col bg-light p-1 mb-1 mx-auto d-block  text-center" >
+                                            <p class = "d-inline" >
+                                                {{row['name']}} 
+                                            </p>
+                                            <i id="incomeEditIcon" class = "d-inline icon-edit ps-auto" style="float:right"></i>
+                                        </div>
                                     {% endfor %}
-    
-                                    </tbody>
-                                </table>
                             </section>
                         </div>
-    
 
                         <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center" id="paymentsMenu">
                             <p class = "d-inline" >
@@ -100,32 +69,17 @@
                             </p>
                             <i id="paymentsIcon" class =  "d-inline icon-down-dir ps-auto" style="float:right"></i>
                         </div>
-
-                        <div class="col-10 mt-4 mx-auto" style="display:none" id="payments">    
-                            <section>
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Lp.</th>
-                                            <th scope="col">Sposób płatności</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-    
-                                    {% set i = 0 %}
-    
+                        
+                        <div class="col-10 m-3 mx-auto" style="display:none" id="payments">    
+                            <section>    
                                     {% for row in payments %}
-        
-                                        <tr>
-                                            <th scope="row">{{ i + 1 }}</th>
-                                            <td>{{row['name']}}</td>
-                                        </tr>
-                                        {% set i = i +1 %}
-    
+                                        <div class="col bg-light p-1 mb-1 mx-auto d-block  text-center" >
+                                            <p class = "d-inline" >
+                                                {{row['name']}} 
+                                            </p>
+                                            <i id="incomeEditIcon" class = "d-inline icon-edit ps-auto" style="float:right"></i>
+                                        </div>
                                     {% endfor %}
-    
-                                    </tbody>
-                                </table>
                             </section>
                         </div>
 
