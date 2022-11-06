@@ -176,7 +176,7 @@ input:focus:-ms-input-placeholder
 	
 }
 
-.addNewCategory{
+.addNewCategory{   
 	background-color:#4db6ac; 
 	color:white; 
 	border-radius: 20px;
@@ -187,3 +187,4 @@ input:focus:-ms-input-placeholder
 	cursor: pointer;
 	
 }
+

@@ -30,12 +30,16 @@
 
                         <div class="col-10 m-3 mx-auto" style="display:none" id="incomeCategory">    
                             <section>    
-                                <div class="col p-1 mb-1 mx-auto d-block ps-3 addNewCategory">
-                                    <p class = "d-inline">
+                                {# <div class="col p-1 mb-1 mx-auto d-block ps-3 addNewCategory" id="addIncome"> #}
+                                    {# <p class = "d-inline">
                                         Nowa kategoria
-                                    </p>
-                                    <i id="incomeAddIcon" class = "d-inline icon-plus pe-3" style="float:right"></i>
-                                </div>
+                                    </p> #}
+                                     <!-- Button trigger modal -->
+                                <button type="button" class="btn col-12 p-1 mb-1 mx-auto d-block ps-3 addNewCategory" id="addIncome" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Nowa kategoria<i id="incomeAddIcon" class = "d-inline icon-plus pe-3" style="float:right"></i>
+                                </button>
+                                    
+                                {# </div> #}
 
                                 {% for row in incomeCategories %}
                                     <div class="col bg-light p-1 mb-1 mx-auto d-block ps-3">
@@ -59,8 +63,36 @@
                                         </p>
                                     </div>
                                 {% endfor %}
-                            </section>
-                        </div>
+                          
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        ...
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                            </section>  
+                        </div> 
+
+                        
+                            
+                            
+                      
 
                         <div class="col-10 bg-light p-1 m-1 mx-auto d-block text-center settingsItem" id="expenseCategoryMenu">  
                             <p class = "d-inline" >
@@ -179,5 +211,5 @@
 {% block footer %}
     {{ parent() }}
     <script src="/js/settings.js"></script>
-
+    <script src="/js/settingsModal.js"></script>
 {% endblock %}

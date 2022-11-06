@@ -14,11 +14,6 @@ const profileMenu = document.querySelector('#profileMenu');
 const profileIcon = document.querySelector('#profileIcon');
 const profile = document.querySelector('#profile');
 
-let expenseTrashIcon = document.querySelector('#expenseTrashIcon');
-let incomeTrashIcon = document.querySelector('#incomeTrashIcon');
-let paymentsTrashIcon = document.querySelector('#paymentsTrashIcon');
-
-
 function  showExpenseCategory() {
     
     if (expenseCategory.style.display === "none") {
