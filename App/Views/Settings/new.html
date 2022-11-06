@@ -264,12 +264,59 @@
                                 <dt class="col-5 text-end ms-3">email: </dt>
                                 <dd class="col-5 ps-3">{{ user.email }} </dd>
             
-                                <dl class=" text-center ">
-                                    <form method="post" action="profile-edit"> 
-                                        <button type="submit" class="col-8 col-md-3 btn btn-outline-success mt-4">Edytuj</button>
-                                    </form>
-                                </dl>
+                                <div  class="col-11 modal-footer text-center mx-auto d-block">
+                                    <button type="button" class="col-sm-5 col-10 mt-2 btn addNewCategory " id="editUser" data-bs-toggle="modal" data-bs-target="#userModal">
+                                        Edytuj
+                                    </button>
+                                    <button type="button" class="col-sm-3 col-10 mt-2 btn deleteUser " id="deleteUser" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                                        Usuń konto
+                                    </button>
+                                </div>
                             </dl>
+{# user modal #}
+                            <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title fw-bold" id="userModalLabel" style="color:#4db6ac;">
+                                                Edycja Danych Użytkownika
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                            </button>
+                                        </div>
+
+                                        <form method="post" action="profile-update" id="userModalForm" enctype="multipart/form-data" >
+                                            <div class="modal-body" style="color:#4db6ac;">
+                                                
+                                                <div class="form-group">
+                                                    <label for="inputName">Imie</label>
+                                                    <input id="inputName" name="name" placeholder="Imie" value="{{ user.name }}" required class="form-control"/>
+                                                </div>
+                                        
+                                                <div class="form-group">
+                                                    <label for="inputEmail">Adres email</label>
+                                                    <input id="inputEmail" name="email" placeholder="Adres emails" value="{{ user.email }}" required type="email"class="form-control"/>
+                                                </div>
+                                        
+                                                <div class="form-group mb-3">
+                                                    <label for="inputPassword">Hasło</label>
+                                                    <input id="inputPassword" type="password" name="password" placeholder="Hasło"
+                                                    aria-describedby="helpBlock" class="form-control"/>
+                                                    <span id="helpBlock" class="form-text">Pozostaw puste jeśli chcesz zatrzymać obecne hasło</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 modal-footer text-center mx-auto d-block">
+                                                <button type="submit" class="btn col-5 " id='buttonSave' style="background-color:#4db6ac; color:white">Zapisz
+                                                </button>
+                                                <button type="button" class="btn btn-secondary col-5" data-bs-dismiss="modal">Anuluj</button>
+                                            </div>
+                                        </form>        
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                         </div>
                         

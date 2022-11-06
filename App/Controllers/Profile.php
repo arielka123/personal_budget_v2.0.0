@@ -24,10 +24,15 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
      */
     public function showAction()
     {     
-            View::renderTemplate('Profile/show.html',[
+            // View::renderTemplate('Profile/show.html',[
+            //     'user' => $this->user
+            // ]);     
+            
+            View::renderTemplate('Settings/new.html', [
                 'user' => $this->user
-            ]);        
-    }
+            ]);       
+
+    }   
 
 /**
  * show the form for the editing action
@@ -35,9 +40,13 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
 
     public function editAction()
     {
-            View::renderTemplate('Profile/edit.html',[
+            // View::renderTemplate('Profile/edit.html',[
+            //     'user' => $this->user
+            // ]);   
+             
+            View::renderTemplate('Settings/new.html', [
                 'user' => $this->user
-            ]);        
+            ]);           
     }
 
     /**
@@ -51,9 +60,14 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
                $this->showAction();
             }
             else {
-                View::renderTemplate('Profile/edit.html',[
-                    'user' => $this->user
-                ]);
+                // View::renderTemplate('Profile/edit.html',[
+                //     'user' => $this->user
+                // ]);
+
+                 
+            View::renderTemplate('Settings/new.html', [
+                'user' => $this->user
+            ]);      
             }
      }
 }

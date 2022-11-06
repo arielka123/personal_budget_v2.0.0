@@ -185,6 +185,11 @@ input:focus:-ms-input-placeholder
 
 .settingsItem{
 	cursor: pointer;
-	
 }
 
+.deleteUser{
+	background-color:#ab0d0a; 
+	color:white; 
+	border-radius: 20px;
+	cursor: pointer;
+}
