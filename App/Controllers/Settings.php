@@ -5,6 +5,8 @@ use \Core\View;
 use \App\Models\Expenses;   
 use \App\Models\Incomes;
 use \App\Auth;
+use \App\Flash;
+
 
 class Settings extends Authenticated 
 {
@@ -40,5 +42,43 @@ class Settings extends Authenticated
         echo json_encode(Incomes::loadIncomeCategories(), JSON_UNESCAPED_UNICODE);
     }
 
+    public function deleteExpCategoryAction(){
 
+
+        if (Expenses::deleteExpenseCategory()==true) {
+            Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+
+        }
+    }
+
+    public function deleteIncCategoryAction(){
+ 
+         if (Incomes::deleteIncomeCategory()==true) {
+             Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
+     
+             $this->redirect('/settings');
+         }
+         else {
+             $this->redirect('/settings');
+ 
+         }
+     }
+     public function deletePayCategoryAction(){
+ 
+        if (Expenses::deletePaymentCategory()==true) {
+            Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+
+        }
+    }
+    
 }

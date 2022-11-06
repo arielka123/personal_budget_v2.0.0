@@ -1,18 +1,23 @@
-let expenseCategoryMenu = document.querySelector('#expenseCategoryMenu');
-let expenseCategoryIcon = document.querySelector('#expenseCategoryIcon');
-let expenseCategory = document.querySelector('#expenseCategory');
+const expenseCategoryMenu = document.querySelector('#expenseCategoryMenu');
+const expenseCategoryIcon = document.querySelector('#expenseCategoryIcon');
+const expenseCategory = document.querySelector('#expenseCategory');
 
-let incomeCategoryMenu = document.querySelector('#incomeCategoryMenu');
-let incomeCategoryIcon = document.querySelector('#incomeCategoryIcon');
-let incomeCategory = document.querySelector('#incomeCategory');
+const incomeCategoryMenu = document.querySelector('#incomeCategoryMenu');
+const incomeCategoryIcon = document.querySelector('#incomeCategoryIcon');
+const incomeCategory = document.querySelector('#incomeCategory');
 
-let paymentsMenu = document.querySelector('#paymentsMenu');
-let paymentsIcon = document.querySelector('#paymentsIcon');
-let payments = document.querySelector('#payments');
+const paymentsMenu = document.querySelector('#paymentsMenu');
+const paymentsIcon = document.querySelector('#paymentsIcon');
+const payments = document.querySelector('#payments');
 
-let profileMenu = document.querySelector('#profileMenu');
-let profileIcon = document.querySelector('#profileIcon');
-let profile = document.querySelector('#profile');
+const profileMenu = document.querySelector('#profileMenu');
+const profileIcon = document.querySelector('#profileIcon');
+const profile = document.querySelector('#profile');
+
+let expenseTrashIcon = document.querySelector('#expenseTrashIcon');
+let incomeTrashIcon = document.querySelector('#incomeTrashIcon');
+let paymentsTrashIcon = document.querySelector('#paymentsTrashIcon');
+
 
 function  showExpenseCategory() {
     
@@ -84,3 +89,5 @@ expenseCategoryMenu.addEventListener('click', showExpenseCategory);
 incomeCategoryMenu.addEventListener('click', showIncomeCategory);
 paymentsMenu.addEventListener('click', showPayments);
 profileMenu.addEventListener('click', showProfile);
+
+

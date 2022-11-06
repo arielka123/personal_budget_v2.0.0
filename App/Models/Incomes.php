@@ -104,4 +104,33 @@ class Incomes extends \Core\Model
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public static function deleteIncomeCategory()
+    {
+        $user_id=Auth::getUserId();
+        $id = $_POST['incomeCategoryItem']; 
+
+        $sql = 'DELETE FROM incomes_category_assigned_to_users 
+               WHERE user_id=:user_id 
+               AND id=:id';
+    
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if($stmt->execute()!= true){
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function addNewIncomeCategory()
+    {
+
+    }
+
 }
