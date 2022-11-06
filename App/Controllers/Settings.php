@@ -42,22 +42,31 @@ class Settings extends Authenticated
         echo json_encode(Incomes::loadIncomeCategories(), JSON_UNESCAPED_UNICODE);
     }
 
-    public function deleteCategoryAction(){
+    public function deleteExpCategoryAction(){
 
-       $user = Auth::getUser();       
 
-       if (Expenses::deleteNewExpenseCategory()==true) {
-        Flash::addMessage('Usunięto element', Flash::SUCCESS);
- 
-        $this->redirect('/settings');
-
-    }
+        if (Expenses::deleteExpenseCategory()==true) {
+            Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
     
-    else {
-        $this->redirect('/settings');
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
 
+        }
+    }
 
-    }
-    }
+    public function deleteIncCategoryAction(){
+ 
+         if (Incomes::deleteIncomeCategory()==true) {
+             Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
+     
+             $this->redirect('/settings');
+         }
+         else {
+             $this->redirect('/settings');
+ 
+         }
+     }
     
 }

@@ -153,7 +153,7 @@ class Expenses extends \Core\Model
 
     }
 
-    public static function deleteNewExpenseCategory()
+    public static function deleteExpenseCategory()
     {
         $user_id=Auth::getUserId();
         $id = $_POST['expenseCategoryItem']; 

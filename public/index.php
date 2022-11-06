@@ -40,7 +40,6 @@ $router->add('income/save',['controller' => 'Income', 'action' => 'save']);
 
 $router->add('expense',['controller' => 'Expense', 'action' => 'new']);
 $router->add('expense/save',['controller' => 'Expense', 'action' => 'save']);
-$router->add('settings/deleteCategory',['controller' => 'Settings', 'action' => 'deleteCategory']);
 
 
 $router->add('balance',['controller' => 'Balance', 'action' => 'new']);
@@ -51,6 +50,9 @@ $router->add('profile-update',['controller' => 'Profile', 'action' => 'update'])
 
 $router->add('register',['controller' => 'Register', 'action' => 'new']);
 $router->add('settings',['controller' => 'Settings', 'action' => 'new']);
+$router->add('settings/deleteExpenseCategory',['controller' => 'Settings', 'action' => 'deleteExpCategory']);
+$router->add('settings/deleteIncomeCategory',['controller' => 'Settings', 'action' => 'deleteIncCategory']);
+
 
 
 $router->add('api/expenses', ['controller' => 'Register', 'action' => 'expenses']);
