@@ -196,11 +196,25 @@ class Expenses extends \Core\Model
         return true;
     }
 
+    public static function addExpenseCategory()
+    {
+        $user_id=Auth::getUserId();
+        $name = $_POST['inputExpenseCategory'];
+        
+        $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name)
+                VALUES (:user_id, :name) ';
 
+        $db = static::getDB();
 
-    public static function addNewIncomeCategory()
-        {
+        $stmt = $db->prepare($sql);
 
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+       
+        if($stmt->execute()!= true){
+            return false;
         }
+        return true;
+    }
 }
 

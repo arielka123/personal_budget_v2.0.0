@@ -83,7 +83,19 @@ class Settings extends Authenticated
     public function addIncomeCategoryAction(){
 
         if (Incomes::addIncomeCategory()==true) {
-            Flash::addMessage('Wybranan kategoria została dodana', Flash::SUCCESS);
+            Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+
+    public function addExpenseCategoryAction(){
+
+        if (Expenses::addExpenseCategory()==true) {
+            Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
     
             $this->redirect('/settings');
         }
