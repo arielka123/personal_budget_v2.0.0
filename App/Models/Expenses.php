@@ -148,9 +148,29 @@ class Expenses extends \Core\Model
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    public static function addNewIncomeCategory()
-    {
+   
 
+    public static function deletePaymentCategory()
+    {
+        $user_id=Auth::getUserId();
+        $id = $_POST['paymentCategoryItem']; 
+
+        $sql = 'DELETE FROM payment_methods_assigned_to_users 
+               WHERE user_id=:user_id 
+               AND id=:id';
+    
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if($stmt->execute()!= true){
+            return false;
+        }
+
+        return true;
     }
 
     public static function deleteExpenseCategory()
@@ -176,5 +196,11 @@ class Expenses extends \Core\Model
         return true;
     }
 
+
+
+    public static function addNewIncomeCategory()
+        {
+
+        }
 }
 

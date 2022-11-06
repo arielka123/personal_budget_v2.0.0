@@ -52,6 +52,7 @@ $router->add('register',['controller' => 'Register', 'action' => 'new']);
 $router->add('settings',['controller' => 'Settings', 'action' => 'new']);
 $router->add('settings/deleteExpenseCategory',['controller' => 'Settings', 'action' => 'deleteExpCategory']);
 $router->add('settings/deleteIncomeCategory',['controller' => 'Settings', 'action' => 'deleteIncCategory']);
+$router->add('settings/deletePaymentCategory',['controller' => 'Settings', 'action' => 'deletePayCategory']);
 
 
 

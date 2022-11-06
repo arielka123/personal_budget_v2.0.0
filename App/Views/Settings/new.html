@@ -123,8 +123,17 @@
                                     <div class="col bg-light p-1 mb-1 mx-auto d-block">
                                         <p class = "d-inline" >
                                             {{row['name']}} 
+                                            {% set id_catPay = row['id'] %}
                                         </p>
-                                        <i id="paymentsTrashIcon" class = "d-inline icon-trash-empty pe-3 " style="float:right"></i>
+
+                                        <form method="post" action="settings/deletePaymentCategory" enctype="multipart/form-data" id="formCatPay{{ row['id'] }}" class = "d-inline" style="float:right"> 
+                                            <input name="paymentCategoryItem" id="categoryPaymentItem{{ row['id'] }}" value="{{ row['id'] }}" style="display: none"></input>
+                                            <i id="paymentsTrashIcon" class = "icon-trash-empty pe-3"
+                                             onclick="document.getElementById('formCatPay{{ id_catPay }}').submit()" > </i> 
+    
+                                            <input type="submit" class="bg-transparent" style="display: none"></input>
+                                        </form>
+
                                         <i id="paymentsEditIcon" class = "d-inline icon-edit pe-1" style="float:right"></i>
                                         <p class="text-muted m-0 p-0">
                                             <small>Limit: BRAK</small>

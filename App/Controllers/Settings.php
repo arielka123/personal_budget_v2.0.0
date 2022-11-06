@@ -68,5 +68,17 @@ class Settings extends Authenticated
  
          }
      }
+     public function deletePayCategoryAction(){
+ 
+        if (Expenses::deletePaymentCategory()==true) {
+            Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+
+        }
+    }
     
 }
