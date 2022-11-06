@@ -72,47 +72,39 @@
                                         <h5 class="modal-title fw-bold" id="exampleModalLabel" style="color:#4db6ac;">Dodaj nową kategorie przychodu</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
-                                      <div class="modal-body" style="color:#4db6ac;">
-                                        <form method="post" action="#">
-                                            <div class="form-group">
-                                                <label for="inputIncCategory">Nazwa Kategorii</label>
-                                                <input id="inputIncCategory" type="text" class=" col-10" name="inputIncCategory" autofocus required class="form-control" />
+                                        <form method="post" action="settings/addIncomeCategory" id="modalIncomeForm" enctype="multipart/form-data" >
+                                            <div class="modal-body" style="color:#4db6ac;">
 
-                                                <div class="checkbox">
-                                                    <label class="h6 mx-auto d-block mb-md-3 mt-md-2 mt-sm-1 mb-sm-1 ">
-                                                        <input type="checkbox"  name="limit" class=""/> Włącz limit dla kategorii
-                                                    </label>
-                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputIncCategory">Nazwa Kategorii</label>
+                                                    <input id="inputIncomeCategoryiD" type="text" class="form-control col-10" name="inputIncomeCategory" autofocus required />
 
-                                                <div class = "form-group row pb-3" >
-                                                    <label for ="kwota" class="h6 col-form-label d-block"> Ustaw miesięczny limit wydatków dla kategorii</label>
-                                                    <div class="col-10">
-                                                        <input type="number" class="form-control col-sm-2" name= "amount" id="amount" min="0" step="0.01" disabled>
+                                                    <div class="checkbox">
+                                                        <label class="h6 mx-auto d-block mb-md-3 mt-md-2 mt-sm-1 mb-sm-1 ">
+                                                            <input type="checkbox"  name="limit" class=""/> Włącz limit dla kategorii
+                                                        </label>
                                                     </div>
+
+                                                    <div class = "form-group row pb-3" >
+                                                        <label for ="kwota" class="h6 col-form-label d-block"> Ustaw miesięczny limit wydatków dla kategorii</label>
+                                                        <div class="col-10">
+                                                            <input type="number" class="form-control col-sm-2" name= "amount" id="amount" min="0" step="0.01" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </form>
-                                      </div>
+                                            <div class="col-12 modal-footer text-center mx-auto d-block">
 
-                                      <div class="col-12 modal-footer text-center mx-auto d-block">
-
-                                        <button type="button" class="btn col-5 " style="background-color:#4db6ac; color:white">Zapisz
-                                        </button>
-                                        <button type="button" class="btn btn-secondary col-5" data-bs-dismiss="modal">Anuluj</button>
-                                      </div>
+                                                <button type="submit" class="btn col-5 " id='buttonSave' style="background-color:#4db6ac; color:white">Zapisz
+                                                </button>
+                                                <button type="button" class="btn btn-secondary col-5" data-bs-dismiss="modal">Anuluj</button>
+                                            </div>
+                                        </form>        
                                     </div>
-                                  </div>
+                                   </div>
                                 </div>
-                              </div>
-
-
-
                             </section>  
                         </div> 
-
-                        
-                            
-                            
-                      
 
                         <div class="col-10 bg-light p-1 m-1 mx-auto d-block text-center settingsItem" id="expenseCategoryMenu">  
                             <p class = "d-inline" >

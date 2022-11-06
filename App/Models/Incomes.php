@@ -119,8 +119,6 @@ class Incomes extends \Core\Model
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
-        $stmt->execute();
-
         if($stmt->execute()!= true){
             return false;
         }
@@ -128,9 +126,27 @@ class Incomes extends \Core\Model
         return true;
     }
 
-    public static function addNewIncomeCategory()
+    public static function addIncomeCategory()
     {
 
+        $user_id=Auth::getUserId();
+        $name = $_POST['inputIncomeCategory'];
+        
+        $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+                VALUES (:user_id, :name) ';
+
+        $db = static::getDB();
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+       
+        if($stmt->execute()!= true){
+            return false;
+        }
+
+        return true;
     }
 
 }

@@ -77,13 +77,18 @@ class Settings extends Authenticated
         }
         else {
             $this->redirect('/settings');
-
         }
     }
 
     public function addIncomeCategoryAction(){
 
-        Incomes::addIncomeCategory();
-        View::renderTemplate('/expense');  
+        if (Incomes::addIncomeCategory()==true) {
+            Flash::addMessage('Wybranan kategoria została dodana', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
     }
 }

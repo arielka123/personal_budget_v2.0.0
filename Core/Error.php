@@ -60,9 +60,9 @@ class Error
             $message .= " with message '" . $exception->getMessage() . "'";
             $message .= "\nStack trace: " . $exception->getTraceAsString();
             $message .= "\nThrown in '" . $exception->getFile() . "' on line " . $exception->getLine();
-            
+            $message .= "\Code : '" .$code;
             error_log($message);
-        
+            
            View::renderTemplate("$code.html");
         }
     }

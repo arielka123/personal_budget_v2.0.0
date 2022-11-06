@@ -49,12 +49,12 @@ $router->add('profile-edit',['controller' => 'Profile', 'action' => 'edit']);
 $router->add('profile-update',['controller' => 'Profile', 'action' => 'update']);
 
 $router->add('register',['controller' => 'Register', 'action' => 'new']);
+
 $router->add('settings',['controller' => 'Settings', 'action' => 'new']);
 $router->add('settings/deleteExpenseCategory',['controller' => 'Settings', 'action' => 'deleteExpCategory']);
 $router->add('settings/deleteIncomeCategory',['controller' => 'Settings', 'action' => 'deleteIncCategory']);
 $router->add('settings/deletePaymentCategory',['controller' => 'Settings', 'action' => 'deletePayCategory']);
-
-
+$router->add('settings/addIncomeCategory',['controller' => 'Settings', 'action' => 'addIncomeCategory']);
 
 $router->add('api/expenses', ['controller' => 'Register', 'action' => 'expenses']);
 $router->add('api/incomes', ['controller' => 'Register', 'action' => 'incomes']);
