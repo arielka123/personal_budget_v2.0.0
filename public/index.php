@@ -44,9 +44,7 @@ $router->add('expense/save',['controller' => 'Expense', 'action' => 'save']);
 
 $router->add('balance',['controller' => 'Balance', 'action' => 'new']);
 
-$router->add('profile-show',['controller' => 'Profile', 'action' => 'show']);
-$router->add('profile-edit',['controller' => 'Profile', 'action' => 'edit']);    
-$router->add('profile-update',['controller' => 'Profile', 'action' => 'update']);
+$router->add('profile/update',['controller' => 'Profile', 'action' => 'updateUserProfile']);
 
 $router->add('register',['controller' => 'Register', 'action' => 'new']);
 

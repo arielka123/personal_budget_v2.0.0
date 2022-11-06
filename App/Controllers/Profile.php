@@ -20,54 +20,17 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
         $this->user = Auth::getUser();
     }
     /**
-     * show profile
-     */
-    public function showAction()
-    {     
-            // View::renderTemplate('Profile/show.html',[
-            //     'user' => $this->user
-            // ]);     
-            
-            View::renderTemplate('Settings/new.html', [
-                'user' => $this->user
-            ]);       
-
-    }   
-
-/**
- * show the form for the editing action
- */
-
-    public function editAction()
-    {
-            // View::renderTemplate('Profile/edit.html',[
-            //     'user' => $this->user
-            // ]);   
-             
-            View::renderTemplate('Settings/new.html', [
-                'user' => $this->user
-            ]);           
-    }
-
-    /**
      * Update the profile
      */
 
-     public function updateAction()
+     public function updateUserProfileAction()
      {
             if($this->user->updateProfile($_POST)){
                 Flash::addMessage('Twoje zmiany zostały zapisane');
-               $this->showAction();
+                $this->redirect('/settings');
             }
             else {
-                // View::renderTemplate('Profile/edit.html',[
-                //     'user' => $this->user
-                // ]);
-
-                 
-            View::renderTemplate('Settings/new.html', [
-                'user' => $this->user
-            ]);      
+                $this->redirect('/settings');
             }
      }
 }
