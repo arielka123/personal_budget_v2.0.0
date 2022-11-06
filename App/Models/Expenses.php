@@ -216,5 +216,25 @@ class Expenses extends \Core\Model
         }
         return true;
     }
-}
 
+    public static function addPaymentsCategory()
+    {
+        $user_id=Auth::getUserId();
+        $name = $_POST['inputPaymentsCategory'];
+        
+        $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+                VALUES (:user_id, :name) ';
+
+        $db = static::getDB();
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+       
+        if($stmt->execute()!= true){
+            return false;
+        }
+        return true;
+    }
+}

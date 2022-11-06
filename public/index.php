@@ -56,7 +56,7 @@ $router->add('settings/deleteIncomeCategory',['controller' => 'Settings', 'actio
 $router->add('settings/deletePaymentCategory',['controller' => 'Settings', 'action' => 'deletePayCategory']);
 $router->add('settings/addIncomeCategory',['controller' => 'Settings', 'action' => 'addIncomeCategory']);
 $router->add('settings/addExpenseCategory',['controller' => 'Settings', 'action' => 'addExpenseCategory']);
-$router->add('settings/addPaymentCategory',['controller' => 'Settings', 'action' => 'addPaymentCategory']);
+$router->add('settings/addPaymentsCategory',['controller' => 'Settings', 'action' => 'addPaymentsCategory']);
 
 $router->add('api/expenses', ['controller' => 'Register', 'action' => 'expenses']);
 $router->add('api/incomes', ['controller' => 'Register', 'action' => 'incomes']);

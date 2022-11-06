@@ -103,4 +103,17 @@ class Settings extends Authenticated
             $this->redirect('/settings');
         }
     }
+
+    public function addPaymentsCategoryAction(){
+
+        if (Expenses::addPaymentsCategory()==true) {
+            Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+    
 }
