@@ -66,42 +66,32 @@
                           
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title fw-bold" id="exampleModalLabel" style="color:#4db6ac;">Dodaj nową kategorie przychodu</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                        <form method="post" action="settings/addIncomeCategory" id="modalIncomeForm" enctype="multipart/form-data" >
-                                            <div class="modal-body" style="color:#4db6ac;">
-
-                                                <div class="form-group">
-                                                    <label for="inputIncCategory">Nazwa Kategorii</label>
-                                                    <input id="inputIncomeCategoryiD" type="text" class="form-control col-10" name="inputIncomeCategory" autofocus required />
-
-                                                    <div class="checkbox">
-                                                        <label class="h6 mx-auto d-block mb-md-3 mt-md-2 mt-sm-1 mb-sm-1 ">
-                                                            <input type="checkbox"  name="limit" class=""/> Włącz limit dla kategorii
-                                                        </label>
-                                                    </div>
-
-                                                    <div class = "form-group row pb-3" >
-                                                        <label for ="kwota" class="h6 col-form-label d-block"> Ustaw miesięczny limit wydatków dla kategorii</label>
-                                                        <div class="col-10">
-                                                            <input type="number" class="form-control col-sm-2" name= "amount" id="amount" min="0" step="0.01" disabled>
-                                                        </div>
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fw-bold" id="exampleModalLabel" style="color:#4db6ac;">
+                                                Dodaj nową kategorie przychodu
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                </button>
+                                            </div>
+                                            <form method="post" action="settings/addIncomeCategory" id="modalIncomeForm" enctype="multipart/form-data" >
+                                                <div class="modal-body" style="color:#4db6ac;">
+                                                    <div class="form-group">
+                                                        <label for="inputIncCategory">Nazwa Kategorii</label>
+                                                        <input id="inputIncomeCategoryiD" type="text" class="form-control col-10" name="inputIncomeCategory" autofocus required />
+                                  
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 modal-footer text-center mx-auto d-block">
+                                                <div class="col-12 modal-footer text-center mx-auto d-block">
 
-                                                <button type="submit" class="btn col-5 " id='buttonSave' style="background-color:#4db6ac; color:white">Zapisz
-                                                </button>
-                                                <button type="button" class="btn btn-secondary col-5" data-bs-dismiss="modal">Anuluj</button>
-                                            </div>
-                                        </form>        
+                                                    <button type="submit" class="btn col-5 " id='buttonSave' style="background-color:#4db6ac; color:white">Zapisz
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary col-5" data-bs-dismiss="modal">Anuluj</button>
+                                                </div>
+                                            </form>        
+                                        </div>
                                     </div>
-                                   </div>
                                 </div>
                             </section>  
                         </div> 
@@ -116,12 +106,16 @@
 
                         <div class="col-10 m-3 mx-auto" style="display:none" id="expenseCategory">    
                             <section>    
-                                <div class="col p-1 mb-1 mx-auto d-block ps-3 addNewCategory">
+                                {# <div class="col p-1 mb-1 mx-auto d-block ps-3 addNewCategory">
                                     <p class = "d-inline">
                                         Nowa kategoria
-                                    </p>
-                                    <i id="incomeAddIcon" class = "d-inline icon-plus pe-3" style="float:right"></i>
-                                </div>
+                                    </p> #}
+
+                                    <button type="button" class="btn col-12 p-1 mb-1 mx-auto d-block ps-3 addNewCategory" id="addExpense" data-bs-toggle="modal" data-bs-target="#expenseModal">
+                                        Nowa kategoria<i id="expenseAddIcon" class = "d-inline icon-plus pe-3" style="float:right"></i>
+                                    </button>
+
+                                {# </div> #}
                                 {% for row in expenseCategories %}
                                     <div class="col bg-light p-1 mb-1 mx-auto d-block">
                                         <p class = "d-inline" >
@@ -144,6 +138,46 @@
                                         </p>
                                     </div>
                                 {% endfor %}
+                                <!-- Modal -->
+                                <div class="modal fade" id="expenseModal" tabindex="-1" aria-labelledby="expenseModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fw-bold" id="expenseModalLabel" style="color:#4db6ac;">
+                                                Dodaj nową kategorie wydatku
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                </button>
+                                            </div>
+                                            <form method="post" action="settings/addExpenseCategory" id="modalExpenseForm" enctype="multipart/form-data" >
+                                                <div class="modal-body" style="color:#4db6ac;">
+                                                    <div class="form-group">
+                                                        <label for="inputExpCategory">Nazwa Kategorii</label>
+                                                        <input id="inputExpenseCategoryiD" type="text" class="form-control col-10" name="inputExpenseCategory" autofocus required />
+                                                        <div class="checkbox">
+                                                            <label class="h6 mx-auto d-block mb-md-3 mt-md-2 mt-sm-1 mb-sm-1 ">
+                                                            <input type="checkbox"  name="limit" id="ExpenseLimit" class=""/> Włącz limit dla kategorii
+                                                            </label>
+                                                         </div>
+
+                                                        <div class = "form-group row pb-3" >
+                                                            <label for ="kwota" class="h6 col-form-label d-block"> Ustaw miesięczny limit wydatków dla kategorii</label>
+                                                            <div class="col-10">
+                                                                <input type="number" class="form-control col-sm-2" name= "amount" id="amount" min="0" step="0.01" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 modal-footer text-center mx-auto d-block">
+
+                                                    <button type="submit" class="btn col-5 " id='buttonSave' style="background-color:#4db6ac; color:white">Zapisz
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary col-5" data-bs-dismiss="modal">Anuluj</button>
+                                                </div>
+                                            </form>        
+                                        </div>
+                                    </div>
+                                </div>
                             </section>
                         </div>
 
