@@ -18,7 +18,7 @@ class Settings extends Authenticated
 
     public static function newAction()      
     {         
-            $user = Auth::getUser();
+            $user = Auth::getUser();   
 
             $args = [
             'expenseCategories' => Expenses::loadExpenseCategories(),
@@ -80,5 +80,10 @@ class Settings extends Authenticated
 
         }
     }
-    
+
+    public function addIncomeCategoryAction(){
+
+        Incomes::addIncomeCategory();
+        View::renderTemplate('/expense');  
+    }
 }
