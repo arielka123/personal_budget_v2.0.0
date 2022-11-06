@@ -5,6 +5,8 @@ use \Core\View;
 use \App\Models\Expenses;   
 use \App\Models\Incomes;
 use \App\Auth;
+use \App\Flash;
+
 
 class Settings extends Authenticated 
 {
@@ -40,5 +42,22 @@ class Settings extends Authenticated
         echo json_encode(Incomes::loadIncomeCategories(), JSON_UNESCAPED_UNICODE);
     }
 
+    public function deleteCategoryAction(){
 
+       $user = Auth::getUser();       
+
+       if (Expenses::deleteNewExpenseCategory()==true) {
+        Flash::addMessage('Usunięto element', Flash::SUCCESS);
+ 
+        $this->redirect('/settings');
+
+    }
+    
+    else {
+        $this->redirect('/settings');
+
+
+    }
+    }
+    
 }

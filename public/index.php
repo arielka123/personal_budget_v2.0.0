@@ -40,6 +40,8 @@ $router->add('income/save',['controller' => 'Income', 'action' => 'save']);
 
 $router->add('expense',['controller' => 'Expense', 'action' => 'new']);
 $router->add('expense/save',['controller' => 'Expense', 'action' => 'save']);
+$router->add('settings/deleteCategory',['controller' => 'Settings', 'action' => 'deleteCategory']);
+
 
 $router->add('balance',['controller' => 'Balance', 'action' => 'new']);
 
