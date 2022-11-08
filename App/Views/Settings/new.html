@@ -52,7 +52,7 @@
                                             <input type="submit" class="bg-transparent" style="display: none" ></input>
                                         </form>
 
-                                        <i  class = "editIncomeIcon d-inline icon-edit pe-1" id="{{ row['name'] }}" value="{{ row['name'] }}"style="float:right" data-bs-toggle="modal" data-bs-target="#editIncomeModal"></i>
+                                        <i  class = "editIncomeIcon d-inline icon-edit pe-1" id="{{ row['id'] }}" value="{{ row['id'] }}"style="float:right" data-bs-toggle="modal" data-bs-target="#editIncomeModal"></i>
                                         
                                         <p class="text-muted m-0 p-0">
                                             <small>Limit: BRAK</small>
@@ -75,6 +75,7 @@
                                                     <div class="form-group">
                                                         <label for="editIncCategory">Nazwa Kategorii</label>
                                                         <input id="editIncCategory" type="text" class="form-control col-10" name="editIncCategory"  autofocus required />
+                                                        <input id="editIncCategory2" type="text" class="form-control col-10" name="editIncCategory2"  autofocus style="display:none" />
                                                     </div>
                                                 </div>
 

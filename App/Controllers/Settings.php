@@ -116,4 +116,15 @@ class Settings extends Authenticated
         }
     }
     
+    public function editIncomeCategoryAction(){
+
+        if (Incomes::editIncomeCategory()==true) {
+            Flash::addMessage('Zapisano zmiany', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+    
 }

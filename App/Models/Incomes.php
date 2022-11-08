@@ -128,7 +128,6 @@ class Incomes extends \Core\Model
 
     public static function addIncomeCategory()
     {
-
         $user_id=Auth::getUserId();
         $name = $_POST['inputIncomeCategory'];
         
@@ -145,8 +144,36 @@ class Incomes extends \Core\Model
         if($stmt->execute()!= true){
             return false;
         }
-
         return true;
     }
+
+    public static function editIncomeCategory()
+    {
+        $user_id=Auth::getUserId();
+        // $id=Auth::getUserId();
+
+        $name = $_POST['editIncCategory'];
+        $id = $_POST['editIncCategory2'];
+
+        
+        $sql = 'UPDATE incomes_category_assigned_to_users
+                SET name = :name
+                WHERE id = :id';
+
+
+        $db = static::getDB();
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+       
+        if($stmt->execute()!= true){
+            return false;
+        }
+        return true;
+    }
+
 
 }
