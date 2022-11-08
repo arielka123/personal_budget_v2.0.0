@@ -23,11 +23,12 @@ class Expenses extends \Core\Model
 
     $user_id=Auth::getUserId();
 
-    $sql_query_category_income = 'SELECT * FROM expenses_category_assigned_to_users
-                                   WHERE user_id = :user_id';
+    $sql = 'SELECT * FROM expenses_category_assigned_to_users
+                                   WHERE user_id = :user_id
+                                   AND is_active ="Y"';
 
     $db = static::getDB();
-    $stmt = $db->prepare($sql_query_category_income);
+    $stmt = $db->prepare($sql);
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
 
@@ -47,7 +48,8 @@ class Expenses extends \Core\Model
     $user_id=Auth::getUserId();   
 
     $sql_query_category_income = 'SELECT * FROM payment_methods_assigned_to_users
-                                   WHERE user_id = :user_id';
+                                   WHERE user_id = :user_id
+                                   AND is_active ="Y"';
 
     $db = static::getDB();
     $stmt = $db->prepare($sql_query_category_income);
@@ -122,8 +124,10 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();   
 
         $sql_expenses = 'SELECT * FROM expenses_category_assigned_to_users 
-                                   WHERE user_id = :user_id
-                                   ORDER BY name asc';
+                                WHERE user_id = :user_id                                
+                                AND is_active ="Y"
+                                ORDER BY name asc';
+                                                                
                                    
         $db = static::getDB();
         $stmt = $db->prepare($sql_expenses);
@@ -139,8 +143,10 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();   
 
         $sql_expenses = 'SELECT * FROM payment_methods_assigned_to_users 
-                                   WHERE user_id = :user_id
-                                   ORDER BY name asc';
+                                WHERE user_id = :user_id                                
+                                AND is_active ="Y"
+                                ORDER BY name asc';
+                                                                
 
         $db = static::getDB();
         $stmt = $db->prepare($sql_expenses);
@@ -157,9 +163,14 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();
         $id = $_POST['paymentCategoryItem']; 
 
-        $sql = 'DELETE FROM payment_methods_assigned_to_users 
-               WHERE user_id=:user_id 
-               AND id=:id';
+        // $sql = 'DELETE FROM payment_methods_assigned_to_users 
+        //        WHERE user_id=:user_id 
+        //        AND id=:id';
+
+        $sql = 'UPDATE payment_methods_assigned_to_users 
+                SET is_active = "N"
+                WHERE user_id=:user_id 
+                AND id=:id';
     
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -180,9 +191,14 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();
         $id = $_POST['expenseCategoryItem']; 
 
-        $sql = 'DELETE FROM expenses_category_assigned_to_users 
-               WHERE user_id=:user_id 
-               AND id=:id';
+        // $sql = 'DELETE FROM expenses_category_assigned_to_users 
+        //        WHERE user_id=:user_id 
+        //        AND id=:id';
+
+        $sql = 'UPDATE expenses_category_assigned_to_users 
+                SET is_active = "N"
+                WHERE user_id=:user_id 
+                AND id=:id';
     
         $db = static::getDB();
         $stmt = $db->prepare($sql);

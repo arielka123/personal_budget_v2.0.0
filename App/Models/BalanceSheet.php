@@ -137,7 +137,7 @@ class BalanceSheet  extends \Core\Model
 
         list($date1, $date2) = BalanceSheet::period();    
        
-        $user_id=Auth::getUserId();
+        $user_id=Auth::getUserId();   
        
 	    $year=date('Y');  
 

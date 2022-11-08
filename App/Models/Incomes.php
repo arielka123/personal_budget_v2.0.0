@@ -23,7 +23,8 @@ class Incomes extends \Core\Model
         $user_id= Auth::getUserId();
 
         $sql_query_category_income = 'SELECT * FROM incomes_category_assigned_to_users
-                                    WHERE user_id = :user_id';
+                                    WHERE user_id = :user_id
+                                    AND is_active ="Y"';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql_query_category_income);
@@ -95,6 +96,7 @@ class Incomes extends \Core\Model
 
         $sql = 'SELECT * FROM incomes_category_assigned_to_users
                                    WHERE user_id = :user_id
+                                   AND is_active ="Y"
                                    ORDER BY name asc';
                                    
         $db = static::getDB();
@@ -111,9 +113,14 @@ class Incomes extends \Core\Model
         $user_id=Auth::getUserId();
         $id = $_POST['incomeCategoryItem']; 
 
-        $sql = 'DELETE FROM incomes_category_assigned_to_users 
-               WHERE user_id=:user_id 
-               AND id=:id';
+        // $sql = 'DELETE FROM incomes_category_assigned_to_users 
+        //        WHERE user_id=:user_id 
+        //        AND id=:id';
+
+        $sql = 'UPDATE incomes_category_assigned_to_users  
+                SET is_active = "N"
+                WHERE user_id=:user_id 
+                AND id=:id';
     
         $db = static::getDB();
         $stmt = $db->prepare($sql);
