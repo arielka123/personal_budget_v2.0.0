@@ -122,7 +122,8 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();   
 
         $sql_expenses = 'SELECT * FROM expenses_category_assigned_to_users 
-                                   WHERE user_id = :user_id';
+                                   WHERE user_id = :user_id
+                                   ORDER BY name asc';
                                    
         $db = static::getDB();
         $stmt = $db->prepare($sql_expenses);
@@ -138,8 +139,9 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();   
 
         $sql_expenses = 'SELECT * FROM payment_methods_assigned_to_users 
-                                   WHERE user_id = :user_id';
-                                   
+                                   WHERE user_id = :user_id
+                                   ORDER BY name asc';
+
         $db = static::getDB();
         $stmt = $db->prepare($sql_expenses);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);

@@ -59,7 +59,8 @@
                                         </p>
                                     </div>
 
-{# edit income modal #}
+{# edit income modal #}         {% endfor %}
+
                                 <div class="modal fade" id="editIncomeModal" tabindex="-1" aria-labelledby="editIncomeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -88,8 +89,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                {% endfor %}
                           
  {# add income modal #}
                                 <div class="modal fade" id="incomeModal" tabindex="-1" aria-labelledby="incomeModalLabel" aria-hidden="true">
@@ -160,7 +159,7 @@
                                     </div>
                                 {% endfor %}
                                
- {# expense modal #}
+ {# add expense modal #}
                                 <div class="modal fade" id="expenseModal" tabindex="-1" aria-labelledby="expenseModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -239,7 +238,7 @@
                                         </p>
                                     </div>
                                 {% endfor %}
-{# payments modal #}
+{# add payments modal #}
                                 <div class="modal fade" id="paymentsModal" tabindex="-1" aria-labelledby="paymentsModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -347,6 +346,6 @@
 
 {% block footer %}
     {{ parent() }}
-    <script src="/js/settings.js"></script>
-    <script src="/js/settingsModal.js"></script>
+    <script src="/js/settingsShowHide.js"></script>
+    <script src="/js/settingsEditModal.js"></script>
 {% endblock %}
