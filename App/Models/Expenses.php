@@ -23,11 +23,12 @@ class Expenses extends \Core\Model
 
     $user_id=Auth::getUserId();
 
-    $sql_query_category_income = 'SELECT * FROM expenses_category_assigned_to_users
-                                   WHERE user_id = :user_id';
+    $sql = 'SELECT * FROM expenses_category_assigned_to_users
+                                   WHERE user_id = :user_id
+                                   AND is_active ="Y"';
 
     $db = static::getDB();
-    $stmt = $db->prepare($sql_query_category_income);
+    $stmt = $db->prepare($sql);
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
 
@@ -47,7 +48,8 @@ class Expenses extends \Core\Model
     $user_id=Auth::getUserId();   
 
     $sql_query_category_income = 'SELECT * FROM payment_methods_assigned_to_users
-                                   WHERE user_id = :user_id';
+                                   WHERE user_id = :user_id
+                                   AND is_active ="Y"';
 
     $db = static::getDB();
     $stmt = $db->prepare($sql_query_category_income);
@@ -122,7 +124,10 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();   
 
         $sql_expenses = 'SELECT * FROM expenses_category_assigned_to_users 
-                                   WHERE user_id = :user_id';
+                                WHERE user_id = :user_id                                
+                                AND is_active ="Y"
+                                ORDER BY name asc';
+                                                                
                                    
         $db = static::getDB();
         $stmt = $db->prepare($sql_expenses);
@@ -138,8 +143,11 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();   
 
         $sql_expenses = 'SELECT * FROM payment_methods_assigned_to_users 
-                                   WHERE user_id = :user_id';
-                                   
+                                WHERE user_id = :user_id                                
+                                AND is_active ="Y"
+                                ORDER BY name asc';
+                                                                
+
         $db = static::getDB();
         $stmt = $db->prepare($sql_expenses);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -155,9 +163,14 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();
         $id = $_POST['paymentCategoryItem']; 
 
-        $sql = 'DELETE FROM payment_methods_assigned_to_users 
-               WHERE user_id=:user_id 
-               AND id=:id';
+        // $sql = 'DELETE FROM payment_methods_assigned_to_users 
+        //        WHERE user_id=:user_id 
+        //        AND id=:id';
+
+        $sql = 'UPDATE payment_methods_assigned_to_users 
+                SET is_active = "N"
+                WHERE user_id=:user_id 
+                AND id=:id';
     
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -178,9 +191,14 @@ class Expenses extends \Core\Model
         $user_id=Auth::getUserId();
         $id = $_POST['expenseCategoryItem']; 
 
-        $sql = 'DELETE FROM expenses_category_assigned_to_users 
-               WHERE user_id=:user_id 
-               AND id=:id';
+        // $sql = 'DELETE FROM expenses_category_assigned_to_users 
+        //        WHERE user_id=:user_id 
+        //        AND id=:id';
+
+        $sql = 'UPDATE expenses_category_assigned_to_users 
+                SET is_active = "N"
+                WHERE user_id=:user_id 
+                AND id=:id';
     
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -196,11 +214,87 @@ class Expenses extends \Core\Model
         return true;
     }
 
+    public static function addExpenseCategory()
+    {
+        $user_id=Auth::getUserId();
+        $name = $_POST['inputExpenseCategory'];
+        
+        $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name)
+                VALUES (:user_id, :name) ';
 
+        $db = static::getDB();
 
-    public static function addNewIncomeCategory()
-        {
+        $stmt = $db->prepare($sql);
 
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+       
+        if($stmt->execute()!= true){
+            return false;
         }
-}
+        return true;
+    }
 
+    public static function addPaymentsCategory()
+    {
+        $user_id=Auth::getUserId();
+        $name = $_POST['inputPaymentsCategory'];
+        
+        $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+                VALUES (:user_id, :name) ';
+
+        $db = static::getDB();
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+       
+        if($stmt->execute()!= true){
+            return false;
+        }
+        return true;
+    }
+
+    public static function editExpenseCategory() 
+    {
+        $user_id=Auth::getUserId();
+        $name = $_POST['editExpenseCategory'];
+        $id = $_POST['editExpenseCategory2'];
+
+        $sql = 'UPDATE expenses_category_assigned_to_users
+                SET name = :name
+                WHERE id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+       
+        if($stmt->execute()!= true){
+            return false;
+        }
+        return true;
+    }
+
+    public static function editPaymentsCategory()
+    {
+        $user_id=Auth::getUserId();
+        $name = $_POST['editPaymentsCategory'];
+        $id = $_POST['editPaymentsCategory2'];
+
+        $sql = 'UPDATE payment_methods_assigned_to_users
+                SET name = :name
+                WHERE id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+       
+        if($stmt->execute()!= true){
+            return false;
+        }
+        return true;
+    }
+}

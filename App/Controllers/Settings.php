@@ -18,7 +18,7 @@ class Settings extends Authenticated
 
     public static function newAction()      
     {         
-            $user = Auth::getUser();
+            $user = Auth::getUser();   
 
             $args = [
             'expenseCategories' => Expenses::loadExpenseCategories(),
@@ -77,7 +77,75 @@ class Settings extends Authenticated
         }
         else {
             $this->redirect('/settings');
+        }
+    }
 
+    public function addIncomeCategoryAction(){
+
+        if (Incomes::addIncomeCategory()==true) {
+            Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+
+    public function addExpenseCategoryAction(){
+
+        if (Expenses::addExpenseCategory()==true) {
+            Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+
+    public function addPaymentsCategoryAction(){
+
+        if (Expenses::addPaymentsCategory()==true) {
+            Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+    
+    public function editIncomeCategoryAction(){
+
+        if (Incomes::editIncomeCategory()==true) {
+            Flash::addMessage('Zapisano zmiany', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+
+    public function editExpenseCategoryAction(){
+
+        if (Expenses::editExpenseCategory()==true) {
+            Flash::addMessage('Zapisano zmiany', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+
+    public function editPaymentsCategoryAction(){
+
+        if (Expenses::editPaymentsCategory()==true) {
+            Flash::addMessage('Zapisano zmiany', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
         }
     }
     

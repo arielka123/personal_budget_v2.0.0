@@ -44,17 +44,22 @@ $router->add('expense/save',['controller' => 'Expense', 'action' => 'save']);
 
 $router->add('balance',['controller' => 'Balance', 'action' => 'new']);
 
-$router->add('profile-show',['controller' => 'Profile', 'action' => 'show']);
-$router->add('profile-edit',['controller' => 'Profile', 'action' => 'edit']);    
-$router->add('profile-update',['controller' => 'Profile', 'action' => 'update']);
+$router->add('profile/update',['controller' => 'Profile', 'action' => 'updateUserProfile']);
 
 $router->add('register',['controller' => 'Register', 'action' => 'new']);
+
 $router->add('settings',['controller' => 'Settings', 'action' => 'new']);
 $router->add('settings/deleteExpenseCategory',['controller' => 'Settings', 'action' => 'deleteExpCategory']);
 $router->add('settings/deleteIncomeCategory',['controller' => 'Settings', 'action' => 'deleteIncCategory']);
 $router->add('settings/deletePaymentCategory',['controller' => 'Settings', 'action' => 'deletePayCategory']);
+$router->add('settings/addIncomeCategory',['controller' => 'Settings', 'action' => 'addIncomeCategory']);
+$router->add('settings/addExpenseCategory',['controller' => 'Settings', 'action' => 'addExpenseCategory']);
+$router->add('settings/addPaymentsCategory',['controller' => 'Settings', 'action' => 'addPaymentsCategory']);
+$router->add('settings/editIncomeCategory',['controller' => 'Settings', 'action' => 'editIncomeCategory']);
+$router->add('settings/editExpenseCategory',['controller' => 'Settings', 'action' => 'editExpenseCategory']);
+$router->add('settings/editPaymentsCategory',['controller' => 'Settings', 'action' => 'editPaymentsCategory']);
 
-
+   
 
 $router->add('api/expenses', ['controller' => 'Register', 'action' => 'expenses']);
 $router->add('api/incomes', ['controller' => 'Register', 'action' => 'incomes']);

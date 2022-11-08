@@ -121,12 +121,12 @@ class User extends \Core\Model
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 
         $stmt->execute();
-    }
+    }    
 
     public static function incomes_category_asigned_to_user($user_id)
     {
-        $sql_income = 'INSERT INTO incomes_category_assigned_to_users (id, name, user_id)
-        	            SELECT null, def.name, u.id
+        $sql_income = 'INSERT INTO incomes_category_assigned_to_users (name, user_id)
+        	            SELECT def.name, u.id
         			    FROM incomes_category_default as def
          				JOIN users as u on u.id = :user_id
                         where not exists (
@@ -140,6 +140,7 @@ class User extends \Core\Model
          $stmt = $db->prepare($sql_income);
 
          $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+         $stmt->bindValue(':active', 'Y', PDO::PARAM_INT);
 
      $stmt->execute();
 
