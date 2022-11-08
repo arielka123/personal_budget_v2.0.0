@@ -126,5 +126,27 @@ class Settings extends Authenticated
             $this->redirect('/settings');
         }
     }
+
+    public function editExpenseCategoryAction(){
+
+        if (Expenses::editExpenseCategory()==true) {
+            Flash::addMessage('Zapisano zmiany', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
+
+    public function editPaymentsCategoryAction(){
+
+        if (Expenses::editPaymentsCategory()==true) {
+            Flash::addMessage('Zapisano zmiany', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        else {
+            $this->redirect('/settings');
+        }
+    }
     
 }

@@ -1,32 +1,48 @@
-let edit = document.querySelectorAll('.editIncomeIcon');
+const editIncome = document.querySelectorAll('.editIncomeIcon');
 const editIncCategory2 = document.querySelector('#editIncCategory2');
-const editIncCategory = document.querySelector('#editIncCategory');
+// const editIncCategory = document.querySelector('#editIncCategory');
 
+const editExpense = document.querySelectorAll('.editExpenseIcon');
+const editExpCategory2 = document.querySelector('#editExpenseCategory2');
 
-for (x of edit){
+const editPayments = document.querySelectorAll('.editPaymentsIcon');
+const editPayCategory2 = document.querySelector('#editPaymentsCategory2');
 
+function getIdCat(e,data){
 
-    x.addEventListener('click', (e) =>
-  {
-    // Retrieve id from clicked element
-    const elementId = e.target.id;
-    const elementValue = document.getElementById(elementId).value;
+  const elementId = e.target.id;
+  const elementValue = document.getElementById(elementId).value;
 
-   
-    // If element has id
-    if (elementId !== '') {
-
-        editIncCategory2.setAttribute("value", elementId)
-        console.log(elementId);
-        console.log(elementValue);
-
-
-    }
-  }
-);
-
-
+  // If element has id
+  if (elementId !== '') {
+      data.setAttribute("value", elementId)
+      console.log(elementId);
+      console.log(elementValue);
+    } 
 }
 
+for (x of editIncome){
+    x.addEventListener('click', (e) =>
+    {
+        getIdCat(e, editIncCategory2);
+    }
+  );
+}
+
+for (x of editExpense){
+    x.addEventListener('click', (e) =>
+    {
+        getIdCat(e, editExpCategory2);
+    }
+  );
+}
+
+for (x of editPayments){
+    x.addEventListener('click', (e) =>
+    {
+        getIdCat(e, editPayCategory2);
+    }
+  );
+}
 
 

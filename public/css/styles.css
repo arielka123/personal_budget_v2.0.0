@@ -193,3 +193,14 @@ input:focus:-ms-input-placeholder
 	border-radius: 20px;
 	cursor: pointer;
 }
+
+
+.categoryRow{
+	border-radius: 10px;
+}
+
+.categoryRow:hover{
+	background-color: #99dcd6;
+
+}
+
