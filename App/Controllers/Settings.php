@@ -21,9 +21,9 @@ class Settings extends Authenticated
             $user = Auth::getUser();   
 
             $args = [
-            'expenseCategories' => Expenses::loadExpenseCategories(),
-            'payments' => Expenses::loadUserpayments(),
-            'incomeCategories' => Incomes::loadIncomeCategories(),
+            'expenseCategories' => Expenses::loadExpenseCategoriesData(),
+            'payments' => Expenses::loadPaymentMethodData(),
+            'incomeCategories' => Incomes::loadIncomeCategoriesData(),
             'user' => $user,
         ];              
         //print_r (Expenses::loadUserExpenses());
@@ -31,15 +31,15 @@ class Settings extends Authenticated
     } 
 
     public function expenseCategoriesAction(){ 
-        echo json_encode(Expenses::loadExpenseCategories(), JSON_UNESCAPED_UNICODE);
+        echo json_encode(Expenses::loadExpenseCategoriesData(), JSON_UNESCAPED_UNICODE);
     }
 
     public function paymentsAction(){
-        echo json_encode(Expenses::loadUserpayments(), JSON_UNESCAPED_UNICODE);
+        echo json_encode(Expenses::loadPaymentMethodData(), JSON_UNESCAPED_UNICODE);
     }
 
     public function incomeCategoriesAction(){
-        echo json_encode(Incomes::loadIncomeCategories(), JSON_UNESCAPED_UNICODE);
+        echo json_encode(Incomes::loadIncomeCategoriesData(), JSON_UNESCAPED_UNICODE);
     }
 
     public function deleteExpCategoryAction(){

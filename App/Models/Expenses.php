@@ -25,7 +25,9 @@ class Expenses extends \Core\Model
 
     $sql = 'SELECT * FROM expenses_category_assigned_to_users
                                    WHERE user_id = :user_id
-                                   AND is_active ="Y"';
+                                   AND is_active ="Y"
+                                   ORDER BY name asc';
+                                                                   
 
     $db = static::getDB();
     $stmt = $db->prepare($sql);
@@ -49,7 +51,8 @@ class Expenses extends \Core\Model
 
     $sql_query_category_income = 'SELECT * FROM payment_methods_assigned_to_users
                                    WHERE user_id = :user_id
-                                   AND is_active ="Y"';
+                                   AND is_active ="Y"
+                                   ORDER BY name asc';
 
     $db = static::getDB();
     $stmt = $db->prepare($sql_query_category_income);
@@ -58,7 +61,6 @@ class Expenses extends \Core\Model
 
     $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
-
     }
 
     public static function saveNewData ()
@@ -118,46 +120,7 @@ class Expenses extends \Core\Model
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-
-    public static function loadExpenseCategories()
-    {
-        $user_id=Auth::getUserId();   
-
-        $sql_expenses = 'SELECT * FROM expenses_category_assigned_to_users 
-                                WHERE user_id = :user_id                                
-                                AND is_active ="Y"
-                                ORDER BY name asc';
-                                                                
-                                   
-        $db = static::getDB();
-        $stmt = $db->prepare($sql_expenses);
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-    $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
-    }
-
-    public static function loadUserpayments()
-    {
-        $user_id=Auth::getUserId();   
-
-        $sql_expenses = 'SELECT * FROM payment_methods_assigned_to_users 
-                                WHERE user_id = :user_id                                
-                                AND is_active ="Y"
-                                ORDER BY name asc';
-                                                                
-
-        $db = static::getDB();
-        $stmt = $db->prepare($sql_expenses);
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
    
-
     public static function deletePaymentCategory()
     {
         $user_id=Auth::getUserId();
@@ -216,6 +179,7 @@ class Expenses extends \Core\Model
 
     public static function addExpenseCategory()
     {
+        #TODO zapisac wprowadzoną kwote limitu do bazy 
         $user_id=Auth::getUserId();
         $name = $_POST['inputExpenseCategory'];
         
@@ -258,7 +222,8 @@ class Expenses extends \Core\Model
 
     public static function editExpenseCategory() 
     {
-        $user_id=Auth::getUserId();
+         #TODO zapisac wprowadzoną kwote limitu do bazy 
+
         $name = $_POST['editExpenseCategory'];
         $id = $_POST['editExpenseCategory2'];
 
