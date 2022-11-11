@@ -45,4 +45,23 @@ for (x of editPayments){
   );
 }
 
+const limitCheckbox = document.querySelector('#limitCheckbox');
+const amountLimit = document.querySelector('#amountLimitEdit');
+
+
+function amountInput(){
+
+  if (document.getElementById("limitCheckbox").checked === true){
+    amountLimit.disabled = false;
+  }  
+  else {
+    amountLimit.disabled = true;
+    amountLimit.value = '';
+  }
+}
+
+limitCheckbox.addEventListener('click', amountInput);
+
+
+
 
