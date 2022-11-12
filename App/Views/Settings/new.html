@@ -136,7 +136,7 @@
                                         Nowa kategoria<i id="expenseAddIcon" class = "d-inline icon-plus pe-3" style="float:right"></i>
                                     </button>
 
-#TODO przy dodawaniu sprawdza czy wczesniej był wpisany ten sam (male/duze litery) i zmienia flage gdy konieczne
+{# #TODO przy dodawaniu sprawdza czy wczesniej był wpisany ten sam (male/duze litery) i zmienia flage gdy konieczne #}
 
                                 {% for row in expenseCategories %}
                                     <div class="categoryRow col bg-light p-1 mb-1 mx-auto d-block">
@@ -147,7 +147,7 @@
 
                                         <form method="post" action="settings/deleteExpenseCategory" enctype="multipart/form-data" id="formCatExp{{ row['id'] }}" class = "d-inline" style="float:right"> 
                                                 <input name="expenseCategoryItem" id="categoryExpenseItem{{ row['id'] }}" value="{{ row['id'] }}" style="display: none"></input>
- #TODO przy usywaniuzmienia flage na N                                              
+                                             
                                                 <i id="expenseTrashIcon" class = "icon-trash-empty pe-3"
                                                  onclick="document.getElementById('formCatExp{{ id_catExp }}').submit()" > </i> 
         
@@ -157,7 +157,7 @@
                                         <i  class = "editExpenseIcon d-inline icon-edit pe-1" id="{{ row['id'] }}" value="{{ row['name'] }}" style="float:right" data-bs-toggle="modal" data-bs-target="#editExpenseModal"></i>
 
                                         <p class="text-muted m-0 p-0">
-                                            <small>Limit: BRAK</small>
+                                            <small>Limit: {{row['limitCategory']}}</small>
                                         </p>
                                     </div>
                                 {% endfor %}
@@ -177,19 +177,19 @@
                                                 <div class="modal-body" style="color:#4db6ac;">
                                                     <div class="form-group">
                                                         <label for="editExpenseCategory">Nazwa Kategorii</label>
-                                                        <input id="editExpenseCategory" type="text" class="form-control col-10" name="editExpenseCategory" autofocus required />
+                                                        <input id="editExpenseCategory" type="text" class="form-control col-10" name="editExpenseCategory" autofocus  />
                                                         <input id="editExpenseCategory2" type="text" class="form-control col-10" name="editExpenseCategory2" style="display:none" />
                                                     </div>
                                                     <div class="checkbox">
                                                         <label class="h6 mx-auto d-block mb-md-3 mt-md-2 mt-sm-1 mb-sm-1 ">
-                                                        <input type="checkbox"  name="limit" id="ExpenseLimit" class=""/> Włącz limit dla kategorii
-                                                        </label>
+                                                        <input type="checkbox"  name="limitCheckboxEdit" id="limitCheckboxEdit" class=""/> Włącz limit dla kategorii
+                                                        </label>   
                                                      </div>
 
                                                     <div class = "form-group row pb-3" >
-                                                        <label for ="kwota" class="h6 col-form-label d-block"> Ustaw miesięczny limit wydatków dla kategorii</label>
+                                                        <label for ="amountLimitEdit" class="h6 col-form-label d-block"> Ustaw miesięczny limit wydatków dla kategorii</label>
                                                         <div class="col-10">
-                                                            <input type="number" class="form-control col-sm-2" name= "amount" id="amount" min="0" step="0.01" disabled>
+                                                            <input type="number" class="form-control col-sm-2" name= "amountLimitEdit" id="amountLimitEdit" min="0" step="0.01" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -222,14 +222,14 @@
                                                         <input id="inputExpenseCategoryiD" type="text" class="form-control col-10" name="inputExpenseCategory" autofocus required />
                                                         <div class="checkbox">
                                                             <label class="h6 mx-auto d-block mb-md-3 mt-md-2 mt-sm-1 mb-sm-1 ">
-                                                            <input type="checkbox"  name="limit" id="ExpenseLimit" class=""/> Włącz limit dla kategorii
+                                                            <input type="checkbox"  name="limitCheckboxAdd" id="limitCheckboxAdd" class=""/> Włącz limit dla kategorii
                                                             </label>
                                                          </div>
 
                                                         <div class = "form-group row pb-3" >
-                                                            <label for ="kwota" class="h6 col-form-label d-block"> Ustaw miesięczny limit wydatków dla kategorii</label>
+                                                            <label for ="amountLimitAdd" class="h6 col-form-label d-block"> Ustaw miesięczny limit wydatków dla kategorii</label>
                                                             <div class="col-10">
-                                                                <input type="number" class="form-control col-sm-2" name= "amount" id="amount" min="0" step="0.01" disabled>
+                                                                <input type="number" class="form-control col-sm-2" name= "amountLimitAdd" id="amountLimitAdd" min="0" step="0.01" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -373,7 +373,7 @@
 {# user modal #}
                             <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content">  
                                         <div class="modal-header">
                                             <h5 class="modal-title fw-bold" id="userModalLabel" style="color:#4db6ac;">
                                                 Edycja Danych Użytkownika
@@ -425,4 +425,6 @@
     {{ parent() }}
     <script src="/js/settingsShowHide.js"></script>
     <script src="/js/settingsEditModal.js"></script>
+    <script src="/js/limitCheckbox.js"></script>
+
 {% endblock %}

@@ -24,7 +24,8 @@ class Incomes extends \Core\Model
 
         $sql_query_category_income = 'SELECT * FROM incomes_category_assigned_to_users
                                     WHERE user_id = :user_id
-                                    AND is_active ="Y"';
+                                    AND is_active ="Y"
+                                    ORDER BY name asc';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql_query_category_income);
@@ -80,24 +81,6 @@ class Incomes extends \Core\Model
                                    JOIN incomes_category_assigned_to_users as c ON i.income_category_assigned_to_user_id=c.id
                                    WHERE i.user_id = :user_id
                                    ORDER BY date_of_income desc';
-                                   
-        $db = static::getDB();
-        $stmt = $db->prepare($sql);
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    public static function loadIncomeCategories()
-    {
-        $user_id=Auth::getUserId();   
-
-        $sql = 'SELECT * FROM incomes_category_assigned_to_users
-                                   WHERE user_id = :user_id
-                                   AND is_active ="Y"
-                                   ORDER BY name asc';
                                    
         $db = static::getDB();
         $stmt = $db->prepare($sql);
