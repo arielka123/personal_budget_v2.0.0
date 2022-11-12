@@ -44,7 +44,7 @@ class Settings extends Authenticated
 
     public function deleteExpCategoryAction(){
 
-
+  
         if (Expenses::deleteExpenseCategory()==true) {
             Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
     
