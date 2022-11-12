@@ -54,7 +54,7 @@ class Expenses extends \Core\Model
                                    AND is_active ="Y"
                                    ORDER BY name asc';
 
-    $db = static::getDB();
+    $db = static::getDB();    
     $stmt = $db->prepare($sql_query_category_income);
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
@@ -182,9 +182,10 @@ class Expenses extends \Core\Model
         #TODO zapisac wprowadzoną kwote limitu do bazy 
         $user_id=Auth::getUserId();
         $name = $_POST['inputExpenseCategory'];
+        $limitCategory = $_POST['amountLimitAdd'];
         
-        $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name)
-                VALUES (:user_id, :name) ';
+        $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name, limitCategory)
+                VALUES (:user_id, :name, :limitCategory) ';
 
         $db = static::getDB();
 
@@ -192,7 +193,8 @@ class Expenses extends \Core\Model
 
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-       
+        $stmt->bindValue(':limitCategory', $limitCategory, PDO::PARAM_STR);
+
         if($stmt->execute()!= true){
             return false;
         }
@@ -226,16 +228,18 @@ class Expenses extends \Core\Model
 
         $name = $_POST['editExpenseCategory'];
         $id = $_POST['editExpenseCategory2'];
+        $limitCategory = $_POST['amountLimitEdit'];
 
         $sql = 'UPDATE expenses_category_assigned_to_users
-                SET name = :name
+                SET name = :name, limitCategory = :limitCategory
                 WHERE id = :id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-       
+        $stmt->bindValue(':limitCategory', $limitCategory, PDO::PARAM_STR);
+
         if($stmt->execute()!= true){
             return false;
         }

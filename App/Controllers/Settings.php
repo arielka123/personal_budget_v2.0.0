@@ -90,7 +90,7 @@ class Settings extends Authenticated
         else {
             $this->redirect('/settings');
         }
-    }
+    }  
 
     public function addExpenseCategoryAction(){
 
