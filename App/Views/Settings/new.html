@@ -157,7 +157,7 @@
                                         <i  class = "editExpenseIcon d-inline icon-edit pe-1" id="{{ row['id'] }}" value="{{ row['name'] }}" style="float:right" data-bs-toggle="modal" data-bs-target="#editExpenseModal"></i>
 
                                         <p class="text-muted m-0 p-0">
-                                            <small>Limit: BRAK</small>
+                                            <small>Limit: {{row['limitCategory']}}</small>
                                         </p>
                                     </div>
                                 {% endfor %}
