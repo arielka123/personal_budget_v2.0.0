@@ -228,23 +228,25 @@ class Expenses extends \Core\Model
 
         $name = $_POST['editExpenseCategory'];
         $id = $_POST['editExpenseCategory2'];
-        $limitCategory = $_POST['amountLimitEdit'];
-
-        
 
         $sql = 'UPDATE expenses_category_assigned_to_users
                 SET';
 
-        if($_POST['editExpenseCategory'] !='' && $_POST['amountLimitEdit'] !='' ){
-            $sql.=' name = :name, limitCategory = :limitCategory';
-        }
-        else if ($_POST['editExpenseCategory'] !=''){
+         if (isset($_POST['amountLimitEdit'])){
+            $limitCategory = $_POST['amountLimitEdit'];
+            
+            if($_POST['editExpenseCategory'] !='' && $_POST['amountLimitEdit'] !='' ){
+                $sql.=' name = :name, limitCategory = :limitCategory';
+            }
+            else if ($_POST['amountLimitEdit'] !=''){
+                $sql.=' limitCategory = :limitCategory';
+            }
+         }
+        
+        if ($_POST['editExpenseCategory'] !=''){
             $sql.=' name = :name';
         }
-        else if ($_POST['amountLimitEdit'] !=''){
-            $sql.=' limitCategory = :limitCategory';
-        }
-
+        
         $sql .="\nWHERE id=:id";
 
                
@@ -255,7 +257,7 @@ class Expenses extends \Core\Model
             $stmt->bindValue(':name', $name, PDO::PARAM_STR);
         }
 
-        if ($_POST['amountLimitEdit'] !=''){
+        if (isset($_POST['amountLimitEdit'])){
             $stmt->bindValue(':limitCategory', $limitCategory, PDO::PARAM_STR);
         }
 
