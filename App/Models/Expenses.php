@@ -230,21 +230,43 @@ class Expenses extends \Core\Model
         $id = $_POST['editExpenseCategory2'];
         $limitCategory = $_POST['amountLimitEdit'];
 
-        $sql = 'UPDATE expenses_category_assigned_to_users
-                SET name = :name, limitCategory = :limitCategory
-                WHERE id = :id';
+        
 
+        $sql = 'UPDATE expenses_category_assigned_to_users
+                SET';
+
+        if($_POST['editExpenseCategory'] !='' && $_POST['amountLimitEdit'] !='' ){
+            $sql.=' name = :name, limitCategory = :limitCategory';
+        }
+        else if ($_POST['editExpenseCategory'] !=''){
+            $sql.=' name = :name';
+        }
+        else if ($_POST['amountLimitEdit'] !=''){
+            $sql.=' limitCategory = :limitCategory';
+        }
+
+        $sql .="\nWHERE id=:id";
+
+               
         $db = static::getDB();
         $stmt = $db->prepare($sql);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+
+        if ($_POST['editExpenseCategory'] !=''){
+            $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        }
+
+        if ($_POST['amountLimitEdit'] !=''){
+            $stmt->bindValue(':limitCategory', $limitCategory, PDO::PARAM_STR);
+        }
+
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $stmt->bindValue(':limitCategory', $limitCategory, PDO::PARAM_STR);
 
         if($stmt->execute()!= true){
             return false;
         }
         return true;
     }
+
 
     public static function editPaymentsCategory()
     {
