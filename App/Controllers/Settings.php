@@ -115,15 +115,25 @@ class Settings extends Authenticated
     }
 
     public function addPaymentsCategoryAction(){
-
-        if (Expenses::addPaymentsCategory()==true) {
+        $result = Expenses::addPaymentsCategory();
+        if ($result == Expenses::$ADD_STATUS_ACTIVATED) {
             Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
     
             $this->redirect('/settings');
         }
-        else {
+        elseif ($result==Expenses::$ADD_STATUS_ACTIVATED) {
+            Flash::addMessage('Kategoria została dodana ponownie', Flash::SUCCESS);
             $this->redirect('/settings');
         }
+        elseif ($result==Expenses::$ADD_STATUS_ALLREADY_EXIST) {
+            Flash::addMessage('Kategoria o tej nazwie juz istnieje', Flash::WARNING);
+            $this->redirect('/settings');
+        }
+        else {
+            Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
+            $this->redirect('/settings');
+        }
+        
     }
     
     public function editIncomeCategoryAction(){

@@ -256,37 +256,71 @@ class Expenses extends \Core\Model
     public static function addPaymentsCategory()
     {
         $user_id=Auth::getUserId();
+        $is_active  = 'Y';
+        $is_not_active = 'N';
+
         $name = $_POST['inputPaymentsCategory'];
+        $name = ltrim($name, ' ');
+        $name = rtrim($name, ' ');
         
-        $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
-                VALUES (:user_id, :name) ';
+        // $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+        //         VALUES (:user_id, :name) ';
+
+        $sql1 = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+        SELECT :user_id, :name
+        WHERE NOT EXISTS (
+            SELECT *
+            FROM payment_methods_assigned_to_users src
+            WHERE UPPER(src.name) = UPPER(:name)
+            AND src.user_id = :user_id
+        )';
+
+        $sql2 = 'UPDATE payment_methods_assigned_to_users
+                    SET is_active = :is_active
+                    WHERE user_id = :user_id
+                    AND  UPPER(name) = UPPER(:name)
+                    AND is_active = :is_not_active';
 
         $db = static::getDB();
 
-        $stmt = $db->prepare($sql);
+        $stmt1 = $db->prepare($sql1);
+        $stmt2 = $db->prepare($sql2);
 
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-       
-        if($stmt->execute()!= true){
-                return Expenses::$ADD_STATUS_ERROR; 
+        $stmt1->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt1->bindValue(':name', $name, PDO::PARAM_STR);
+
+        $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt2->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt2->bindValue(':is_active', $is_active, PDO::PARAM_STR);
+        $stmt2->bindValue(':is_not_active', $is_not_active, PDO::PARAM_STR);
+
+        if($stmt1->execute()== true){
+            $rows_count1 = $stmt1->rowCount();
+
+            if($rows_count1 == 1){
+                return Expenses::$ADD_STATUS_NEW; 
+            }
+
+            if ($stmt2->execute() == true) {
+                $rows_count2 = $stmt2->rowCount();
+                if($rows_count2 == 1){
+                    return Expenses::$ADD_STATUS_ACTIVATED; 
+                }
+                else {
+                    return Expenses::$ADD_STATUS_ALLREADY_EXIST;
+                }
+            }
+            else {
+                return Expenses::$ADD_STATUS_ERROR;
+            }
+            
         }
-
-        $rows_count = $stmt->rowCount();
-
-        if($rows_count == 1){
-            return Expenses::$ADD_STATUS_ACTIVATED; 
-        }
-        elseif($rows_count == 0) {
-            return Expenses::$ADD_STATUS_ALLREADY_EXIST; 
-        }
-        else  return Expenses::$ADD_STATUS_ERROR; 
-
+        
+        return Expenses::$ADD_STATUS_ERROR;
     }
 
     public static function editExpenseCategory() 
     {
-         #TODO zapisac wprowadzoną kwote limitu do bazy 
          if (isset($_POST['editExpenseCategory'])){
 
             $name = $_POST['editExpenseCategory'];
@@ -336,7 +370,7 @@ class Expenses extends \Core\Model
         if($stmt->execute()!= true){
             return Expenses::$ADD_STATUS_ERROR; 
         }
-        
+
         $rows_count = $stmt->rowCount();
 
         if($rows_count == 1){
