@@ -83,12 +83,22 @@ class Settings extends Authenticated
 
     public function addIncomeCategoryAction(){
 
-        if (Incomes::addIncomeCategory()==true) {
+        $result = Incomes::addIncomeCategory();
+        if ($result == Incomes::$ADD_STATUS_ACTIVATED) {
             Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        elseif ($result==Incomes::$ADD_STATUS_ACTIVATED) {
+            Flash::addMessage('Kategoria została dodana ponownie', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        elseif ($result==Incomes::$ADD_STATUS_ALLREADY_EXIST) {
+            Flash::addMessage('Kategoria o tej nazwie juz istnieje', Flash::WARNING);
             $this->redirect('/settings');
         }
         else {
-            Flash::addMessage('Kategoria o tej nazwie juz istnieje', Flash::WARNING);
+            Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
             $this->redirect('/settings');
         }
     }  
@@ -138,11 +148,22 @@ class Settings extends Authenticated
     
     public function editIncomeCategoryAction(){
 
-        if (Incomes::editIncomeCategory()==true) {
-            Flash::addMessage('Zapisano zmiany', Flash::SUCCESS);
+        $result = Incomes::editIncomeCategory();
+        if ($result == Incomes::$ADD_STATUS_ACTIVATED) {
+            Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
+    
+            $this->redirect('/settings');
+        }
+        elseif ($result==Incomes::$ADD_STATUS_ACTIVATED) {
+            Flash::addMessage('Kategoria została dodana ponownie', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        elseif ($result==Incomes::$ADD_STATUS_ALLREADY_EXIST) {
+            Flash::addMessage('Kategoria o tej nazwie juz istnieje', Flash::WARNING);
             $this->redirect('/settings');
         }
         else {
+            Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
             $this->redirect('/settings');
         }
     }
