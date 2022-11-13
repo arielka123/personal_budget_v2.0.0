@@ -139,11 +139,19 @@ class Settings extends Authenticated
 
     public function editExpenseCategoryAction(){
 
-        if (Expenses::editExpenseCategory()==true) {
+        $result = Expenses::editExpenseCategory();
+
+        if ($result== Expenses::$ADD_STATUS_ACTIVATED) {
             Flash::addMessage('Zapisano zmiany', Flash::SUCCESS);
             $this->redirect('/settings');
         }
+        elseif($result== Expenses::$ADD_STATUS_ALLREADY_EXIST)
+        {
+            Flash::addMessage('Kategoria o tej nazwie juz istnieje', Flash::WARNING);
+            $this->redirect('/settings');
+        }
         else {
+            Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
             $this->redirect('/settings');
         }
     }

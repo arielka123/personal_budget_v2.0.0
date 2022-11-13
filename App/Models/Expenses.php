@@ -269,15 +269,26 @@ class Expenses extends \Core\Model
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
        
         if($stmt->execute()!= true){
-            return false;
+                return Expenses::$ADD_STATUS_ERROR; 
         }
-        return true;
+
+        $rows_count = $stmt->rowCount();
+
+        if($rows_count == 1){
+            return Expenses::$ADD_STATUS_ACTIVATED; 
+        }
+        elseif($rows_count == 0) {
+            return Expenses::$ADD_STATUS_ALLREADY_EXIST; 
+        }
+        else  return Expenses::$ADD_STATUS_ERROR; 
+
     }
 
     public static function editExpenseCategory() 
     {
          #TODO zapisac wprowadzoną kwote limitu do bazy 
          if (isset($_POST['editExpenseCategory'])){
+
             $name = $_POST['editExpenseCategory'];
             $name = ltrim($name, ' ');
             $name = rtrim($name, ' ');
@@ -305,8 +316,8 @@ class Expenses extends \Core\Model
          }
         $sql .= implode(', ', $set_values);
         
-        $sql .=" \nWHERE id=:id";
-
+        $sql .=" \nWHERE id=:id
+                AND UPPER(name) = UPPER(:name)";
                
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -323,9 +334,18 @@ class Expenses extends \Core\Model
 
         // print_r($sql);
         if($stmt->execute()!= true){
-            return false;
+            return Expenses::$ADD_STATUS_ERROR; 
         }
-        return true;
+        
+        $rows_count = $stmt->rowCount();
+
+        if($rows_count == 1){
+            return Expenses::$ADD_STATUS_ACTIVATED; 
+        }
+        elseif($rows_count == 0) {
+            return Expenses::$ADD_STATUS_ALLREADY_EXIST; 
+        }
+        else  return Expenses::$ADD_STATUS_ERROR; 
     }
 
 
