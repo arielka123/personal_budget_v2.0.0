@@ -76,6 +76,7 @@ class Settings extends Authenticated
             $this->redirect('/settings');
         }
         else {
+            Flash::addMessage('ups...', Flash::WARNING);
             $this->redirect('/settings');
         }
     }
@@ -84,22 +85,31 @@ class Settings extends Authenticated
 
         if (Incomes::addIncomeCategory()==true) {
             Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
-    
             $this->redirect('/settings');
         }
         else {
+            Flash::addMessage('Kategoria o tej nazwie juz istnieje', Flash::WARNING);
             $this->redirect('/settings');
         }
     }  
 
     public function addExpenseCategoryAction(){
-
-        if (Expenses::addExpenseCategory()==true) {
+        
+        $result = Expenses::addExpenseCategory();
+        if ($result==Expenses::$ADD_STATUS_NEW) {
             Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
-    
+            $this->redirect('/settings');
+        }
+        elseif ($result==Expenses::$ADD_STATUS_ACTIVATED) {
+            Flash::addMessage('Kategoria została dodana ponownie', Flash::SUCCESS);
+            $this->redirect('/settings');
+        }
+        elseif ($result==Expenses::$ADD_STATUS_ALLREADY_EXIST) {
+            Flash::addMessage('Kategoria o tej nazwie juz istnieje', Flash::WARNING);
             $this->redirect('/settings');
         }
         else {
+            Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
             $this->redirect('/settings');
         }
     }
