@@ -385,22 +385,35 @@ class Expenses extends \Core\Model
 
     public static function editPaymentsCategory()
     {
-        $user_id=Auth::getUserId();
         $name = $_POST['editPaymentsCategory'];
         $id = $_POST['editPaymentsCategory2'];
 
+        $name = ltrim($name, ' ');
+        $name = rtrim($name, ' ');
+
         $sql = 'UPDATE payment_methods_assigned_to_users
                 SET name = :name
-                WHERE id = :id';
+                WHERE id = :id
+                AND UPPER(name) = UPPER(:name)';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
+        
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
        
         if($stmt->execute()!= true){
-            return false;
+            return Expenses::$ADD_STATUS_ERROR; 
         }
-        return true;
+
+        $rows_count = $stmt->rowCount();
+
+        if($rows_count == 1){
+            return Expenses::$ADD_STATUS_ACTIVATED; 
+        }
+        elseif($rows_count == 0) {
+            return Expenses::$ADD_STATUS_ALLREADY_EXIST; 
+        }
+        else  return Expenses::$ADD_STATUS_ERROR; 
     }
 }
