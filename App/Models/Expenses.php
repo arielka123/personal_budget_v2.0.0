@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PDO;
 use \App\Auth;
+use App\Controllers\Expense;
 use \App\Models\Validation;
 
       
@@ -14,6 +15,11 @@ use \App\Models\Validation;
 
 class Expenses extends \Core\Model
 {   
+
+    static $ADD_STATUS_NEW = 1;
+    static $ADD_STATUS_ACTIVATED = 2;
+    static $ADD_STATUS_ALLREADY_EXIST = 3;
+    static $ADD_STATUS_ERROR = -1;
 
 /**
  * get array of results
@@ -179,76 +185,173 @@ class Expenses extends \Core\Model
 
     public static function addExpenseCategory()
     {
-        #TODO zapisac wprowadzoną kwote limitu do bazy 
-        $user_id=Auth::getUserId();
         $name = $_POST['inputExpenseCategory'];
-        $limitCategory = $_POST['amountLimitAdd'];
+        $name = ltrim($name, ' ');
+        $name = rtrim($name, ' ');
+         
+        $user_id=Auth::getUserId();
+        $is_active  = 'Y';
+        $is_not_active = 'N';
+
+        if (isset($_POST['amountLimitAdd'])){
+             $limitCategory = $_POST['amountLimitAdd'];
+         }
+        else  $limitCategory ="0";
         
-        $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name, limitCategory)
-                VALUES (:user_id, :name, :limitCategory) ';
+        $sql1 = 'INSERT INTO expenses_category_assigned_to_users (user_id, name, limitCategory)
+                SELECT :user_id, :name, :limitCategory
+                WHERE NOT EXISTS (
+                    SELECT *
+                    FROM expenses_category_assigned_to_users src
+                    WHERE UPPER(src.name) = UPPER(:name)
+                    AND src.user_id = :user_id
+                )';
+
+        $sql2 = 'UPDATE expenses_category_assigned_to_users
+                    SET is_active = :is_active, limitCategory = :limitCategory
+                    WHERE user_id = :user_id
+                    AND  UPPER(name) = UPPER(:name)
+                    AND is_active = :is_not_active';
 
         $db = static::getDB();
 
-        $stmt = $db->prepare($sql);
+        $stmt1 = $db->prepare($sql1);
+        $stmt2 = $db->prepare($sql2);
 
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-        $stmt->bindValue(':limitCategory', $limitCategory, PDO::PARAM_STR);
+        $stmt1->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt1->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt1->bindValue(':limitCategory', $limitCategory, PDO::PARAM_STR);
 
-        if($stmt->execute()!= true){
-            return false;
+        $stmt2->bindValue(':limitCategory', $limitCategory, PDO::PARAM_STR);
+        $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt2->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt2->bindValue(':is_active', $is_active, PDO::PARAM_STR);
+        $stmt2->bindValue(':is_not_active', $is_not_active, PDO::PARAM_STR);
+
+        if($stmt1->execute()== true){
+            $rows_count1 = $stmt1->rowCount();
+
+            if($rows_count1 == 1){
+                return Expenses::$ADD_STATUS_NEW; 
+            }
+
+            if ($stmt2->execute() == true) {
+                $rows_count2 = $stmt2->rowCount();
+                if($rows_count2 == 1){
+                    return Expenses::$ADD_STATUS_ACTIVATED; 
+                }
+                else {
+                    return Expenses::$ADD_STATUS_ALLREADY_EXIST;
+                }
+            }
+            else {
+                return Expenses::$ADD_STATUS_ERROR;
+            }
+            
         }
-        return true;
+        
+        return Expenses::$ADD_STATUS_ERROR;
     }
 
     public static function addPaymentsCategory()
     {
         $user_id=Auth::getUserId();
+        $is_active  = 'Y';
+        $is_not_active = 'N';
+
         $name = $_POST['inputPaymentsCategory'];
+        $name = ltrim($name, ' ');
+        $name = rtrim($name, ' ');
         
-        $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
-                VALUES (:user_id, :name) ';
+        // $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+        //         VALUES (:user_id, :name) ';
+
+        $sql1 = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+        SELECT :user_id, :name
+        WHERE NOT EXISTS (
+            SELECT *
+            FROM payment_methods_assigned_to_users src
+            WHERE UPPER(src.name) = UPPER(:name)
+            AND src.user_id = :user_id
+        )';
+
+        $sql2 = 'UPDATE payment_methods_assigned_to_users
+                    SET is_active = :is_active
+                    WHERE user_id = :user_id
+                    AND  UPPER(name) = UPPER(:name)
+                    AND is_active = :is_not_active';
 
         $db = static::getDB();
 
-        $stmt = $db->prepare($sql);
+        $stmt1 = $db->prepare($sql1);
+        $stmt2 = $db->prepare($sql2);
 
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-       
-        if($stmt->execute()!= true){
-            return false;
+        $stmt1->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt1->bindValue(':name', $name, PDO::PARAM_STR);
+
+        $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt2->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt2->bindValue(':is_active', $is_active, PDO::PARAM_STR);
+        $stmt2->bindValue(':is_not_active', $is_not_active, PDO::PARAM_STR);
+
+        if($stmt1->execute()== true){
+            $rows_count1 = $stmt1->rowCount();
+
+            if($rows_count1 == 1){
+                return Expenses::$ADD_STATUS_NEW; 
+            }
+
+            if ($stmt2->execute() == true) {
+                $rows_count2 = $stmt2->rowCount();
+                if($rows_count2 == 1){
+                    return Expenses::$ADD_STATUS_ACTIVATED; 
+                }
+                else {
+                    return Expenses::$ADD_STATUS_ALLREADY_EXIST;
+                }
+            }
+            else {
+                return Expenses::$ADD_STATUS_ERROR;
+            }
+            
         }
-        return true;
+        
+        return Expenses::$ADD_STATUS_ERROR;
     }
 
     public static function editExpenseCategory() 
     {
-         #TODO zapisac wprowadzoną kwote limitu do bazy 
+         if (isset($_POST['editExpenseCategory'])){
 
-        $name = $_POST['editExpenseCategory'];
-        $id = $_POST['editExpenseCategory2'];
+            $name = $_POST['editExpenseCategory'];
+            $name = ltrim($name, ' ');
+            $name = rtrim($name, ' ');
+            $id = $_POST['editExpenseCategory2'];
+         }
 
         $sql = 'UPDATE expenses_category_assigned_to_users
-                SET';
+                SET ';
+        $set_values = [];
+         
+        if($name !=''){
+            array_push($set_values, 'name = :name');
+        }
 
-         if (isset($_POST['amountLimitEdit'])){
+        if (isset($_POST['amountLimitEdit'])){
             $limitCategory = $_POST['amountLimitEdit'];
             
-            if($_POST['editExpenseCategory'] !='' && $_POST['amountLimitEdit'] !='' ){
-                $sql.=' name = :name, limitCategory = :limitCategory';
-            }
-            else if ($_POST['amountLimitEdit'] !=''){
-                $sql.=' limitCategory = :limitCategory';
+            if($_POST['amountLimitEdit'] !='' ){
+                array_push($set_values, 'limitCategory = :limitCategory');
             }
          }
         
-        if ($_POST['editExpenseCategory'] !=''){
-            $sql.=' name = :name';
-        }
+         if(empty($set_values)){
+            return true;
+         }
+        $sql .= implode(', ', $set_values);
         
-        $sql .="\nWHERE id=:id";
-
+        $sql .=" \nWHERE id=:id
+                AND UPPER(name) = UPPER(:name)";
                
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -263,31 +366,54 @@ class Expenses extends \Core\Model
 
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
+        // print_r($sql);
         if($stmt->execute()!= true){
-            return false;
+            return Expenses::$ADD_STATUS_ERROR; 
         }
-        return true;
+
+        $rows_count = $stmt->rowCount();
+
+        if($rows_count == 1){
+            return Expenses::$ADD_STATUS_ACTIVATED; 
+        }
+        elseif($rows_count == 0) {
+            return Expenses::$ADD_STATUS_ALLREADY_EXIST; 
+        }
+        else  return Expenses::$ADD_STATUS_ERROR; 
     }
 
 
     public static function editPaymentsCategory()
     {
-        $user_id=Auth::getUserId();
         $name = $_POST['editPaymentsCategory'];
         $id = $_POST['editPaymentsCategory2'];
 
+        $name = ltrim($name, ' ');
+        $name = rtrim($name, ' ');
+
         $sql = 'UPDATE payment_methods_assigned_to_users
                 SET name = :name
-                WHERE id = :id';
+                WHERE id = :id
+                AND UPPER(name) = UPPER(:name)';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
+        
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
        
         if($stmt->execute()!= true){
-            return false;
+            return Expenses::$ADD_STATUS_ERROR; 
         }
-        return true;
+
+        $rows_count = $stmt->rowCount();
+
+        if($rows_count == 1){
+            return Expenses::$ADD_STATUS_ACTIVATED; 
+        }
+        elseif($rows_count == 0) {
+            return Expenses::$ADD_STATUS_ALLREADY_EXIST; 
+        }
+        else  return Expenses::$ADD_STATUS_ERROR; 
     }
 }

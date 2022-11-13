@@ -4,6 +4,49 @@
 
 {% block head %}
     {{ parent() }}
+
+    <style>
+        #payment {
+              
+            min-width: 12em;
+           
+            margin-right: 1em;
+            min-height: 2em;
+            max-height:2em;
+            overflow:hidden;
+            top: .5em;  
+            cursor: pointer;
+            text-align: left;
+            white-space: nowrap;
+            color: #444;
+            background-color: rgb(244, 248, 248);
+            outline: none;
+            border: .06em solid transparent;
+            border-radius: 1em;
+            text-align: center;
+
+        }
+            
+        #expense{
+               
+            min-width: 12em;
+           
+            margin-right: 1em;
+            min-height: 2em;
+            max-height:2em;
+            overflow:hidden;
+            top: .5em;  
+            cursor: pointer;
+            text-align: left;
+            white-space: nowrap;
+            color: #444;
+            background-color: rgb(244, 248, 248);
+            outline: none;
+            border: .06em solid transparent;
+            border-radius: 1em;
+            text-align: center;
+        }
+    </style>
 {% endblock %}
 
 {% block header %}
@@ -11,7 +54,7 @@
 {% endblock %}
 
 {% block content %} 
-    <main onload="set_today()">
+    <main>
         <article>
             <div class="container-fluid ">
                 <div class="row">
@@ -38,40 +81,47 @@
                                                                 
                                 <div class= "row ">
                                     <fieldset class="mb-5 text-md-center text-left m-2">
-                                        <label class="h5 text-center text-uppercase m-2 pb-2 pt-4 w-100">Wybierz sposób płatności</label>	
-
-
-                                        {% for category in payment_methods %}
-                                            
-                                            <div class="form-check form-check-inline col-5"> 
-                                                <input class="form-check-input" type="radio" name ="payment" id="radio{{ category['id'] }}" value="{{ category['id'] }}" checked>
-                                                <label class="form-check-label" for="radio{{ category['id'] }}">{{ category['name'] }}</label> 
-                                            </div>
-                                        {% endfor %}
-
+                                        {# <label class="h5 text-center text-uppercase m-2 pb-2 pt-4 w-100">Wybierz sposób płatności</label>	 #}
+                                        <div class="col-12 mt-1">
+                                            <label for="payment">Wybierz sposób płatności:</label>
+                                            <select name="payment" id="payment">
+                                                {% for category in payment_methods %}
+                                                <option  value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="col-12 mt-2">
+                                            <label for="expense">Wybierz kategorię zakupu:</label>
+                                            <select name="expense" id="expense">
+                                                {% for category in expense_categories %}
+                                                <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    
                                     </fieldset>
                                 </div>
                             </div>
 
-                            <div class= "row ">
-                                <fieldset class="mb-5 text-center">
+                            {# <div class= "row "> #}
+                                {# <fieldset class="mb-5 text-center"> #}
 
-                                    <label class="h5  text-uppercase pb-2"> Wybierz kategorie wydatku </label>
-                                    <div class="col-11 mb-2 ms-5 me-5 mx-auto d-block text-left">
+                                    {# <label class="h5  text-uppercase pb-2"> Wybierz kategorie wydatku </label> #}
+                                    {# <div class="col-11 mb-2 ms-5 me-5 mx-auto d-block text-left">
+                                        <label for="expense">Wybierz kategorię zakupu:</label>
+                                        <select name="expense" id="expense">
+                                            {% for category in expense_categories %}
+                                            <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
+                                            {% endfor %} #}
+                                        {# </select> #}
 
-                                        {% for category in expense_categories %}
+                                    {# </div> #}
 
-                                            <div class="form-check form-check-inline col-5 col-md-2 px-1" > 
-                                                <input class="form-check-input" type="radio" name ="expense" id="radio{{ category['id'] }}" value="{{ category['id'] }}" checked>
-                                                <label class="form-check-label" for="radio{{ category['id'] }}">{{ category['name'] }}</label> 
-                                            </div>
-                                        {% endfor %}                                
-                                    </div>
-
-                                </fieldset>
+                                {# </fieldset> #}
 
     
-                            </div>					
+                            {# </div>					 #}
                                 
                             <div class= "row">
                                     <textarea class ="col-md-6 col-10 offset-1 offset-md-3 mb-2" style="resize:none;" name="comment" id="comment" rows="4"  maxlength ="50"  placeholder="Dodaj komentarz (opcjonalnie)"></textarea>
@@ -96,4 +146,7 @@
 
 {% block footer %}
     {{ parent() }}
+    <script src="/js/limit.js"></script>
+    <script src="/js/present_day.js"></script>
+
 {% endblock %}     

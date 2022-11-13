@@ -13,6 +13,10 @@ use \App\Models\Validation;
 
 class Incomes extends \Core\Model 
 {
+    static $ADD_STATUS_NEW = 1;
+    static $ADD_STATUS_ACTIVATED = 2;
+    static $ADD_STATUS_ALLREADY_EXIST = 3;
+    static $ADD_STATUS_ERROR = -1;
 
     public static function  loadIncomeCategoriesData()
     {
@@ -119,32 +123,80 @@ class Incomes extends \Core\Model
     public static function addIncomeCategory()
     {
         $user_id=Auth::getUserId();
+        $is_active  = 'Y';
+        $is_not_active = 'N';
+
         $name = $_POST['inputIncomeCategory'];
+        $name = ltrim($name, ' ');
+        $name = rtrim($name, ' ');
         
-        $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
-                VALUES (:user_id, :name) ';
+        // $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+        //         VALUES (:user_id, :name) ';
+
+        $sql1 = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+        SELECT :user_id, :name
+        WHERE NOT EXISTS (
+            SELECT *
+            FROM incomes_category_assigned_to_users src
+            WHERE UPPER(src.name) = UPPER(:name)
+            AND src.user_id = :user_id
+        )';
+
+        $sql2 = 'UPDATE incomes_category_assigned_to_users
+                    SET is_active = :is_active
+                    WHERE user_id = :user_id
+                    AND  UPPER(name) = UPPER(:name)
+                    AND is_active = :is_not_active';
 
         $db = static::getDB();
-        $stmt = $db->prepare($sql);
+        $stmt1 = $db->prepare($sql1);
+        $stmt2 = $db->prepare($sql2);
 
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-       
-        if($stmt->execute()!= true){
-            return false;
+        $stmt1->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt1->bindValue(':name', $name, PDO::PARAM_STR);
+
+        $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt2->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt2->bindValue(':is_active', $is_active, PDO::PARAM_STR);
+        $stmt2->bindValue(':is_not_active', $is_not_active, PDO::PARAM_STR);
+
+        if($stmt1->execute()== true){
+            
+            $rows_count1 = $stmt1->rowCount();
+            if($rows_count1 == 1){
+                return Incomes::$ADD_STATUS_NEW; 
+            }
+
+            if ($stmt2->execute() == true) {
+                $rows_count2 = $stmt2->rowCount();
+                if($rows_count2 == 1){
+                    return Incomes::$ADD_STATUS_ACTIVATED; 
+                }
+                else {
+                    return Incomes::$ADD_STATUS_ALLREADY_EXIST;
+                }
+            }
+            else {
+                return Incomes::$ADD_STATUS_ERROR;
+            }
         }
-        return true;
+        
+        return Incomes::$ADD_STATUS_ERROR;
     }
 
     public static function editIncomeCategory()
     {
-        $user_id=Auth::getUserId();
         $name = $_POST['editIncCategory'];
         $id = $_POST['editIncCategory2'];
 
+        $name = ltrim($name, ' ');
+        $name = rtrim($name, ' ');
+
         $sql = 'UPDATE incomes_category_assigned_to_users
                 SET name = :name
-                WHERE id = :id';
+                WHERE id = :id
+                AND UPPER(name) = UPPER(:name)';
+
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -152,9 +204,18 @@ class Incomes extends \Core\Model
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
        
         if($stmt->execute()!= true){
-            return false;
+            return Incomes::$ADD_STATUS_ERROR; 
         }
-        return true;
+
+        $rows_count = $stmt->rowCount();
+
+        if($rows_count == 1){
+            return Incomes::$ADD_STATUS_ACTIVATED; 
+        }
+        elseif($rows_count == 0) {
+            return Incomes::$ADD_STATUS_ALLREADY_EXIST; 
+        }
+        else  return Incomes::$ADD_STATUS_ERROR; 
     }
 
 

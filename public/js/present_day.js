@@ -14,13 +14,10 @@
  var today = rok +"-"+ miesiac+ "-"+ dzien ;
 
 
-function set_today()
-{
 
 	document.getElementById("today").value = rok +"-"+ miesiac+ "-"+ dzien; 
 	document.getElementById("today").setAttribute("max", today);
   
-}
 
 
 
