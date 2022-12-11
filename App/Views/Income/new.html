@@ -3,11 +3,32 @@
 {% block title %}Dodaj przychód{% endblock %}
 
 {% block head %}
-    {{ parent() }}        
+    {{ parent() }}
+    
+    <style>
+     
+        #income{          
+            min-width: 12em;
+            margin-right: 1em;
+            min-height: 2em;
+            max-height:2em;
+            overflow:hidden;
+            top: .5em;  
+            cursor: pointer;
+            text-align: left;
+            white-space: nowrap;
+            color: #444;
+            background-color: rgb(244, 248, 248);
+            outline: none;
+            border: .06em solid transparent;
+            border-radius: 1em;
+            text-align: center;
+        }
+    </style>
 {% endblock %}
 
 {% block header %}
-    {{ parent() }}
+    {{ parent() }}    
 {% endblock %}
 
 {% block content %} 
@@ -42,7 +63,7 @@
                                     <label class="h5 text-center text-uppercase m-2 pb-2 pt-4"> Wybierz rodzaj przychodu </label>	
                                     <fieldset class="mb-5 text-center">
                                             
-                                        <div class="col-10 mb-2 ms-5 ">
+                                        {# <div class="col-10 mb-2 ms-5 ">
 
                                             {% for category in income_categories %}  
 
@@ -52,7 +73,17 @@
                                                 </div>
                                                 
                                             {% endfor %}
-                                        </div>   
+                                        </div>  #}
+                                        
+                                        <div class="col-12 mt-2">
+                                            <label for="income">Wybierz kategorię przychodu:</label>
+                                            <select name="income" id="income">
+                                                {% for category in income_categories %}
+                                                <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
                                     </fieldset>
                                 </div>							
                             </div>

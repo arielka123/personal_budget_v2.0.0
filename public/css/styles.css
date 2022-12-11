@@ -201,6 +201,24 @@ input:focus:-ms-input-placeholder
 
 .categoryRow:hover{
 	background-color: #99dcd6;
+}
 
+#dropdown{
+	  
+	min-width: 12em;
+	margin-right: 1em;
+	min-height: 2em;
+	max-height:2em;
+	overflow:hidden;
+	top: .5em;  
+	cursor: pointer;
+	text-align: left;
+	white-space: nowrap;
+	color: #444;
+	background-color: rgb(244, 248, 248);
+	outline: none;
+	border: .06em solid transparent;
+	border-radius: 1em;
+	text-align: center;
 }
 
