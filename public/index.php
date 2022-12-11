@@ -69,7 +69,7 @@ $router->add('api/expenseCategories', ['controller' => 'Settings', 'action' => '
 $router->add('api/incomeCategories', ['controller' => 'Settings', 'action' => 'incomeCategories']);
 $router->add('api/payments', ['controller' => 'Settings', 'action' => 'payments']);
 
-$router->add('{controller}/{action}');
+$router->add('{controller}/{action}');    
    
 $router->dispatch($_SERVER['QUERY_STRING']);
 

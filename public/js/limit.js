@@ -36,7 +36,7 @@ const categoriesObiect = async () =>{
 
         // }
         // console.log(r.id);
-    }
+    }    
 } 
 categoriesObiect();
     
@@ -64,3 +64,4 @@ const checkLimit = () =>{
     renderOnDom();
 }
 
+    
