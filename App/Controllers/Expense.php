@@ -39,5 +39,13 @@ class Expense extends Authenticated
             $this->redirect('/expense'); 
             }
     }
+
+    public function limitAction(){
+        // $user_id = $this->user_id;
+        //$category= $this->route_params['category'];
+        $category= 'Dzieci';
+
+        echo json_encode(Expenses::getLimit($category), JSON_UNESCAPED_UNICODE);
+    }
  
 }

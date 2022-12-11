@@ -59,15 +59,12 @@ $router->add('settings/editIncomeCategory',['controller' => 'Settings', 'action'
 $router->add('settings/editExpenseCategory',['controller' => 'Settings', 'action' => 'editExpenseCategory']);
 $router->add('settings/editPaymentsCategory',['controller' => 'Settings', 'action' => 'editPaymentsCategory']);
 
-   
-
-$router->add('api/expenses', ['controller' => 'Register', 'action' => 'expenses']);
-$router->add('api/incomes', ['controller' => 'Register', 'action' => 'incomes']);
-
-$router->add('api/expenseCategories', ['controller' => 'Settings', 'action' => 'expenseCategories']);
-$router->add('api/expenseCategories', ['controller' => 'Settings', 'action' => 'expenseCategories']);
+$router->add('api/expenseCategories/{id:[\w]+}', ['controller' => 'Settings', 'action' => 'expenseCategories']);
 $router->add('api/incomeCategories', ['controller' => 'Settings', 'action' => 'incomeCategories']);
 $router->add('api/payments', ['controller' => 'Settings', 'action' => 'payments']);
+
+$router->add('api/limit/{id:[\w]+}', ['controller' => 'Expense', 'action' => 'limit']);
+
 
 $router->add('{controller}/{action}');    
    

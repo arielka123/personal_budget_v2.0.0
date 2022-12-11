@@ -416,4 +416,26 @@ class Expenses extends \Core\Model
         }
         else  return Expenses::$ADD_STATUS_ERROR; 
     }
+
+    public static function getLimit($category){
+
+        
+        $user_id=Auth::getUserId();
+
+        $sql = 'SELECT limitCategory FROM expenses_category_assigned_to_users
+                                    WHERE user_id = :user_id
+                                    AND name = :category;
+                                    AND is_active ="Y" ';
+                                                                                              
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category', $category, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result[0]['limitCategory'];
+    }
 }

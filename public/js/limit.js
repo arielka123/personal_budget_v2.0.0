@@ -4,6 +4,8 @@ const getAllExpenseCategories = async () => {
 //     .then((data) => console.log(data));
 
     const res = await fetch("api/expenseCategories");
+    // const res = await fetch(`../api/expenseCategories/${category}`);
+
     const data = await res.json();
     // console.log(data);
     return data;
