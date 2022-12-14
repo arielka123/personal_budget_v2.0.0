@@ -39,5 +39,12 @@ class Expense extends Authenticated
             $this->redirect('/expense'); 
             }
     }
+
+    public function limitAction(){
+        $category_id= $this->route_params['category'];
+        // $category_id= 165;
+
+        echo json_encode(Expenses::getLimit($category_id), JSON_UNESCAPED_UNICODE);
+    }
  
 }
