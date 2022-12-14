@@ -41,11 +41,10 @@ class Expense extends Authenticated
     }
 
     public function limitAction(){
-        // $user_id = $this->user_id;
-        //$category= $this->route_params['category'];
-        $category= 'Dzieci';
+        $category_id= $this->route_params['category'];
+        // $category_id= 165;
 
-        echo json_encode(Expenses::getLimit($category), JSON_UNESCAPED_UNICODE);
+        echo json_encode(Expenses::getLimit($category_id), JSON_UNESCAPED_UNICODE);
     }
  
 }

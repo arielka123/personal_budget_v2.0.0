@@ -417,20 +417,20 @@ class Expenses extends \Core\Model
         else  return Expenses::$ADD_STATUS_ERROR; 
     }
 
-    public static function getLimit($category){
+    public static function getLimit($category_id){
 
         
         $user_id=Auth::getUserId();
 
         $sql = 'SELECT limitCategory FROM expenses_category_assigned_to_users
                                     WHERE user_id = :user_id
-                                    AND name = :category;
+                                    AND id = :category_id;
                                     AND is_active ="Y" ';
                                                                                               
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->bindValue(':category', $category, PDO::PARAM_STR);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
 
         $stmt->execute();
 

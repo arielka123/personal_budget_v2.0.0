@@ -1,46 +1,26 @@
-const getAllExpenseCategories = async () => {
-// fetch("api/expenseCategories")
-//     .then((response) => response.json())
-//     .then((data) => console.log(data));
 
-    const res = await fetch("api/expenseCategories");
-    // const res = await fetch(`../api/expenseCategories/${category}`);
+const expenseCategoryArea = document.querySelector('#expense');
 
-    const data = await res.json();
-    // console.log(data);
-    return data;
+let expenseSelectedID = function () {
+    console.log(expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id);
+  };
+  
+let category = expenseCategoryArea.addEventListener('change', expenseSelectedID);
+
+const getLimitForCategory = async (category) => {
+
+    try{
+        const res = await fetch(`../api/limit/${category}`);
+        const data = await res.json();
+        return data;
+    }
+    catch(e){
+        console.log('ERROR',e);
+    }
 }
 
-const categoriesPromise = getAllExpenseCategories();
-console.log(categoriesPromise);
+//#TODO wyciagnij id kategorii po kliknieciu na stronie
 
-async function fetchDataFromPromise() {
-    let promise_contents = ''
-    await Promise.resolve(categoriesPromise).then(value=>{
-        console.log('value', value);
-        promise_contents = value;
-        });
-    return promise_contents;
-}
-
-// let resultFromPromise = await fetchDataFromPromise().then(data => console.log(data)); 
-
-const categoriesObiect = async () =>{
-    const result = await fetchDataFromPromise();
-    for (let r of result){
-        console.log(r);
-        console.log(r.id);
-        console.log(r.name);
-
-        // for(let x of r)
-        // {
-        //     console.log(x);
-
-        // }
-        // console.log(r.id);
-    }    
-} 
-categoriesObiect();
     
     // REST API
 
