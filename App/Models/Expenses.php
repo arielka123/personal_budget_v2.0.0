@@ -425,7 +425,8 @@ class Expenses extends \Core\Model
         $sql = 'SELECT limitCategory FROM expenses_category_assigned_to_users
                                     WHERE user_id = :user_id
                                     AND id = :category_id;
-                                    AND is_active ="Y" ';
+                                    AND is_active ="Y" 
+                                    LIMIT 1';
                                                                                               
         $db = static::getDB();
         $stmt = $db->prepare($sql);

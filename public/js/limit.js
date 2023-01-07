@@ -1,49 +1,48 @@
 
 const expenseCategoryArea = document.querySelector('#expense');
 
-let expenseSelectedID = function () {
-    console.log(expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id);
-  };
-  
-let category = expenseCategoryArea.addEventListener('change', expenseSelectedID);
+// miejsce w DOM
+
 
 const getLimitForCategory = async (category) => {
-
     try{
         const res = await fetch(`../api/limit/${category}`);
         const data = await res.json();
         return data;
     }
     catch(e){
-        console.log('ERROR',e);
+        console.log("ERROR", e);
     }
 }
 
-//#TODO wyciagnij id kategorii po kliknieciu na stronie
 
-    
-    // REST API
+async function addLimit (category){
+        const limitInfo = await getLimitForCategory(category);
+       
+        // console.log({limitInfo});
+        // console.log(Object.values({limitInfo}));
 
-const renderOnDom = () =>{
-    //if necessary
-};
-
-const calculateLimits = () =>{
-    //calculate limits
-}    
-
-const getSumExpensesForSelectedMonth = () =>{
-    fetch(`/api/expenses/:${id}?date=${date}`);
+        let array = Object.values({limitInfo});
+        let value = array[0]; 
+        let stringToFloat = parseFloat(value);
+        console.log(stringToFloat);
+    return stringToFloat;
 }
 
-const getLimitCategory = () =>{
-    fetch(`/api/expenseCategories/:${id}`);
-}
 
-const checkLimit = () =>{
-    getSumExpensesForSelectedMonth();
-    calculateLimits();
-    renderOnDom();
-}
+let expenseSelectedID = function () {
+    const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
+    console.log(category);
+    addLimit(category);
+  };
+
+ expenseCategoryArea.addEventListener('change', expenseSelectedID);
+
+
+//#TODO wyświetl limit dla danej kategorii na stronie 
+
+ 
+
+
 
     
