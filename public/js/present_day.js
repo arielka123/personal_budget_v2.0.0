@@ -14,9 +14,13 @@
  var today = rok +"-"+ miesiac+ "-"+ dzien ;
 
 
+ var elem = document.getElementById("today");
 
-	document.getElementById("today").value = rok +"-"+ miesiac+ "-"+ dzien; 
-	document.getElementById("today").setAttribute("max", today);
+if(typeof elem !== 'undefined' && elem !== null){
+	elem.value = today; 
+	elem.setAttribute("max", today);
+}
+
   
 
 

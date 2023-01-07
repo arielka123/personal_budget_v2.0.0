@@ -1,8 +1,19 @@
 
+// obszar w DOM
+
 const expenseCategoryArea = document.querySelector('#expense');
+const amountArea = document.querySelector('#amount');
+const dateArea = document.querySelector('#today');
 
-// miejsce w DOM
+const infoText = document.querySelector('#infoText');
 
+const limitBox = document.querySelector('#limitBox');
+const expenseBox = document.querySelector('#expenseBox');
+const diffrenceBox = document.querySelector('#diffrenceBox');
+const newExpenseBox = document.querySelector('#newExpenseBox');
+
+
+//get limit from API
 
 const getLimitForCategory = async (category) => {
     try{
@@ -15,8 +26,7 @@ const getLimitForCategory = async (category) => {
     }
 }
 
-
-async function addLimit (category){
+async function addLimit (category, date, amount){
         const limitInfo = await getLimitForCategory(category);
        
         // console.log({limitInfo});
@@ -24,24 +34,66 @@ async function addLimit (category){
 
         let array = Object.values({limitInfo});
         let value = array[0]; 
-        let stringToFloat = parseFloat(value);
-        console.log(stringToFloat);
-    return stringToFloat;
+
+        let limit = parseFloat(value);
+
+        console.log(category);
+        console.log(date);
+        console.log(amount);
+        console.log(limit);
+
+        showInfoText(limit);
+        showNewExpenseBox(limit, amount);
 }
 
+//eventListener
 
-let expenseSelectedID = function () {
+ expenseCategoryArea.addEventListener('change', () => {
     const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
-    console.log(category);
-    addLimit(category);
-  };
+    const date = dateArea.value;
+    const amount = amountArea.value;
 
- expenseCategoryArea.addEventListener('change', expenseSelectedID);
+    addLimit(category, date, amount);
+ });
+
+ amountArea.addEventListener('change', () => {
+    const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
+    const date = dateArea.value;
+    const amountString = amountArea.value;
+    const amount = parseFloat(amountString);
+
+    addLimit(category, date, amount);
+ });
+
+ dateArea.addEventListener('change', () => {
+    const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
+    const date = dateArea.value;
+    const amount = amountArea.value;
+    addLimit(category, date, amount);
+ });
+
+
+ //render to DOM
+
+function showInfoText(limit){
+    limitBox.innerText = `Limit: ${limit} zł`  
+ }
+
+ function showNewExpenseBox(limit, amount){
+  
+    limitFloast = parseFloat(limit);
+    amountFloat = parseFloat(amount);
+    if(isNaN(amountFloat)) amountFloat=0;
+    if(isNaN(limitFloast)) limitFloast=0;
+    let newAmount = limitFloast + amountFloat;
+    newExpenseBox.innerText = `Wydatki + wpisana kwota: ${newAmount} zł` 
+ }
 
 
 //#TODO wyświetl limit dla danej kategorii na stronie 
 
- 
+ //#TODO wyciagnij name for category
+
 
 
 

@@ -59,6 +59,24 @@
                         <header>
                             <h1 class="h2 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Tutaj możesz dodać swoje wydatki </h1>
                         </header>
+                        <h6> 
+                            <p id="infoText" class="text-center" >
+                                Informacje o Twoim Limicie: 
+                            </p>
+                        </h6>
+
+                        <div id="infoBox" class="bg-warning text-center p-3" >
+                            
+                                <h6 id="limitBox" class="d-inline p-2 col-2" >Limit: </h6>
+                            
+                                <h6 id="expenseBox" class="d-inline p-2 col-2"  >Wydano: </h6>
+                           
+                                <h6 id="diffrenceBox" class="d-inline p-2 col-2" >Różnica: </h6>
+                                
+                                <h6 id="newExpenseBox"class="d-inline p-2 col-2" >Wydatki + wpisana kwota: </h6>
+
+                        </div>
+
                         <form action="expense/save" method="post" enctype="multipart/form-data">
                             <div class="mt-5 p-4 col-lg-6 offset-lg-3 offset-md-1">
 
@@ -121,7 +139,7 @@
                             {# </div>					 #}
                                 
                             <div class= "row">
-                                    <textarea class ="col-md-6 col-10 offset-1 offset-md-3 mb-2" style="resize:none;" name="comment" id="comment" rows="4"  maxlength ="50"  placeholder="Dodaj komentarz (opcjonalnie)"></textarea>
+                                    <textarea class ="col-md-6 col-10 offset-1 offset-md-3 mb-2" style="resize:none;" name="comment" id="comment" rows="2"  maxlength ="50"  placeholder="Dodaj komentarz (opcjonalnie)"></textarea>
                             </div>
                         
                             <div class ="row pt-4 mb-4">
