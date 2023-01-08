@@ -12,7 +12,6 @@ const expenseBox = document.querySelector('#expenseBox');
 const diffrenceBox = document.querySelector('#diffrenceBox');
 const newExpenseBox = document.querySelector('#newExpenseBox');
 
-
 //get limit from API
 
 const getLimitForCategory = async (category) => {

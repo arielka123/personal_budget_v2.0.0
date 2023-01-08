@@ -30,15 +30,15 @@ class Settings extends Authenticated
             View::renderTemplate('Settings/new.html', $args);   
     } 
 
-    public function expenseCategoriesAction(){ 
+    public function expenseCategoriesNameAction(){ 
         echo json_encode(Expenses::loadExpenseCategoriesData(), JSON_UNESCAPED_UNICODE);
     }
 
-    public function paymentsAction(){
+    public function paymentsNameAction(){
         echo json_encode(Expenses::loadPaymentMethodData(), JSON_UNESCAPED_UNICODE);
     }
 
-    public function incomeCategoriesAction(){
+    public function incomeCategoriesNameAction(){
         echo json_encode(Incomes::loadIncomeCategoriesData(), JSON_UNESCAPED_UNICODE);
     }
 
