@@ -134,10 +134,15 @@ function showInfoText(difference){
     if(difference>=0){
         infoText.innerText = 
         `Informacje o limicie: Możesz jeszcze wydać ${difference} złotych w wybranej kategorii`;
+        document.getElementById("infoText").style.color  = "#4db6ac";
+
     }
     else{
         infoText.innerText = 
         `Informacje o limicie: Przekroczyłeś limit o ${-difference} złotych w wybranej kategorii`;
+        
+        document.getElementById("infoText").style.color  = "#e60e07";
+
     }
 
 }
@@ -148,17 +153,16 @@ function showDifferenceBox(limit, expenses){
     if(isNaN(limitFloat)) limitFloat=0;
     if(isNaN(expensesFloat)) expensesFloat=0;
 
-    let difference = limitFloat - expensesFloat;
-    let differenceFloat = parseFloat(difference);
+    let difference =0;
+    difference =  limitFloat - expensesFloat;
 
-    if(isNaN(differenceFloat)) differenceFloat=0;
+    let difference2 = Number((difference).toFixed(2));
+    if(isNaN(difference2)) difference2=0;
 
-    differenceBox.innerText = `Różnica: ${differenceFloat} PLN`;
+    differenceBox.innerText = `Różnica: ${difference2} PLN`;
 
-    showInfoText(difference);
+    showInfoText(difference2);
  }
-
-//#TODO wyświetl limit dla danej kategorii na stronie 
 
  //#TODO wyciagnij name for category
 
