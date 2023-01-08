@@ -9,7 +9,7 @@ const infoText = document.querySelector('#infoText');
 
 const limitBox = document.querySelector('#limitBox');
 const expenseBox = document.querySelector('#expenseBox');
-const diffrenceBox = document.querySelector('#diffrenceBox');
+const differenceBox = document.querySelector('#diffrenceBox');
 const newExpenseBox = document.querySelector('#newExpenseBox');
 
 //get limit from API
@@ -49,21 +49,15 @@ async function addLimit (category, date, amount){
 
         // let limit = parseFloat(value);
 
-        console.log(category);
-        console.log(date);
-        console.log(amount);
-        console.log(limit);
-
-        showInfoText(limit);
+        showInfoBox(limit);
         showNewExpenseBox(limit, amount);
-}
 
-async function addMonthlyExpenses(category){
-    const expensesInfo = await getMonthlyExpensesForCategory(category);
-    let array = Object.values({expensesInfo});
-    let expenses = array[0]; 
-
-    showExpensesBox(expenses);
+        const expensesInfo = await getMonthlyExpensesForCategory(category);
+        let array2 = Object.values({expensesInfo});
+        let expenses = array2[0]; 
+    
+        showExpensesBox(expenses);
+        showDifferenceBox(limit, expenses)
 }
 
 //eventListener
@@ -74,8 +68,6 @@ async function addMonthlyExpenses(category){
     const amount = amountArea.value;
 
     addLimit(category, date, amount);
-    addMonthlyExpenses(category);
-
  });
 
  amountArea.addEventListener('change', () => {
@@ -85,7 +77,7 @@ async function addMonthlyExpenses(category){
     const amount = parseFloat(amountString);
 
     addLimit(category, date, amount);
-    addMonthlyExpenses(category);
+
  });
 
  dateArea.addEventListener('change', () => {
@@ -94,37 +86,62 @@ async function addMonthlyExpenses(category){
     const amount = amountArea.value;
 
     addLimit(category, date, amount);
-    addMonthlyExpenses(category);
-
  });
 
 
  //render to DOM
 
-function showInfoText(limit){
+function showInfoBox(limit){
     limitBox.innerText = `Limit: ${limit} PLN`  
  }
 
- function showNewExpenseBox(limit, amount){
+function showNewExpenseBox(limit, amount){
   
-    limitFloast = parseFloat(limit);
-    amountFloat = parseFloat(amount);
+    let limitFloat = parseFloat(limit);
+    let amountFloat = parseFloat(amount);
 
     if(isNaN(amountFloat)) amountFloat=0;
-    if(isNaN(limitFloast)) limitFloast=0;
+    if(isNaN(limitFloat)) limitFloat=0;
 
-    let newAmount = limitFloast + amountFloat;
+    let newAmount = limitFloat + amountFloat;
     newExpenseBox.innerText = `Wydatki + wpisana kwota: ${newAmount} PLN` 
  }
 
- function showExpensesBox(expenses){
+function showExpensesBox(expenses){
     
-    expensesFloast = parseFloat(expenses);
-    if(isNaN(expensesFloast)) expensesFloast=0;
-    expenseBox.innerText = `Wydano: ${expensesFloast} PLN`;
+    let expensesFloat = parseFloat(expenses);
+    if(isNaN(expensesFloat)) expensesFloat=0;
+    expenseBox.innerText = `Wydano: ${expensesFloat} PLN`;
  }
 
+function showInfoText(difference){
 
+    if(difference>=0){
+        infoText.innerText = 
+        `Informacje o limicie: Możesz jeszcze wydać ${difference} złotych w wybranej kategorii`;
+    }
+    else{
+        infoText.innerText = 
+        `Informacje o limicie: Przekroczyłeś limit o ${-difference} złotych w wybranej kategorii`;
+    }
+
+}
+function showDifferenceBox(limit, expenses){
+    
+    let limitFloat = parseFloat(limit);
+    let expensesFloat = parseFloat(expenses);
+    if(isNaN(limitFloat)) limitFloat=0;
+    if(isNaN(expensesFloat)) expensesFloat=0;
+
+    let difference = limitFloat - expensesFloat;
+    let differenceFloat = parseFloat(difference);
+
+    if(isNaN(differenceFloat)) differenceFloat=0;
+
+    differenceBox.innerText = `Różnica: ${differenceFloat} PLN`;
+
+    showInfoText(difference);
+ }
 
 //#TODO wyświetl limit dla danej kategorii na stronie 
 
