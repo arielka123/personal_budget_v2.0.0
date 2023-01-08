@@ -4,27 +4,6 @@
 
 {% block head %}
     {{ parent() }}
-    
-    <style>
-     
-        #income{          
-            min-width: 12em;
-            margin-right: 1em;
-            min-height: 2em;
-            max-height:2em;
-            overflow:hidden;
-            top: .5em;  
-            cursor: pointer;
-            text-align: left;
-            white-space: nowrap;
-            color: #444;
-            background-color: rgb(244, 248, 248);
-            outline: none;
-            border: .06em solid transparent;
-            border-radius: 1em;
-            text-align: center;
-        }
-    </style>
 {% endblock %}
 
 {% block header %}
@@ -42,65 +21,39 @@
                         </header>
 
                         <form action="income/save" method="post" enctype="multipart/form-data">	
-                            <div class=" mt-5 col-lg-6 offset-lg-3 offset-md-1">
-
-                                <div class= "form-group row pb-3" >
-                                    <label for ="today" class="h6 offset-sm-2 text-u col-form-label col-sm-3 ps-2" > Data</label>
-                                    <div class="col col-sm-6 col-md-4">
-                                        <input type="date"  id = "today" class="form-control" name="date" min='1991-01-01' max='3000-12-31' required>
-                                    </div>
-                                </div>	
-                                                                    
-                                <div class = "form-group row pb-3">
-                                    <label for ="kwota" class="h6 offset-sm-2 col-form-label col-sm-3 ps-2"> Kwota w PLN</label>
-                                    <div class="col col-sm-6 col-md-4">
-                                        <input type="number" class="form-control col-sm-2" name= "amount" id="amount" min="0" step="0.01" required>
-                                    </div>
-                                    
+                            <div class="mt-5 p-4 col-lg-6 offset-lg-3 offset-md-1">
+   
+                                <div class="form-floating mt-3">
+                                    <select class="form-select" name="income" id="income" aria-label="Floating label select example">
+                                    <option selected>Wybierz</option>
+                                        {% for category in income_categories %}
+                                        <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="income">Kategoria przychodu</label>
                                 </div>
 
-                                <div class= "row">
-                                    <label class="h5 text-center text-uppercase m-2 pb-2 pt-4"> Wybierz rodzaj przychodu </label>	
-                                    <fieldset class="mb-5 text-center">
-                                            
-                                        {# <div class="col-10 mb-2 ms-5 ">
+                                <div class="form-floating mt-3">
+                                    <input type="date" name="date" class="form-control" id="today" min="1991-01-01" placeholder="Data" required>
+                                    <label for="today">Data</label>
+                                </div> 
+                                
+                                <div class="form-floating mt-3">
+                                    <input type="number" class="form-control" name= "amount" id="amount" min="0" step="0.01" required placeholder="name@example.com">
+                                    <label for="amount">Kwota</label>
+                                </div>
 
-                                            {% for category in income_categories %}  
+                                <div class="form-floating my-3">
+                                    <textarea class="form-control" name="comment" id="comment" rows="1"  maxlength ="100"  placeholder="Dodaj komentarz (opcjonalnie)" id="floatingTextarea2" style="resize:none;"></textarea>
+                                    <label for="floatingTextarea2">Komentarz</label>
+                                </div>
 
-                                                <div class="form-check form-check-inline col-6 col-md-5" > 
-                                                    <input class="form-check-input" type="radio" name ="income" id="radio{{ category['id'] }}" value="{{ category['id'] }}" checked>
-                                                    <label class="form-check-label" for="radio{{ category['id'] }}">{{ category['name'] }}</label> 
-                                                </div>
-                                                
-                                            {% endfor %}
-                                        </div>  #}
-                                        
-                                        <div class="col-12 mt-2">
-                                            <label for="income">Wybierz kategorię przychodu:</label>
-                                            <select name="income" id="income">
-                                                {% for category in income_categories %}
-                                                <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                        
-                                    </fieldset>
-                                </div>							
-                            </div>
-
-                            <div class= "row">
-                                <textarea class ="col-md-6 col-10 offset-1 offset-md-3 mb-2" style="resize:none;" name="comment" id="comment" rows="4"  maxlength ="50"  placeholder="Dodaj komentarz (opcjonalnie)"></textarea>
-                            </div>
-            
-                            <div class ="row pt-4 mb-4">
-                                <div class=" col-md-4 col-10 d-block mx-auto"> 
-                                    <input class="h6 col-12 px-4 py-2 mb-4 " type="submit" value= "DODAJ"> 
-                                    <input class="h6 col-12 px-4 py-2" type="reset" value= "ANULUJ"> 
-                                </div>                              
-                            </div>
-                            
+                                <div class=" text-center mx-auto d-block mt-5"> 
+                                    <input class="h6 col-12 col-sm-5 py-3  " type="submit" value= "DODAJ"> 
+                                    <input class="h6 col-12 col-sm-5 py-3" type="reset" value= "ANULUJ"> 
+                                </div> 
+                            </div>                               
                         </form>
-                            
                     </div>
                 </div>
             </div>
