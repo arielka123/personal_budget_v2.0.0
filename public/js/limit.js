@@ -6,6 +6,7 @@ const amountArea = document.querySelector('#amount');
 const dateArea = document.querySelector('#today');
 
 const infoText = document.querySelector('#infoText');
+const infoBox = document.querySelector('#infoBox');
 
 const limitBox = document.querySelector('#limitBox');
 const expenseBox = document.querySelector('#expenseBox');
@@ -36,6 +37,17 @@ const getMonthlyExpensesForCategory = async (category) => {
     }
 }
 
+//show 
+
+function  showInfo() {
+
+        infoText.classList.remove('d-none');
+        infoText.classList.add('d-block');
+
+        infoBox.classList.remove('d-none');
+        infoBox.classList.add('d-block');     
+    } 
+
 //action
 
 async function addLimit (category, date, amount){
@@ -57,8 +69,11 @@ async function addLimit (category, date, amount){
         let expenses = array2[0]; 
     
         showExpensesBox(expenses);
-        showDifferenceBox(limit, expenses)
+        showDifferenceBox(limit, expenses);
+        showInfo();
+
 }
+
 
 //eventListener
 
