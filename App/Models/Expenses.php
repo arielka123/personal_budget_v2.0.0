@@ -419,16 +419,17 @@ class Expenses extends \Core\Model
 
     public static function getLimit($category_id){
 
-        
         $user_id=Auth::getUserId();
 
         $sql = 'SELECT limitCategory FROM expenses_category_assigned_to_users
-                                    WHERE user_id = :user_id
-                                    AND id = :category_id;
-                                    AND is_active ="Y" ';
+                WHERE user_id = :user_id
+                AND id = :category_id;
+                AND is_active ="Y" 
+                LIMIT 1';
                                                                                               
         $db = static::getDB();
         $stmt = $db->prepare($sql);
+
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
 
@@ -438,4 +439,36 @@ class Expenses extends \Core\Model
 
         return $result[0]['limitCategory'];
     }
+
+    public static function expenseAmount($category_id){
+        
+        $year=date('Y');          
+        $month=date('m');
+        $today= date('Y-m-d');
+        $first_day="01";   //#TODO powinien byc dzień wybrany przez uzytkownika
+    
+        $date1=$year."-".$month."-".$first_day;
+        $date2=$today;   
+
+        $user_id=Auth::getUserId();
+
+        $sql = 'SELECT SUM(amount) as sum FROM expenses
+                WHERE user_id = :user_id
+                AND expense_category_assigned_to_user_id = :category_id;
+                AND date_of_expense BETWEEN :date1 AND :date2';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->bindValue(':date1', $date1, PDO::PARAM_STR);
+        $stmt->bindValue(':date2', $date2, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result[0]['sum'];
+    }
+ 
+    
 }

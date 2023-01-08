@@ -197,7 +197,7 @@ class BalanceSheet  extends \Core\Model
     $year=date('Y');          
     $month=date('m');
     $today= date('Y-m-d');
-    $first_day="01"; 
+    $first_day="01";  //#TODO powinien byc dzień wybrany przez uzytkownika
 
     $date1=$year."-".$month."-".$first_day;
     $date2=$today;

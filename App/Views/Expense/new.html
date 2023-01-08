@@ -4,46 +4,6 @@
 
 {% block head %}
     {{ parent() }}
-
-    <style>
-        #payment {
-              
-            min-width: 12em;
-           
-            margin-right: 1em;
-            min-height: 2em;
-            max-height:2em;
-            overflow:hidden;
-            top: .5em;  
-            cursor: pointer;
-            text-align: left;
-            white-space: nowrap;
-            color: #444;
-            background-color: rgb(244, 248, 248);
-            outline: none;
-            border: .06em solid transparent;
-            border-radius: 1em;
-            text-align: center;
-        }
-            
-        #expense{          
-            min-width: 12em;
-            margin-right: 1em;
-            min-height: 2em;
-            max-height:2em;
-            overflow:hidden;
-            top: .5em;  
-            cursor: pointer;
-            text-align: left;
-            white-space: nowrap;
-            color: #444;
-            background-color: rgb(244, 248, 248);
-            outline: none;
-            border: .06em solid transparent;
-            border-radius: 1em;
-            text-align: center;
-        }
-    </style>
 {% endblock %}
 
 {% block header %}
@@ -59,78 +19,66 @@
                         <header>
                             <h1 class="h2 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Tutaj możesz dodać swoje wydatki </h1>
                         </header>
+                        <h6> 
+                            <p id="infoText" class="text-center d-none" >
+                               
+                            </p>
+                        </h6>
+
+                        <div id="infoBox" class=" col col-md-6 mx-auto d-block bg-warning text-center p-2 d-none" >
+                            
+                                <h6 id="limitBox" class="d-block d-md-inline p-2 col col-md-3"></h6>
+                            
+                                <h6 id="expenseBox" class="d-block d-md-inline p-2 col col-md-3"></h6>
+                           
+                                <h6 id="diffrenceBox" class="d-block d-md-inline p-2 col col-md-3"></h6>
+                                
+                                <h6 id="newExpenseBox"class="d-block d-md-inline p-2 col col-md-3"></h6>
+                        </div>
+
                         <form action="expense/save" method="post" enctype="multipart/form-data">
                             <div class="mt-5 p-4 col-lg-6 offset-lg-3 offset-md-1">
 
-                                <div class= "form-group row pb-3">
-                                    <label for ="today" class="h6 offset-sm-2 text-u col-form-label col-sm-3 ps-2"> Data</label>
-                                    <div class="col col-sm-6 col-md-4">
-                                        <input type="date"  id = "today" class="form-control" name="date" min="1991-01-01" max="3000-12-31" required>
-                                    </div>
-                                </div>	
-                                                                    
-                                <div class = "form-group row pb-3">
-                                    <label for ="kwota" class="h6 offset-sm-2 col-form-label col-sm-3 ps-2"> Kwota w PLN</label>
-                                    <div class="col col-sm-6 col-md-4">
-                                        <input type="number" class="form-control" name= "amount" id="amount" min="0" step="0.01" required> 
-                                    </div>
+                                <div class="form-floating ">
+                                    <select class="form-select" id="expense" name="expense" aria-label="Floating label select example">
+                                    <option selected>Wybierz</option>
+                                    {% for category in expense_categories %}
+                                    <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
+                                    {% endfor %}
+                                    </select>
+                                    <label for="expense">Kategoria zakupu</label>
                                 </div>
-                                                                
-                                <div class= "row ">
-                                    <fieldset class="mb-5 text-md-center text-left m-2">
-                                        {# <label class="h5 text-center text-uppercase m-2 pb-2 pt-4 w-100">Wybierz sposób płatności</label>	 #}
-                                        <div class="col-12 mt-1">
-                                            <label for="payment">Wybierz sposób płatności:</label>
-                                            <select name="payment" id="payment">
-                                                {% for category in payment_methods %}
-                                                <option  value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="col-12 mt-2">
-                                            <label for="expense">Wybierz kategorię zakupu:</label>
-                                            <select name="expense" id="expense">
-                                                {% for category in expense_categories %}
-                                                <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    
-                                    </fieldset>
-                                </div>
-                            </div>
 
-                            {# <div class= "row "> #}
-                                {# <fieldset class="mb-5 text-center"> #}
-
-                                    {# <label class="h5  text-uppercase pb-2"> Wybierz kategorie wydatku </label> #}
-                                    {# <div class="col-11 mb-2 ms-5 me-5 mx-auto d-block text-left">
-                                        <label for="expense">Wybierz kategorię zakupu:</label>
-                                        <select name="expense" id="expense">
-                                            {% for category in expense_categories %}
-                                            <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
-                                            {% endfor %} #}
-                                        {# </select> #}
-
-                                    {# </div> #}
-
-                                {# </fieldset> #}
-
-    
-                            {# </div>					 #}
+                                <div class="form-floating mt-3">
+                                    <input type="date" name="date" class="form-control" id="today" min="1991-01-01" placeholder="Data" required>
+                                    <label for="today">Data</label>
+                                </div>     
                                 
-                            <div class= "row">
-                                    <textarea class ="col-md-6 col-10 offset-1 offset-md-3 mb-2" style="resize:none;" name="comment" id="comment" rows="4"  maxlength ="50"  placeholder="Dodaj komentarz (opcjonalnie)"></textarea>
-                            </div>
-                        
-                            <div class ="row pt-4 mb-4">
-                                <div class=" col-md-4 col-10 d-block mx-auto"> 
-                                    <input class="h6 col-12 px-4 py-2 mb-4 " type="submit" value= "DODAJ"> 
-                                    <input class="h6 col-12 px-4 py-2" type="reset" value= "ANULUJ"> 
-                                </div>                              
-                            </div>
+                                <div class="form-floating mt-3">
+                                    <input type="number" class="form-control" name= "amount" id="amount" min="0" step="0.01" required placeholder="name@example.com">
+                                    <label for="amount">Kwota</label>
+                                </div>
 
+                                <div class="form-floating mt-3">
+                                    <select class="form-select" id="payment" name="payment" aria-label="Floating label select example">
+                                    <option selected>Wybierz</option>
+                                        {% for category in payment_methods %}
+                                            <option  value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="payment">Sposób płatności</label>
+                                </div>
+
+                                <div class="form-floating my-3">
+                                    <textarea class="form-control" name="comment" id="comment" rows="1"  maxlength ="100"  placeholder="Dodaj komentarz (opcjonalnie)" id="floatingTextarea2" style="resize:none;"></textarea>
+                                    <label for="floatingTextarea2">Komentarz</label>
+                                </div>
+
+                                <div class=" text-center mx-auto d-block mt-5"> 
+                                    <input class="h6 col-12 col-sm-5 py-3  " type="submit" value= "DODAJ"> 
+                                    <input class="h6 col-12 col-sm-5 py-3" type="reset" value= "ANULUJ"> 
+                                </div>      
+                            </div>                        
                         </form>
                     </div>
                 </div>
