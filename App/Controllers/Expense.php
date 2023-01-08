@@ -48,7 +48,6 @@ class Expense extends Authenticated
  
     public function expenseAmountAction(){
         $category_id= $this->route_params['category'];
-
         echo json_encode(Expenses::expenseAmount($category_id), JSON_UNESCAPED_UNICODE);
     }
 }

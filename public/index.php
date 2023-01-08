@@ -64,7 +64,7 @@ $router->add('api/incomeCategoriesName/{id:[\d]+}', ['controller' => 'Settings',
 $router->add('api/paymentsName/{id:[\d]+}', ['controller' => 'Settings', 'action' => 'paymentsName']);
 
 $router->add('api/limit/{category:[\d]+}', ['controller' => 'Expense', 'action' => 'limit']);
-$router->add('api/expenses/{id:[\d]+}', ['controller' => 'Expense', 'action' => 'expenseAmount']);
+$router->add('api/expenses/{category:[\d]+}', ['controller' => 'Expense', 'action' => 'expenseAmount']);
 
 
 $router->add('{controller}/{action}');    

@@ -429,6 +429,7 @@ class Expenses extends \Core\Model
                                                                                               
         $db = static::getDB();
         $stmt = $db->prepare($sql);
+
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
 
@@ -453,20 +454,20 @@ class Expenses extends \Core\Model
 
         $sql = 'SELECT SUM(amount) as sum FROM expenses
                 WHERE user_id = :user_id
-                AND expense_category_assigned_to_user_id = :expenses_category_assigned_to_user_id;
+                AND expense_category_assigned_to_user_id = :category_id;
                 AND date_of_expense BETWEEN :date1 AND :date2';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
+
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
         $stmt->bindValue(':date1', $date1, PDO::PARAM_STR);
         $stmt->bindValue(':date2', $date2, PDO::PARAM_STR);
 
         $stmt->execute();
-
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result;
+        return $result[0]['sum'];
     }
  
     
