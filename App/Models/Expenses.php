@@ -43,7 +43,6 @@ class Expenses extends \Core\Model
     $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     return $result;
-
     }
 
     /**
@@ -468,6 +467,24 @@ class Expenses extends \Core\Model
         $stmt->execute();
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result[0]['sum'];
+    }
+
+    public static function  getExpenseName($category_id)
+    {
+        $user_id=Auth::getUserId();
+
+        $sql = 'SELECT name FROM expenses_category_assigned_to_users
+                WHERE user_id = :user_id
+                AND id = :category_id;';
+                                                                    
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result[0]['name'];
     }
  
     

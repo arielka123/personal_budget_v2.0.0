@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %} 
-    <main>
+    <main>   
         <article>
             <div class="container-fluid">
                 <div class="row">
@@ -56,10 +56,7 @@
                                         </form>
 
                                         <i  class = "editIncomeIcon d-inline icon-edit pe-1" id="{{ row['id'] }}" value="{{ row['name'] }}" style="float:right" data-bs-toggle="modal" data-bs-target="#editIncomeModal"></i>
-                                        
-                                        <p class="text-muted m-0 p-0">
-                                            <small>Limit: BRAK</small>
-                                        </p>
+
                                     </div>
                                 {% endfor %}
 {# edit income modal #} 
@@ -282,10 +279,7 @@
                                         </form>
 
                                         <i  class = "editPaymentsIcon d-inline icon-edit pe-1" id="{{ row['id'] }}" value="{{ row['name'] }}" style="float:right" data-bs-toggle="modal" data-bs-target="#editPaymentsModal"></i>
-                                        
-                                        <p class="text-muted m-0 p-0">
-                                            <small>Limit: BRAK</small>
-                                        </p>
+                            
                                     </div>
                                 {% endfor %}
 

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use \Core\View;
+use \Core\Controller;
 use \App\Models\Expenses;   
 use \App\Models\Incomes;
 use \App\Auth;
@@ -18,29 +19,30 @@ class Settings extends Authenticated
 
     public static function newAction()      
     {         
-            $user = Auth::getUser();   
+            $user = Auth::getUser(); 
 
             $args = [
             'expenseCategories' => Expenses::loadExpenseCategoriesData(),
             'payments' => Expenses::loadPaymentMethodData(),
             'incomeCategories' => Incomes::loadIncomeCategoriesData(),
-            'user' => $user,
+            'user' => $user
         ];              
         //print_r (Expenses::loadUserExpenses());
             View::renderTemplate('Settings/new.html', $args);   
     } 
 
     public function expenseCategoriesNameAction(){ 
-        echo json_encode(Expenses::loadExpenseCategoriesData(), JSON_UNESCAPED_UNICODE);
+        $category_id = $this->route_params['category'];
+        echo json_encode(Expenses::getExpenseName($category_id), JSON_UNESCAPED_UNICODE);
     }
 
-    public function paymentsNameAction(){
-        echo json_encode(Expenses::loadPaymentMethodData(), JSON_UNESCAPED_UNICODE);
-    }
+    // public function paymentsNameAction(){
+    //     echo json_encode(Expenses::loadPaymentMethodData(), JSON_UNESCAPED_UNICODE);
+    // }
 
-    public function incomeCategoriesNameAction(){
-        echo json_encode(Incomes::loadIncomeCategoriesData(), JSON_UNESCAPED_UNICODE);
-    }
+    // public function incomeCategoriesNameAction(){
+    //     echo json_encode(Incomes::loadIncomeCategoriesData(), JSON_UNESCAPED_UNICODE);
+    // }
 
     public function deleteExpCategoryAction(){
 
