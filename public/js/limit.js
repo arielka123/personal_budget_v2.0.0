@@ -82,7 +82,7 @@ async function addLimit (category, amount){
     addLimit(category, amount);
  });
 
- amountArea.addEventListener('change', () => {
+ amountArea.addEventListener('input', () => {
     const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
     const date = dateArea.value;
     let amount = amountArea.value; 
@@ -90,10 +90,6 @@ async function addLimit (category, amount){
     addLimit(category, amount);
 
  });
-
-//  function updateValue(e){
-//     amountArea.value = e.target.value;
-//  }
 
  dateArea.addEventListener('change', () => {
     const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
