@@ -15,7 +15,7 @@ class Validation extends \Core\Model
 
         return $comment;
     }
-
+    
     public static function validate_amount ()
     {
 
@@ -28,7 +28,6 @@ class Validation extends \Core\Model
         {
             Flash::addMessage('Nie wprowadzono kwoty!',
             Flash::WARNING);
-        
 			return false;
         }
 		
