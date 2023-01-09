@@ -17,7 +17,10 @@
                 <div class="row">
                     <div class="col-12">
                         <header>
-                            <p class="h4 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Ustawienia </p>
+                            {# <p class="h4 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Ustawienia </p> #}
+                            <h2 class="titlePage  ml-0 mb-4 mt-5 text-md-left">
+                                Ustawienia 
+                            </h2>
                         </header>
 
                         <div class="col-10 bg-light p-1 m-1 mx-auto d-block  text-center settingsItem" id="incomeCategoryMenu">
@@ -263,7 +266,7 @@
                                     Nowa kategoria<i id="paymentsAddIcon" class = "d-inline icon-plus pe-3" style="float:right"></i>
                                 </button>
 
-                                {% for row in payments %}
+                                {% for row in payments %}  
                                     <div class="col bg-light p-1 mb-1 mx-auto d-block">
                                         <p class = "d-inline" >
                                             {{row['name']}} 

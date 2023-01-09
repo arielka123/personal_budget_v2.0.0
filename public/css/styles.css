@@ -5,6 +5,15 @@ body
 
 }
 
+.titlePage
+{
+	color: #777;
+	font-weight:semi bolder;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+
 .login
 {
 	background-color: #f9f9fc;
@@ -39,7 +48,6 @@ body
 	border-top: 1px dashed #d0d7de;
 	padding-top: 1em;
 	color: #777;
-
 }
 
 a
