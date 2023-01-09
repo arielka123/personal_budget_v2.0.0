@@ -24,7 +24,7 @@
                             <div class="mt-5 p-4 col-lg-6 offset-lg-3 offset-md-1">
    
                                 <div class="form-floating mt-3">
-                                    <select class="form-select" name="income" id="income" aria-label="Floating label select example">
+                                    <select class="form-select" name="income" id="income" aria-label="Floating label select example" required>
                                     {# <option selected>Wybierz</option> #}
                                         {% for category in income_categories %}
                                         <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
@@ -64,5 +64,6 @@
 
 {% block footer %}
     {{ parent() }}
-    <script src="/validation/limit.js"></script>
+    <script src="/js/validation.js"></script>
+
 {% endblock %}

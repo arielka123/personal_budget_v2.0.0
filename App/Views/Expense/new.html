@@ -40,10 +40,10 @@
                             <div class="mt-5 p-4 col-lg-6 offset-lg-3 offset-md-1">
 
                                 <div class="form-floating ">
-                                    <select class="form-select" id="expense" name="expense" aria-label="Floating label select example">
+                                    <select class="form-select" id="expense" name="expense" aria-label="Floating label select example" required >
                                     {# <option selected>Wybierz</option> #}
                                     {% for category in expense_categories %}
-                                    <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
+                                    <option  value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }} </option>
                                     {% endfor %}
                                     </select>
                                     <label for="expense">Kategoria zakupu</label>
@@ -60,8 +60,8 @@
                                 </div>
 
                                 <div class="form-floating mt-3">
-                                    <select class="form-select" id="payment" name="payment" aria-label="Floating label select example">
-                                    <option selected>Wybierz</option>
+                                    <select class="form-select" id="payment" name="payment" aria-label="Floating label select example" required>
+                                    {# <option selected>Wybierz</option> #}
                                         {% for category in payment_methods %}
                                             <option  value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
                                         {% endfor %}
@@ -93,5 +93,7 @@
     {{ parent() }}
     <script src="/js/limit.js"></script>
     <script src="/js/present_day.js"></script>
-    <script src="/validation/limit.js"></script>
+    <script src="/js/validation.js"></script>
+
+
 {% endblock %}     
