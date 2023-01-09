@@ -50,7 +50,7 @@ function  showInfo() {
 
 //action
 
-async function addLimit (category, date, amount){
+async function addLimit (category, amount){
         const limitInfo = await getLimitForCategory(category);
        
         // console.log({limitInfo});
@@ -58,8 +58,6 @@ async function addLimit (category, date, amount){
 
         let array = Object.values({limitInfo});
         let limit = array[0]; 
-
-        // let limit = parseFloat(value);
 
         showInfoBox(limit);
         showNewExpenseBox(limit, amount);
@@ -71,7 +69,6 @@ async function addLimit (category, date, amount){
         showExpensesBox(expenses);
         showDifferenceBox(limit, expenses);
         showInfo();
-
 }
 
 
@@ -80,27 +77,30 @@ async function addLimit (category, date, amount){
  expenseCategoryArea.addEventListener('change', () => {
     const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
     const date = dateArea.value;
-    const amount = amountArea.value;
+    let amount = amountArea.value;
 
-    addLimit(category, date, amount);
+    addLimit(category, amount);
  });
 
  amountArea.addEventListener('change', () => {
     const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
     const date = dateArea.value;
-    const amountString = amountArea.value;
-    const amount = parseFloat(amountString);
+    let amount = amountArea.value; 
 
-    addLimit(category, date, amount);
+    addLimit(category, amount);
 
  });
+
+//  function updateValue(e){
+//     amountArea.value = e.target.value;
+//  }
 
  dateArea.addEventListener('change', () => {
     const category = expenseCategoryArea.options[expenseCategoryArea.selectedIndex].id;
     const date = dateArea.value;
-    const amount = amountArea.value;
+    let amount = amountArea.value;
 
-    addLimit(category, date, amount);
+    addLimit(category, amount);
  });
 
 
@@ -135,17 +135,15 @@ function showInfoText(difference){
         infoText.innerText = 
         `Informacje o limicie: Możesz jeszcze wydać ${difference} złotych w wybranej kategorii`;
         document.getElementById("infoText").style.color  = "#4db6ac";
-
     }
     else{
         infoText.innerText = 
         `Informacje o limicie: Przekroczyłeś limit o ${-difference} złotych w wybranej kategorii`;
         
         document.getElementById("infoText").style.color  = "#e60e07";
-
     }
-
 }
+
 function showDifferenceBox(limit, expenses){
     
     let limitFloat = parseFloat(limit);

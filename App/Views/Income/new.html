@@ -25,7 +25,7 @@
    
                                 <div class="form-floating mt-3">
                                     <select class="form-select" name="income" id="income" aria-label="Floating label select example">
-                                    <option selected>Wybierz</option>
+                                    {# <option selected>Wybierz</option> #}
                                         {% for category in income_categories %}
                                         <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
                                         {% endfor %}
@@ -39,7 +39,7 @@
                                 </div> 
                                 
                                 <div class="form-floating mt-3">
-                                    <input type="number" class="form-control" name= "amount" id="amount" min="0" step="0.01" required placeholder="name@example.com">
+                                    <input type="number" class="form-control" name= "amount" id="amount" min="0" step="0.01" required placeholder="Kwota">
                                     <label for="amount">Kwota</label>
                                 </div>
 
@@ -64,4 +64,5 @@
 
 {% block footer %}
     {{ parent() }}
+    <script src="/validation/limit.js"></script>
 {% endblock %}
