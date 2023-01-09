@@ -107,6 +107,8 @@ async function addLimit (category, date, amount){
  //render to DOM
 
 function showInfoBox(limit){
+
+    if(isNaN(limit)) limit=0;
     limitBox.innerText = `Limit: ${limit} PLN`  
  }
 
@@ -115,7 +117,7 @@ function showNewExpenseBox(limit, amount){
     let limitFloat = parseFloat(limit);
     let amountFloat = parseFloat(amount);
 
-    if(isNaN(amountFloat)) amountFloat=0;
+    if(isNaN(amountFloat) || amountFloat<0) amountFloat=0;
     if(isNaN(limitFloat)) limitFloat=0;
 
     let newAmount = limitFloat + amountFloat;
