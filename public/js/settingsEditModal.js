@@ -9,6 +9,7 @@ const editExpCategory = document.querySelector('#editExpenseCategory');
 
 const editPayments = document.querySelectorAll('.editPaymentsIcon');
 const editPayCategory2 = document.querySelector('#editPaymentsCategory2');
+const editPayCategory = document.querySelector('#editPaymentsCategory');
 
 const limitCheckbox = document.querySelector('#limitCheckbox');
 const amountLimit = document.querySelector('#amountLimitEdit');
@@ -50,7 +51,7 @@ const getExpenseName = async (category) => {
   }
 }
 
-async function actionExpenseName (e){
+async function actionExpenseName(e){
   const category = e.target.id;
   const expName = await getExpenseName(category);
 
@@ -60,7 +61,7 @@ async function actionExpenseName (e){
   renderExpenseName(expenseName);
 }
 
-function renderName(expenseName){
+function renderExpenseName(expenseName){
   document.getElementById("editExpenseCategory").value = expenseName;
 }
 
@@ -76,7 +77,7 @@ const getIncomeName = async (category) => {
   }
 }
 
-async function actionIncomeName (e){
+async function actionIncomeName(e){
   const category = e.target.id;
   const incName = await getIncomeName(category);
 
@@ -93,6 +94,33 @@ function renderExpenseName(expenseName){
 function renderIncomeName(incomeName){
   document.getElementById("editIncCategory").value = incomeName;
 }
+
+//payment
+const getPaymentName = async (category) => {
+  try{
+      const res = await fetch(`../api/paymentsName/${category}`);
+      const data = await res.json();
+      return data;
+  }
+  catch(e){
+      console.log("ERROR", e);
+  }
+}
+
+async function actionPaymentName(e){
+  const category = e.target.id;
+  const payName = await getPaymentName(category);
+
+  let array = Object.values({payName});
+  let paymentName = array[0]; 
+
+  renderPaymentName(paymentName);
+}
+
+function renderPaymentName(paymentName){
+  document.getElementById("editPaymentsCategory").value = paymentName;
+}
+
 
 //eventListener
 
@@ -118,6 +146,7 @@ for (x of editPayments){
     x.addEventListener('click', (e) =>
     {
         getIdCat(e, editPayCategory2);
+        actionPaymentName (e)
     }
   );
 }

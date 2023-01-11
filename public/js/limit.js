@@ -160,8 +160,6 @@ function showDifferenceBox(limit, expenses){
     showInfoText(difference2);
  }
 
- //#TODO wyciagnij name for category
-
 
 
 

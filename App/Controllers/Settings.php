@@ -36,10 +36,10 @@ class Settings extends Authenticated
         echo json_encode(Expenses::getExpenseName($category_id), JSON_UNESCAPED_UNICODE);
     }
 
-    // public function paymentsNameAction(){
-    //     $category_id = $this->route_params['category'];
-    //     echo json_encode(Expenses::getPaymentName($category_id), JSON_UNESCAPED_UNICODE);
-    // }
+    public function paymentsNameAction(){
+        $category_id = $this->route_params['category'];
+        echo json_encode(Expenses::getPaymentName($category_id), JSON_UNESCAPED_UNICODE);
+    }
 
     public function incomeCategoriesNameAction(){
         $category_id = $this->route_params['category'];
