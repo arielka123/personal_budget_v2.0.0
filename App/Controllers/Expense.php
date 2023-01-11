@@ -4,8 +4,6 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Models\Expenses;    
 use \App\Flash;
-use \App\Auth;
-
 
 class Expense extends Authenticated 
 {

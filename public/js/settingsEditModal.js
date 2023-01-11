@@ -10,12 +10,14 @@ const editExpCategory = document.querySelector('#editExpenseCategory');
 const editPayments = document.querySelectorAll('.editPaymentsIcon');
 const editPayCategory2 = document.querySelector('#editPaymentsCategory2');
 
+const limitCheckbox = document.querySelector('#limitCheckbox');
+const amountLimit = document.querySelector('#amountLimitEdit');
 
 function getIdCat(e,data){
   const elementId = e.target.id;
   const elementValue = document.getElementById(elementId).value;
 
-  // If element has id    
+  // If element has id set value to show modal 
   if (elementId !== '') {
       data.setAttribute("value", elementId)
       console.log(elementId);
@@ -23,6 +25,20 @@ function getIdCat(e,data){
     } 
 }
 
+// off or on limit input
+function amountInput(){
+
+  if (document.getElementById("limitCheckbox").checked === true){
+    amountLimit.disabled = false;
+  }  
+  else {
+    amountLimit.disabled = true;
+    amountLimit.value = '';
+  }
+}
+
+//set category name in unput in modal
+//expense
 const getExpenseName = async (category) => {
   try{
       const res = await fetch(`../api/expenseCategoriesName/${category}`);
@@ -34,27 +50,57 @@ const getExpenseName = async (category) => {
   }
 }
 
-async function action (e){
+async function actionExpenseName (e){
   const category = e.target.id;
   const expName = await getExpenseName(category);
 
   let array = Object.values({expName});
   let expenseName = array[0]; 
 
-  renderName(expenseName);
+  renderExpenseName(expenseName);
 }
 
 function renderName(expenseName){
-
   document.getElementById("editExpenseCategory").value = expenseName;
 }
 
+//income
+const getIncomeName = async (category) => {
+  try{
+      const res = await fetch(`../api/incomeCategoriesName/${category}`);
+      const data = await res.json();
+      return data;
+  }
+  catch(e){
+      console.log("ERROR", e);
+  }
+}
 
+async function actionIncomeName (e){
+  const category = e.target.id;
+  const incName = await getIncomeName(category);
+
+  let array = Object.values({incName});
+  let incomeName = array[0]; 
+
+  renderIncomeName(incomeName);
+}
+
+function renderExpenseName(expenseName){
+  document.getElementById("editExpenseCategory").value = expenseName;
+}
+
+function renderIncomeName(incomeName){
+  document.getElementById("editIncCategory").value = incomeName;
+}
+
+//eventListener
 
 for (x of editIncome){
     x.addEventListener('click', (e) =>
     {
         getIdCat(e, editIncCategory2);
+        actionIncomeName(e);
     }
   );
 }
@@ -63,7 +109,7 @@ for (x of editExpense){
     x.addEventListener('click', (e) =>
     {
         getIdCat(e, editExpCategory2);
-        action(e);
+        actionExpenseName(e);
     }
   );
 }
@@ -74,21 +120,6 @@ for (x of editPayments){
         getIdCat(e, editPayCategory2);
     }
   );
-}
-
-const limitCheckbox = document.querySelector('#limitCheckbox');
-const amountLimit = document.querySelector('#amountLimitEdit');
-
-
-function amountInput(){
-
-  if (document.getElementById("limitCheckbox").checked === true){
-    amountLimit.disabled = false;
-  }  
-  else {
-    amountLimit.disabled = true;
-    amountLimit.value = '';
-  }
 }
 
 limitCheckbox.addEventListener('click', amountInput);

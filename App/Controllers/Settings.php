@@ -37,12 +37,14 @@ class Settings extends Authenticated
     }
 
     // public function paymentsNameAction(){
-    //     echo json_encode(Expenses::loadPaymentMethodData(), JSON_UNESCAPED_UNICODE);
+    //     $category_id = $this->route_params['category'];
+    //     echo json_encode(Expenses::getPaymentName($category_id), JSON_UNESCAPED_UNICODE);
     // }
 
-    // public function incomeCategoriesNameAction(){
-    //     echo json_encode(Incomes::loadIncomeCategoriesData(), JSON_UNESCAPED_UNICODE);
-    // }
+    public function incomeCategoriesNameAction(){
+        $category_id = $this->route_params['category'];
+        echo json_encode(Incomes::getIncomeName($category_id), JSON_UNESCAPED_UNICODE);
+    }
 
     public function deleteExpCategoryAction(){
 

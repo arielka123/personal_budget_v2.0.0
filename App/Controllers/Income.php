@@ -4,9 +4,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Models\Incomes;
 use \App\Flash;
-use \App\Auth;
 
-   
 class Income extends Authenticated   
 {
     protected function before()
@@ -19,13 +17,8 @@ class Income extends Authenticated
       $args = [
         'income_categories' => \App\Models\Incomes::loadIncomeCategoriesData()
      ];
-       
         # wysietl categorie na ekranie 
-        if( $this->user = Auth::getUser())
-        {
-            View::renderTemplate('Income/new.html', $args);    
-        }
-        else View::renderTemplate('Login/new.html');
+        View::renderTemplate('Income/new.html', $args);    
     }
 
     public function saveAction()
@@ -40,6 +33,5 @@ class Income extends Authenticated
                $this->redirect('/income'); 
             }          
     }
-    
     
 }
