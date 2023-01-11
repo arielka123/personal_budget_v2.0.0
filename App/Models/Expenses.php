@@ -117,7 +117,7 @@ class Expenses extends \Core\Model
     {
         $user_id=Auth::getUserId();   
 
-        $sql_expenses = 'SELECT c.name as name, amount, date_of_expense, expense_comment, p.name as paymentMethods FROM expenses as e
+        $sql_expenses = 'SELECT c.name as name, e.id, amount, date_of_expense, expense_comment, p.name as paymentMethods FROM expenses as e
                                    JOIN expenses_category_assigned_to_users as c ON e.expense_category_assigned_to_user_id=c.id
                                    JOIN payment_methods_assigned_to_users as p ON e.payment_method_assigned_to_user_id=p.id
                                    WHERE e.user_id = :user_id
@@ -508,5 +508,33 @@ class Expenses extends \Core\Model
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result[0]['name'];
     }
+
+    public static function deleteExpenseRecord()
+    {
+        $user_id=Auth::getUserId();
+
+        if(isset($_POST['expenseRecod'])){
+            $id = $_POST['expenseRecod']; 
+        }
+        else return false;
+
+        $sql = 'DELETE FROM expenses 
+               WHERE user_id=:user_id 
+               AND id=:id';
+    
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if($stmt->execute()== true){
+            return true;
+        }
+
+        return false;
+    }
+
     
 }

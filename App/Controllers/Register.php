@@ -4,13 +4,15 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Models\Expenses;   
 use \App\Models\Incomes;
+use \App\Flash;
+
 
 class Register extends Authenticated 
 {
     protected function before()
     {
        parent::before();
-    }
+    }  
     
     public static function newAction()      
     {         
@@ -29,4 +31,28 @@ class Register extends Authenticated
     public function incomesAction(){
         echo json_encode(Incomes::loadUserIncomes(), JSON_UNESCAPED_UNICODE);
     }
+
+    public function deleteExpenseRecordAction(){
+
+        if (Expenses::deleteExpenseRecord()==true) {
+            Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
+            $this->redirect('/register');
+        }
+        else {
+            Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
+            $this->redirect('/register');
+        }
+    }
+
+    // public function deleteIncomeAction(){
+    //     if (Incomes::deleteIncomeRecord()==true) {
+    //         Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
+    //         $this->redirect('/register');
+    //     }
+    //     else {
+    //         Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
+    //         $this->redirect('/register');
+    //     };
+    // }
+
 }
