@@ -43,7 +43,6 @@ class Expenses extends \Core\Model
     $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     return $result;
-
     }
 
     /**
@@ -77,6 +76,11 @@ class Expenses extends \Core\Model
 
 
         $date = $_POST['date'];        
+        
+        if(isset($_POST['expense'])==false || ($_POST['expense']==null)){
+            return false;
+        }
+
         $id_expense_category =$_POST['expense'];
 
         if(Validation::validate_amount()==true)
@@ -103,8 +107,9 @@ class Expenses extends \Core\Model
         $stmt->bindValue(':expense_comment', $comment, PDO::PARAM_STR);
         $stmt->bindValue(':id_payment_method', $id_payment_method, PDO::PARAM_INT);
 
-        $stmt->execute();
-
+        if($stmt->execute()!= true){
+            return false;
+        }
         return true;
     }
 
@@ -176,11 +181,11 @@ class Expenses extends \Core\Model
 
         $stmt->execute();
 
-        if($stmt->execute()!= true){
-            return false;
+        if($stmt->execute()== true){
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public static function addExpenseCategory()
@@ -350,8 +355,7 @@ class Expenses extends \Core\Model
          }
         $sql .= implode(', ', $set_values);
         
-        $sql .=" \nWHERE id=:id
-                AND UPPER(name) = UPPER(:name)";
+        $sql .=" \nWHERE id=:id";
                
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -393,8 +397,7 @@ class Expenses extends \Core\Model
 
         $sql = 'UPDATE payment_methods_assigned_to_users
                 SET name = :name
-                WHERE id = :id
-                AND UPPER(name) = UPPER(:name)';
+                WHERE id = :id ';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -469,6 +472,41 @@ class Expenses extends \Core\Model
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result[0]['sum'];
     }
- 
+
+    public static function  getExpenseName($category_id)
+    {
+        $user_id=Auth::getUserId();
+
+        $sql = 'SELECT name FROM expenses_category_assigned_to_users
+                WHERE user_id = :user_id
+                AND id = :category_id;';
+                                                                    
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result[0]['name'];
+    }
+
+    public static function  getPaymentName($category_id)
+    {
+        $user_id=Auth::getUserId();
+
+        $sql = 'SELECT name FROM payment_methods_assigned_to_users
+                WHERE user_id = :user_id
+                AND id = :category_id;';
+                                                                    
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result[0]['name'];
+    }
     
 }

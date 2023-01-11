@@ -17,7 +17,9 @@
                 <div class="row">
                     <div class="col-sm-12 parent">
                         <header>
-                            <h1 class="h2 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Tutaj możesz dodać swoje wydatki </h1>
+                            <h2 class="titlePage  ml-0 mb-4 mt-5 text-md-left">
+                                Tutaj możesz dodać swoje wydatki 
+                            </h2>
                         </header>
                         <h6> 
                             <p id="infoText" class="text-center d-none" >
@@ -41,12 +43,12 @@
 
                                 <div class="form-floating ">
                                     <select class="form-select" id="expense" name="expense" aria-label="Floating label select example" required >
-                                    {# <option selected>Wybierz</option> #}
+                                    # <option selected disabled>Wybierz</option>
                                     {% for category in expense_categories %}
                                     <option  value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }} </option>
                                     {% endfor %}
                                     </select>
-                                    <label for="expense">Kategoria zakupu</label>
+                                    <label for="expense"><span style="color:red"> * </span>Kategoria zakupu</label>
                                 </div>
 
                                 <div class="form-floating mt-3">

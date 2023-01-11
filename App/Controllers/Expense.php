@@ -4,8 +4,6 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Models\Expenses;    
 use \App\Flash;
-use \App\Auth;
-
 
 class Expense extends Authenticated 
 {
@@ -32,10 +30,9 @@ class Expense extends Authenticated
         {
             Flash::addMessage('Hurra! Dodano nowy wydatek', Flash::SUCCESS);
             $this->redirect('/expense');
-
         }
         else {
-        // Flash::addMessage('Ups.. coś poszło nie tak.', Flash::WARNING);
+            Flash::addMessage('Ups.. coś poszło nie tak. Sprawdź czy wszystkie dane zostały wybrane', Flash::WARNING);
             $this->redirect('/expense'); 
             }
     }

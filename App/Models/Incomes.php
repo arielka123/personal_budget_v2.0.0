@@ -51,6 +51,10 @@ class Incomes extends \Core\Model
         $user_id=Auth::getUserId();
 
         $date = $_POST['date'];
+
+        if(isset($_POST['income'])==false || ($_POST['income']==null)){
+            return false;
+        }
         $id_income_category =$_POST['income'];
 
         if(Validation::validate_amount()==true)
@@ -194,9 +198,7 @@ class Incomes extends \Core\Model
 
         $sql = 'UPDATE incomes_category_assigned_to_users
                 SET name = :name
-                WHERE id = :id
-                AND UPPER(name) = UPPER(:name)';
-
+                WHERE id = :id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -218,5 +220,21 @@ class Incomes extends \Core\Model
         else  return Incomes::$ADD_STATUS_ERROR; 
     }
 
+    public static function  getIncomeName($category_id)
+    {
+        $user_id=Auth::getUserId();
 
+        $sql = 'SELECT name FROM incomes_category_assigned_to_users
+                WHERE user_id = :user_id
+                AND id = :category_id;';
+                                                                    
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result[0]['name'];
+    }
 }

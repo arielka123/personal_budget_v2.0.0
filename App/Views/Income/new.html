@@ -17,7 +17,9 @@
                 <div class="row">
                     <div class="col-12">
                         <header>
-                            <h1 class="h2 font-weight-bold text-uppercase ml-0 mb-4 mt-5 text-center text-md-left">Tutaj możesz dodać swoje przychody </h1>
+                            <h2 class="titlePage  ml-0 mb-4 mt-5 text-md-left">
+                                Tutaj możesz dodać swoje przychody 
+                            </h2>
                         </header>
 
                         <form action="income/save" method="post" enctype="multipart/form-data">	
@@ -25,12 +27,12 @@
    
                                 <div class="form-floating mt-3">
                                     <select class="form-select" name="income" id="income" aria-label="Floating label select example" required>
-                                    {# <option selected>Wybierz</option> #}
+                                    <option selected disabled>Wybierz</option>
                                         {% for category in income_categories %}
                                         <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
                                         {% endfor %}
                                     </select>
-                                    <label for="income">Kategoria przychodu</label>
+                                    <label for="income"><span style="color:red"> * </span>Kategoria przychodu</label>
                                 </div>
 
                                 <div class="form-floating mt-3">
