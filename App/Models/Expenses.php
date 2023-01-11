@@ -349,8 +349,7 @@ class Expenses extends \Core\Model
          }
         $sql .= implode(', ', $set_values);
         
-        $sql .=" \nWHERE id=:id
-                AND UPPER(name) = UPPER(:name)";
+        $sql .=" \nWHERE id=:id";
                
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -392,8 +391,7 @@ class Expenses extends \Core\Model
 
         $sql = 'UPDATE payment_methods_assigned_to_users
                 SET name = :name
-                WHERE id = :id
-                AND UPPER(name) = UPPER(:name)';
+                WHERE id = :id ';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);

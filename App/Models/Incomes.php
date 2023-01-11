@@ -194,9 +194,7 @@ class Incomes extends \Core\Model
 
         $sql = 'UPDATE incomes_category_assigned_to_users
                 SET name = :name
-                WHERE id = :id
-                AND UPPER(name) = UPPER(:name)';
-
+                WHERE id = :id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
