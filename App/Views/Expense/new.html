@@ -21,13 +21,8 @@
                                 Tutaj możesz dodać swoje wydatki 
                             </h2>
                         </header>
-                        <h6> 
-                            <p id="infoText" class="text-center d-none" >
-                               
-                            </p>
-                        </h6>
 
-                        <div id="infoBox" class=" col col-md-6 mx-auto d-block bg-warning text-center p-2 d-none" >
+                        <div id="infoBox" class=" col col-md-6 mx-auto d-block  text-center p-2 d-none" >
                             
                                 <h6 id="limitBox" class="d-block d-md-inline p-2 col col-md-3"></h6>
                             
@@ -37,13 +32,18 @@
                                 
                                 <h6 id="newExpenseBox"class="d-block d-md-inline p-2 col col-md-3"></h6>
                         </div>
+                        <h6> 
+                            <p id="infoText" class="text-center d-none p-2" >
+                               
+                            </p>
+                        </h6>
 
                         <form action="expense/save" method="post" enctype="multipart/form-data">
                             <div class="mt-5 p-4 col-lg-6 offset-lg-3 offset-md-1">
 
                                 <div class="form-floating ">
                                     <select class="form-select" id="expense" name="expense" aria-label="Floating label select example" required >
-                                    # <option selected disabled>Wybierz</option>
+                                    <option selected disabled>Wybierz</option>
                                     {% for category in expense_categories %}
                                     <option  value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }} </option>
                                     {% endfor %}

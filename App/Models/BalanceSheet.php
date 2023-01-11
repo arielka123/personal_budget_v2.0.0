@@ -200,7 +200,7 @@ class BalanceSheet  extends \Core\Model
     $first_day="01";  //#TODO powinien byc dzień wybrany przez uzytkownika
 
     $date1=$year."-".$month."-".$first_day;
-    $date2=$today;
+    $date2=$today;   
 
     $user=Auth::getUser();
     $user_id= $user->id;

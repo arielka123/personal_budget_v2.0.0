@@ -35,7 +35,7 @@ class Register extends Authenticated
     public function deleteExpenseRecordAction(){
 
         if (Expenses::deleteExpenseRecord()==true) {
-            Flash::addMessage('Wybrana kategoria została usunięta', Flash::SUCCESS);
+            Flash::addMessage('Wybrany wpis został usunięty', Flash::SUCCESS);
             $this->redirect('/register');
         }
         else {
@@ -46,7 +46,7 @@ class Register extends Authenticated
 
     public function deleteIncomeRecordAction(){
         if (Incomes::deleteIncomeRecord()==true) {
-            Flash::addMessage('Wybrana kategoria została usunięta', Flash::SUCCESS);
+            Flash::addMessage('Wybrany wpis został usunięt', Flash::SUCCESS);
             $this->redirect('/register');
         }
         else {
