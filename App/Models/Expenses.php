@@ -76,6 +76,11 @@ class Expenses extends \Core\Model
 
 
         $date = $_POST['date'];        
+        
+        if(isset($_POST['expense'])==false || ($_POST['expense']==null)){
+            return false;
+        }
+
         $id_expense_category =$_POST['expense'];
 
         if(Validation::validate_amount()==true)
@@ -102,8 +107,9 @@ class Expenses extends \Core\Model
         $stmt->bindValue(':expense_comment', $comment, PDO::PARAM_STR);
         $stmt->bindValue(':id_payment_method', $id_payment_method, PDO::PARAM_INT);
 
-        $stmt->execute();
-
+        if($stmt->execute()!= true){
+            return false;
+        }
         return true;
     }
 
@@ -175,11 +181,11 @@ class Expenses extends \Core\Model
 
         $stmt->execute();
 
-        if($stmt->execute()!= true){
-            return false;
+        if($stmt->execute()== true){
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public static function addExpenseCategory()

@@ -28,9 +28,10 @@ class Income extends Authenticated
             Flash::addMessage('Hurra! Dodano nowy wydatek', Flash::SUCCESS);
             $this->redirect('/income');
 
-        }
+        } 
             else {
-               $this->redirect('/income'); 
+                Flash::addMessage('Ups.. coś poszło nie tak. Sprawdź czy wszystkie dane zostały wybrane', Flash::WARNING);
+                $this->redirect('/income'); 
             }          
     }
     

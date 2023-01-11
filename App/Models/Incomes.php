@@ -51,6 +51,10 @@ class Incomes extends \Core\Model
         $user_id=Auth::getUserId();
 
         $date = $_POST['date'];
+
+        if(isset($_POST['income'])==false || ($_POST['income']==null)){
+            return false;
+        }
         $id_income_category =$_POST['income'];
 
         if(Validation::validate_amount()==true)

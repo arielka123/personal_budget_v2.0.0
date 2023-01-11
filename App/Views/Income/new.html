@@ -27,7 +27,7 @@
    
                                 <div class="form-floating mt-3">
                                     <select class="form-select" name="income" id="income" aria-label="Floating label select example" required>
-                                    {# <option selected>Wybierz</option> #}
+                                    <option selected disabled>Wybierz</option>
                                         {% for category in income_categories %}
                                         <option value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }}</option>
                                         {% endfor %}

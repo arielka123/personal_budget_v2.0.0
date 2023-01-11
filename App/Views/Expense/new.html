@@ -43,7 +43,7 @@
 
                                 <div class="form-floating ">
                                     <select class="form-select" id="expense" name="expense" aria-label="Floating label select example" required >
-                                    {# <option selected>Wybierz</option> #}
+                                    # <option selected disabled>Wybierz</option>
                                     {% for category in expense_categories %}
                                     <option  value="{{ category['id'] }}" id="{{ category['id'] }}">{{ category['name'] }} </option>
                                     {% endfor %}
