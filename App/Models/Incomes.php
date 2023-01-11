@@ -85,7 +85,7 @@ class Incomes extends \Core\Model
     {
         $user_id=Auth::getUserId();   
 
-        $sql = 'SELECT amount, date_of_income, income_comment, c.name as name FROM incomes as i
+        $sql = 'SELECT amount, date_of_income, income_comment, i.id, c.name as name FROM incomes as i
                                    JOIN incomes_category_assigned_to_users as c ON i.income_category_assigned_to_user_id=c.id
                                    WHERE i.user_id = :user_id
                                    ORDER BY date_of_income desc';
@@ -236,5 +236,31 @@ class Incomes extends \Core\Model
 
         $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result[0]['name'];
+    }
+    public static function deleteIncomeRecord()
+    {
+        $user_id=Auth::getUserId();
+
+        if(isset($_POST['incomeRecod'])==false || ($_POST['incomeRecod']==null)){
+            return false;
+        }
+
+        $id = $_POST['incomeRecod'];
+
+        $sql = 'DELETE FROM incomes 
+               WHERE user_id=:user_id 
+               AND id=:id';
+    
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if($stmt->execute()== true){
+            return true;
+        }
+        return false;
     }
 }

@@ -534,7 +534,5 @@ class Expenses extends \Core\Model
         }
 
         return false;
-    }
-
-    
+    }  
 }

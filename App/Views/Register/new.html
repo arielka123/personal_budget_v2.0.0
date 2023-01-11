@@ -109,7 +109,8 @@
                                                 <td>{{row['name']}}</td>
                                                 <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
                                                 <td>{{row['income_comment']}}</td>
-                                                <td>              
+                                                <td>      
+                                                    <input name="incomeRecod" id="incomeRecod{{ row['id'] }}" value="{{ row['id'] }}" style="display: none"></input>          
                                                     <i id="incomeTrashIcon" class = "icon-trash-empty pe-3" onclick="document.getElementById('formIncomeRegister{{ idIcomeRecord }}').submit()" > </i> 
                                                     <input type="submit" class="bg-transparent" style="display: none"></input>
                                                 </td>

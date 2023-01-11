@@ -35,7 +35,7 @@ class Register extends Authenticated
     public function deleteExpenseRecordAction(){
 
         if (Expenses::deleteExpenseRecord()==true) {
-            Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
+            Flash::addMessage('Wybrana kategoria została usunięta', Flash::SUCCESS);
             $this->redirect('/register');
         }
         else {
@@ -44,15 +44,15 @@ class Register extends Authenticated
         }
     }
 
-    // public function deleteIncomeAction(){
-    //     if (Incomes::deleteIncomeRecord()==true) {
-    //         Flash::addMessage('Wybranan kategoria została usunięta', Flash::SUCCESS);
-    //         $this->redirect('/register');
-    //     }
-    //     else {
-    //         Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
-    //         $this->redirect('/register');
-    //     };
-    // }
+    public function deleteIncomeRecordAction(){
+        if (Incomes::deleteIncomeRecord()==true) {
+            Flash::addMessage('Wybrana kategoria została usunięta', Flash::SUCCESS);
+            $this->redirect('/register');
+        }
+        else {
+            Flash::addMessage('ups... spróbuj ponownie później', Flash::WARNING);
+            $this->redirect('/register');
+        };
+    }
 
 }
