@@ -16,7 +16,7 @@
             <div class="container-fluid ">
                 <div class="row">
 
-                    <div class="col-md-6 mt-4">
+                    <div class="col-10 col-md-6 mt-4 mx-auto d-block">
                         <div class="card" >
                             <div class="card-body registerSelect p-4" id="expensesRegister">
                                 <p class="card-text text-center fw-bold"> 
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mt-4">
+                    <div class="col-10 col-md-6 mt-4  mx-auto d-block">
                         <div class="card">   
                             <div class="card-body registerSelect p-4" id="incomesRegister">
                                 <p class="card-text text-center fw-bold"> 
@@ -35,34 +35,45 @@
                         </div>
                     </div>
                         
-                    <div class="col-10 mt-4 mx-auto" style="display:none" id="expenses">    
+                    <div class="col-10 mt-4 mx-auto table-responsive" style="display:block" id="expenses">    
                         <section>
-                            <table class="table table-hover">
+                            <table class="table table-sm table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Lp.</th>
+                                        <th scope="col"># </th>
                                         <th scope="col">Data</th>
                                         <th scope="col">Kategoria</th>
                                         <th scope="col">Kwota</th>
                                         <th scope="col">Metoda</th>
                                         <th scope="col">Komentarz</th>
+                                        <th scope="col"> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                 {% set i = 0 %}
-
                                 {% for row in expenses %}
-    
-                                    <tr>
-                                        <th scope="row">{{ i + 1 }}</th>
-                                        <td>{{row['date_of_expense']}}</td>
-                                        <td>{{row['name']}}</td>
-                                        <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
-                                        <td>{{row['paymentMethods']}}</td>
-                                        <td>{{row['expense_comment']}}</td>
-                                    </tr>
-                                    {% set i = i +1 %}
+                                    {% set idRegisterExpense = row['id'] %} 
+                                        <form method="post" action="register/deleteExpenseRecord" enctype="multipart/form-data" id="formExpenseRegister{{ row['id'] }}" class = "d-inline" style="float:right"> 
+
+                                            <tr>
+                                                <th scope="row">{{i +1}}</th>
+                                                <td>{{row['date_of_expense']}}</td>
+                                                <td>{{row['name']}}</td>
+                                                <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
+                                                <td>{{row['paymentMethods']}}</td>
+                                                <td>{{row['expense_comment']}}</td>
+                                                <td>  
+                                                    <input name="expenseRecod" id="expenseRecod{{ row['id'] }}" value="{{ row['id'] }}" style="display: none"></input>  
+
+                                                    <i id="expenseTrashIcon" class = "icon-trash-empty pe-3"
+                                                        onclick="document.getElementById('formExpenseRegister{{ idRegisterExpense }}').submit()" > </i> 
+                
+                                                    <input type="submit" class="bg-transparent" style="display: none"></input>
+                                                </td>
+                                            </tr>
+                                        </form>
+                                        {% set i = i +1 %}
 
                                 {% endfor %}
 
@@ -71,33 +82,42 @@
                         </section>
                     </div>
 
-                    <div class="col-10 mt-4 text-center mx-auto" style="display:none" id="incomes">    
+                    <div class="col-10 mt-4 text-center mx-auto table-responsive" style="display:none" id="incomes">    
                         <section>
-                            <table class="table table-hover">
+                            <table class="table table-sm table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Lp.</th>
+                                        <th scope="col">#</th>
                                         <th scope="col">Data</th>
                                         <th scope="col">Kategoria</th>
                                         <th scope="col">Kwota</th>
                                         <th scope="col">Komentarz</th>
+                                        <th scope="col"> </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                 {% set i = 0 %}
-
                                 {% for row in incomes %}
-    
-                                    <tr>
-                                        <th scope="row">{{ i + 1 }}</th>
-                                        <td>{{row['date_of_income']}}</td>
-                                        <td>{{row['name']}}</td>
-                                        <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
-                                        <td>{{row['income_comment']}}</td>
-                                    </tr>
-                                    {% set i = i +1 %}
+                                    {% set idIcomeRecord = row['id'] %}
 
+                                    <form method="post" action="register/deleteIncomeRecord" enctype="multipart/form-data" id="formIncomeRegister{{ row['id'] }}" class = "d-inline" style="float:right"> 
+                                            <tr>
+                                                <th scope="row">{{ i + 1 }}</th>
+                                                <td>{{row['date_of_income']}}</td>
+                                                <td>{{row['name']}}</td>
+                                                <td>{{row['amount']|number_format(2, '.',',')}} PLN</td>
+                                                <td>{{row['income_comment']}}</td>
+                                                <td>      
+                                                    <input name="incomeRecod" id="incomeRecod{{ row['id'] }}" value="{{ row['id'] }}" style="display: none"></input>          
+                                                    <i id="incomeTrashIcon" class = "icon-trash-empty pe-3" onclick="document.getElementById('formIncomeRegister{{ idIcomeRecord }}').submit()" > </i> 
+                                                    <input type="submit" class="bg-transparent" style="display: none"></input>
+                                                </td>
+                                            </tr>
+                                        </form>
+
+                                    {% set i = i +1 %}
                                 {% endfor %}
 
                                 </tbody>

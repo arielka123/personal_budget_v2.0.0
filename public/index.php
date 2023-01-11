@@ -47,6 +47,9 @@ $router->add('balance',['controller' => 'Balance', 'action' => 'new']);
 $router->add('profile/update',['controller' => 'Profile', 'action' => 'updateUserProfile']);
 
 $router->add('register',['controller' => 'Register', 'action' => 'new']);
+$router->add('register/deleteExpenseRecord',['controller' => 'Register', 'action' => 'deleteExpenseRecord']);
+$router->add('register/deletIncomeRecord',['controller' => 'Register', 'action' => 'deletIncomeRecord']);
+
 
 $router->add('settings',['controller' => 'Settings', 'action' => 'new']);
 $router->add('settings/deleteExpenseCategory',['controller' => 'Settings', 'action' => 'deleteExpCategory']);

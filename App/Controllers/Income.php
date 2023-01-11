@@ -34,5 +34,4 @@ class Income extends Authenticated
                 $this->redirect('/income'); 
             }          
     }
-    
 }
