@@ -1,4 +1,3 @@
-
 // obszar w DOM
 
 const expenseCategoryArea = document.querySelector('#expense');
@@ -44,13 +43,13 @@ function  showInfo() {
         infoText.classList.remove('d-none');
         infoText.classList.add('d-block');
 
-        infoBox.classList.remove('d-none');
-        infoBox.classList.add('d-block');     
+        infoBox.classList.remove('d-none'); 
+        infoBox.classList.add('d-block');    
     } 
 
 //action
 
-async function addLimit (category, amount){
+async function getData (category, amount){
         const limitInfo = await getLimitForCategory(category);
        
         // console.log({limitInfo});
@@ -60,7 +59,6 @@ async function addLimit (category, amount){
         let limit = array[0]; 
 
         showInfoBox(limit);
-        showNewExpenseBox(limit, amount);
 
         const expensesInfo = await getMonthlyExpensesForCategory(category);
         let array2 = Object.values({expensesInfo});
@@ -68,9 +66,10 @@ async function addLimit (category, amount){
     
         showExpensesBox(expenses);
         showDifferenceBox(limit, expenses);
+        showNewExpenseBox(expenses, amount, limit);
+
         showInfo();
 }
-
 
 //eventListener
 
@@ -79,7 +78,7 @@ async function addLimit (category, amount){
     const date = dateArea.value;
     let amount = amountArea.value;
 
-    addLimit(category, amount);
+    getData(category, amount);
  });
 
  amountArea.addEventListener('input', () => {
@@ -87,7 +86,7 @@ async function addLimit (category, amount){
     const date = dateArea.value;
     let amount = amountArea.value; 
 
-    addLimit(category, amount);
+    getData(category, amount);
 
  });
 
@@ -96,7 +95,7 @@ async function addLimit (category, amount){
     const date = dateArea.value;
     let amount = amountArea.value;
 
-    addLimit(category, amount);
+    getData(category, amount);
  });
 
 
@@ -108,16 +107,19 @@ function showInfoBox(limit){
     limitBox.innerText = `Limit: ${limit} PLN`  
  }
 
-function showNewExpenseBox(limit, amount){
+function showNewExpenseBox(expenses, amount, limit){
   
-    let limitFloat = parseFloat(limit);
+    let expensesFloat = parseFloat(expenses);
     let amountFloat = parseFloat(amount);
+    let limitFloat = parseFloat(limit);
 
     if(isNaN(amountFloat) || amountFloat<0) amountFloat=0;
-    if(isNaN(limitFloat)) limitFloat=0;
+    if(isNaN(expensesFloat)) expensesFloat=0;
 
-    let newAmount = limitFloat + amountFloat;
+    let newAmount = expensesFloat + amountFloat;
     newExpenseBox.innerText = `Wydatki + wpisana kwota: ${newAmount} PLN` 
+
+    changeBoxColor(limitFloat, newAmount);
  }
 
 function showExpensesBox(expenses){
@@ -127,37 +129,64 @@ function showExpensesBox(expenses){
     expenseBox.innerText = `Wydano: ${expensesFloat} PLN`;
  }
 
-function showInfoText(difference){
-
-    if(difference>=0){
-        infoText.innerText = 
-        `Informacje o limicie: Możesz jeszcze wydać ${difference} złotych w wybranej kategorii`;
-        document.getElementById("infoText").style.color  = "#4db6ac";
-    }
-    else{
-        infoText.innerText = 
-        `Informacje o limicie: Przekroczyłeś limit o ${-difference} złotych w wybranej kategorii`;
-        
-        document.getElementById("infoText").style.color  = "#e60e07";
-    }
-}
-
-function showDifferenceBox(limit, expenses){
+ function showDifferenceBox(limit, expenses){
     
     let limitFloat = parseFloat(limit);
     let expensesFloat = parseFloat(expenses);
     if(isNaN(limitFloat)) limitFloat=0;
     if(isNaN(expensesFloat)) expensesFloat=0;
 
-    let difference =0;
-    difference =  limitFloat - expensesFloat;
+    let diff =0;
+    diff = limitFloat - expensesFloat;
 
-    let difference2 = Number((difference).toFixed(2));
-    if(isNaN(difference2)) difference2=0;
+    let difference = Number((diff).toFixed(2));
+    if(isNaN(difference)) difference=0;
 
-    differenceBox.innerText = `Różnica: ${difference2} PLN`;
+    differenceBox.innerText = `Różnica: ${difference} PLN`;
+    showInfoText(difference);
 
-    showInfoText(difference2);
+    if(difference>=0){
+        differenceBox.classList.remove("text-danger");
+        differenceBox.classList.remove("fw-bold");
+
+
+    }
+    else{
+        differenceBox.classList.add("text-danger");
+        differenceBox.classList.add("fw-bold");
+
+    }
+ }
+
+function showInfoText(difference){
+
+    if(difference>=0){
+        infoText.innerText = 
+        `Informacje o limicie: Możesz jeszcze wydać ${difference} PLN w wybranej kategorii`;
+    }
+    else{
+        infoText.innerText = 
+        `Informacje o limicie: Przekroczyłeś limit o ${-difference} złotych w wybranej kategorii`;
+    }
+
+    document.getElementById("infoText").style.color  = "#777";
+    infoText.classList.add("fw-bold");
+}
+
+function changeBoxColor(limitFloat, newAmount){
+
+    if(limitFloat>=newAmount){
+
+        infoBox.classList.remove("bg-warning");
+        infoBox.classList.add("bg-success");
+        infoBox.classList.add("text-light");
+
+    }
+    else {
+        infoBox.classList.remove("bg-success");
+        infoBox.classList.add("bg-warning");
+        infoBox.classList.remove("text-light");
+    }
  }
 
 
