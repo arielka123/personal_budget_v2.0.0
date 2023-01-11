@@ -123,8 +123,8 @@ class BalanceSheet  extends \Core\Model
                 return false;
                 }
       
-        $date->date1 = $date1;
-        $date->date2 = $date2;
+        // $date->date1 = $date1;
+        // $date->date2 = $date2;
 
         $_SESSION['date1']= $date1;
         $_SESSION['date2'] = $date2;
