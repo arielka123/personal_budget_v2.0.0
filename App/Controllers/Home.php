@@ -14,7 +14,7 @@ class Home extends \Core\Controller
         if (isset($_SESSION['user_id'])) { 
             
             $args = [
-                'balance' => \App\Models\BalanceSheet::getBalance()[0]['amount']
+                'balance' => \App\Models\BalanceSheet::getBalanceMonth()[0]['amount']
                 ];
 
                 View::renderTemplate('Home/index.html', $args);    
