@@ -17,7 +17,6 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
     protected function before()
     {
         parent::before();
-        $this->user = Auth::getUser();
     }
     /**
      * Update the profile
@@ -25,7 +24,8 @@ class Profile extends Authenticated    //najpierw sprawdza czy zalogowany jest z
 
      public function updateUserProfileAction()
      {
-            if($this->user->updateProfile($_POST)){
+        $user = Auth::getUser();
+            if($user->updateProfile($_POST)){
                 Flash::addMessage('Twoje zmiany zostały zapisane');
                 $this->redirect('/settings');
             }
