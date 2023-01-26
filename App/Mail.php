@@ -4,15 +4,15 @@ namespace App;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require 'PHPMailer-master/src/PHPMailer.php';
-require 'PHPMailer-master/src/SMTP.php';
-require 'PHPMailer-master/src/Exception.php';
+require 'vendor/PHPMailer-master/src/PHPMailer.php';
+require 'vendor/PHPMailer-master/src/SMTP.php';
+require 'vendor/PHPMailer-master/src/Exception.php';
 
 use App\Config;
 use App\Flash;
 
 class Mail
-{
+{   
     /**
      * send a message
      * @param string $to Recipient
