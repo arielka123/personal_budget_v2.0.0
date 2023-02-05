@@ -27,45 +27,40 @@ class Expenses extends \Core\Model
     public static function  loadExpenseCategoriesData()
     {
 
-    $user_id=Auth::getUserId();
+        $user_id=Auth::getUserId();
 
-    $sql = 'SELECT * FROM expenses_category_assigned_to_users
-                                   WHERE user_id = :user_id
-                                   AND is_active ="Y"
-                                   ORDER BY name asc';
-                                                                   
+        $sql = 'SELECT * FROM expenses_category_assigned_to_users
+                                    WHERE user_id = :user_id
+                                    AND is_active ="Y"
+                                    ORDER BY name asc';
+                                                                    
 
-    $db = static::getDB();
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-    $stmt->execute();
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
 
-    $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    return $result;
+        return $result;
     }
-
-    /**
-     * get array of results 
-     */
 
     public static function  loadPaymentMethodData()
     {
+        $user_id=Auth::getUserId();   
 
-    $user_id=Auth::getUserId();   
+        $sql_query_category_income = 'SELECT * FROM payment_methods_assigned_to_users
+                                    WHERE user_id = :user_id
+                                    AND is_active ="Y"
+                                    ORDER BY name asc';
 
-    $sql_query_category_income = 'SELECT * FROM payment_methods_assigned_to_users
-                                   WHERE user_id = :user_id
-                                   AND is_active ="Y"
-                                   ORDER BY name asc';
+        $db = static::getDB();    
+        $stmt = $db->prepare($sql_query_category_income);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
 
-    $db = static::getDB();    
-    $stmt = $db->prepare($sql_query_category_income);
-    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-    $stmt->execute();
-
-    $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
+        $result=  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public static function saveNewData ()
