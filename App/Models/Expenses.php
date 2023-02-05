@@ -457,7 +457,7 @@ class Expenses extends \Core\Model
 
         $sql = 'SELECT SUM(amount) as sum FROM expenses
                 WHERE user_id = :user_id
-                AND expense_category_assigned_to_user_id = :category_id;
+                AND expense_category_assigned_to_user_id = :category_id
                 AND date_of_expense BETWEEN :date1 AND :date2';
 
         $db = static::getDB();

@@ -12,6 +12,9 @@ use \App\Token;
  */
 class RememberedLogin extends \Core\Model
 {
+    protected $user_id;
+    protected $expires_at;
+    protected $token_hash;
 
     /**
      * Find a remembered login model by the token

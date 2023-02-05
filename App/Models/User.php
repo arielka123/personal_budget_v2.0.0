@@ -17,6 +17,15 @@ use \App\Flash;
  */  
 class User extends \Core\Model
 {
+    protected $password;
+    protected $name;
+    protected $email;
+    protected $id;
+    protected $activation_token;
+    protected $password_reset_token;
+    protected $expiry_timestamp;
+    protected $remember_token;
+
 
     /**
      * Error messages
@@ -57,7 +66,7 @@ class User extends \Core\Model
             $this->activation_token = $token->getValue();
 
 
-            $sql_user = 'INSERT INTO users (name, email, password_hash, activation_hash)
+            $sql_user = 'INSERT INTO users (name), email, password_hash, activation_hash)
                     VALUES (:name, :email, :password_hash, :activation_hash)';
 
             $db = static::getDB();
@@ -168,7 +177,7 @@ class User extends \Core\Model
            Flash::addMessage('Wprowadź proszę swoje imie',
             Flash::WARNING);
         }
-
+        
          /** email address  */
         if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
             $this->errors[] = 'Niepoprawny mail';

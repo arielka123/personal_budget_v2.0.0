@@ -88,7 +88,7 @@ class Settings extends Authenticated
     public function addIncomeCategoryAction(){
 
         $result = Incomes::addIncomeCategory();
-        if ($result == Incomes::$ADD_STATUS_ACTIVATED) {
+        if ($result == Incomes::$ADD_STATUS_NEW) {
             Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
     
             $this->redirect('/settings');
@@ -130,7 +130,7 @@ class Settings extends Authenticated
 
     public function addPaymentsCategoryAction(){
         $result = Expenses::addPaymentsCategory();
-        if ($result == Expenses::$ADD_STATUS_ACTIVATED) {
+        if ($result == Expenses::$ADD_STATUS_NEW) {
             Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
     
             $this->redirect('/settings');
@@ -156,10 +156,6 @@ class Settings extends Authenticated
         if ($result == Incomes::$ADD_STATUS_ACTIVATED) {
             Flash::addMessage('Nowa kategoria została dodana', Flash::SUCCESS);
     
-            $this->redirect('/settings');
-        }
-        elseif ($result==Incomes::$ADD_STATUS_ACTIVATED) {
-            Flash::addMessage('Kategoria została dodana ponownie', Flash::SUCCESS);
             $this->redirect('/settings');
         }
         elseif ($result==Incomes::$ADD_STATUS_ALLREADY_EXIST) {

@@ -20,6 +20,9 @@ class Auth
      *
      * @return void
      */
+
+    protected $user;
+    
     public static function login($user, $remember_me)
     {
         session_regenerate_id(true);
